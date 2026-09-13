@@ -9,8 +9,11 @@ import os
 import pandas as pd
 from typing import List, Dict, Any, Literal
 from contextlib import asynccontextmanager
-from fastapi import FastAPI, HTTPException, status
+from fastapi import FastAPI, HTTPException, status, Request
 from fastapi.middleware.cors import CORSMiddleware
+from slowapi import Limiter, _rate_limit_exceeded_handler
+from slowapi.util import get_remote_address
+from slowapi.errors import RateLimitExceeded
 from pydantic import BaseModel, Field
 
 from catalog import CATALOGO_PRODUTOS, TAXONOMIA_QUEIXAS
@@ -56,6 +59,11 @@ app = FastAPI(
     version="1.0.0",
     lifespan=lifespan
 )
+
+# Inicialização do Rate Limiter
+limiter = Limiter(key_func=get_remote_address)
+app.state.limiter = limiter
+app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
 
 # Configuração de CORS para comunicação com o front-end (Totem UI / Vercel)
 app.add_middleware(
@@ -202,7 +210,8 @@ def check_health():
 
 
 @app.post("/recommend", response_model=RecomendacaoResponse, tags=["Recomendação"])
-def recommend_products(perfil: ClienteProfile, top_k: int = 3):
+@limiter.limit("10/minute")
+def recommend_products(request: Request, perfil: ClienteProfile, top_k: int = 3):
     """
     Recebe o perfil capilar da cliente (Totem/App) e gera o Top K produtos recomendados
     com pontuação híbrida e justificativa explicável (XAI).
@@ -219,7 +228,8 @@ def recommend_products(perfil: ClienteProfile, top_k: int = 3):
 
 
 @app.post("/feedback", response_model=FeedbackResponse, tags=["Feedback Loop"])
-def register_feedback(feedback: FeedbackInput):
+@limiter.limit("10/minute")
+def register_feedback(request: Request, feedback: FeedbackInput):
     """
     Registra a avaliação pós-atendimento (1 a 5 estrelas) da cliente.
     Atualiza o histórico persistente (CSV) e recalibra a Média Bayesiana do cluster.

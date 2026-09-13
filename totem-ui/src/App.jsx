@@ -425,8 +425,12 @@ export default function App() {
           <div className="text-center py-20">
             <div className="inline-block w-16 h-16 border-4 border-stone-200 border-t-stone-900 rounded-full animate-spin mb-6" />
             <h3 className="text-2xl font-bold text-stone-900 mb-2">Processando Diagnóstico Capilar...</h3>
-            <p className="text-stone-500 text-sm max-w-md mx-auto">
+            <p className="text-stone-500 text-sm max-w-md mx-auto mb-4">
               Calculando compatibilidade terapêutica e aplicando calibração bayesiana dos clusters de clientes do salão.
+            </p>
+            <p className="text-amber-600 text-xs max-w-md mx-auto bg-amber-50 p-3 rounded-xl border border-amber-200">
+              <span className="font-bold">Nota:</span> Como nossa API de Inteligência Artificial está hospedada em um servidor gratuito (Render), 
+              o primeiro diagnóstico do dia pode levar até <strong>50 segundos</strong> para carregar enquanto o servidor "acorda". Os próximos serão instantâneos! ⚡
             </p>
           </div>
         )}

@@ -1,0 +1,1005 @@
+cliente_id,curvatura,porosidade,dano_quimico,ressecamento_opacidade,alta_porosidade_quimica,frizz_falta_definicao,transicao_capilar,couro_sensivel_oleoso,produto_usado,score_terapeutico_real,nota_satisfacao,cluster
+CLI_0001,3,3,1,1,1,1,1,0,Arvensis Ativador de Cachos e Crespos,0.65,4,3
+CLI_0002,4,1,1,0,0,0,1,1,Arvensis Geleia Forte Fixação,0.5,3,0
+CLI_0003,2,1,0,0,0,1,0,0,Arvensis Geleia Forte Fixação,1.0,5,1
+CLI_0004,2,3,1,1,1,1,1,0,Arvensis Ativador de Cachos e Crespos,0.65,3,3
+CLI_0005,2,2,1,1,0,1,0,1,Curly Care Manteiga Nutritiva,0.467,2,0
+CLI_0006,2,1,0,1,0,1,0,0,Arvensis Ativador de Cachos e Crespos,0.75,4,1
+CLI_0007,3,1,0,1,0,1,0,1,Arvensis Geleia Forte Fixação,0.433,3,0
+CLI_0008,2,1,0,0,0,1,1,1,Arvensis Co-Wash Suave Cachos Naturais,0.5,4,0
+CLI_0009,3,3,1,1,1,0,0,0,Arvensis Geleia Forte Fixação,0.25,1,3
+CLI_0010,3,3,1,1,1,1,0,0,Arvensis Co-Wash Suave Cachos Naturais,0.4,3,3
+CLI_0011,2,1,0,0,0,1,0,0,Arvensis Ativador de Cachos e Crespos,0.8,4,1
+CLI_0012,2,3,0,1,0,1,0,1,Deva Curl Delight (Volume e Leveza),0.433,3,0
+CLI_0013,3,1,0,1,0,1,0,0,Curly Care ACID-C (Acidificante Antiporosidade),0.55,3,2
+CLI_0014,3,2,1,0,0,0,0,1,Curly Care ACID-C (Acidificante Antiporosidade),0.2,2,0
+CLI_0015,3,2,0,0,0,1,0,0,Deva Curl Delight (Volume e Leveza),0.6,4,1
+CLI_0016,3,2,0,1,0,1,0,0,Arvensis Geleia Forte Fixação,0.6,3,2
+CLI_0017,4,1,0,0,0,1,0,0,Curly Care ACID-C (Acidificante Antiporosidade),0.6,3,1
+CLI_0018,4,3,1,1,1,0,0,0,Curly Care ACID-C (Acidificante Antiporosidade),0.75,4,3
+CLI_0019,4,3,1,1,1,0,0,0,Arvensis Ativador de Cachos e Crespos,0.55,3,3
+CLI_0020,4,1,0,1,0,0,0,1,Deva Curl Delight (Volume e Leveza),0.35,2,0
+CLI_0021,4,3,1,1,1,1,0,0,Deva Curl Delight (Volume e Leveza),0.367,2,3
+CLI_0022,4,1,0,1,0,0,0,0,Arvensis Ativador de Cachos e Crespos,0.7,1,2
+CLI_0023,2,3,1,1,1,0,0,1,Deva Curl Delight (Volume e Leveza),0.3,3,3
+CLI_0024,4,1,0,1,0,0,0,1,Deva Curl Delight (Volume e Leveza),0.35,2,0
+CLI_0025,3,1,0,0,0,1,0,0,Curly Care Manteiga Nutritiva,0.4,3,1
+CLI_0026,3,2,0,0,0,1,0,0,Arvensis Ativador de Cachos e Crespos,0.8,4,1
+CLI_0027,3,2,1,1,0,0,0,0,Curly Care Manteiga Nutritiva,1.0,5,2
+CLI_0028,3,2,1,1,1,1,0,0,Arvensis Ativador de Cachos e Crespos,0.633,4,3
+CLI_0029,4,1,1,1,0,0,0,1,Deva Curl Delight (Volume e Leveza),0.35,2,0
+CLI_0030,3,1,0,0,0,1,0,0,Arvensis Co-Wash Suave Cachos Naturais,0.2,3,1
+CLI_0031,3,1,0,0,1,1,1,1,Deva Curl Delight (Volume e Leveza),0.375,3,0
+CLI_0032,3,3,0,0,1,1,0,0,Arvensis Co-Wash Suave Cachos Naturais,0.3,3,1
+CLI_0033,3,3,1,0,1,0,0,0,Curly Care ACID-C (Acidificante Antiporosidade),1.0,5,3
+CLI_0034,3,3,1,1,1,1,1,1,Arvensis Geleia Forte Fixação,0.5,3,3
+CLI_0035,3,2,0,1,0,1,0,0,Arvensis Geleia Forte Fixação,0.6,4,2
+CLI_0036,3,2,0,0,0,1,0,0,Deva Curl Delight (Volume e Leveza),0.6,4,1
+CLI_0037,3,3,1,1,1,1,0,0,Arvensis Co-Wash Suave Cachos Naturais,0.4,1,3
+CLI_0038,4,3,0,1,0,1,1,1,Arvensis Ativador de Cachos e Crespos,0.575,4,0
+CLI_0039,3,3,1,0,1,1,1,0,Arvensis Co-Wash Suave Cachos Naturais,0.3,3,3
+CLI_0040,4,3,1,0,1,1,1,0,Arvensis Geleia Forte Fixação,0.733,5,3
+CLI_0041,2,3,0,1,1,0,0,0,Arvensis Ativador de Cachos e Crespos,0.55,3,3
+CLI_0042,3,2,1,1,0,1,0,0,Arvensis Ativador de Cachos e Crespos,0.75,4,2
+CLI_0043,2,3,1,1,0,1,0,0,Deva Curl Delight (Volume e Leveza),0.45,4,3
+CLI_0044,3,1,0,0,0,1,0,1,Curly Care ACID-C (Acidificante Antiporosidade),0.4,3,0
+CLI_0045,3,3,1,1,1,0,0,1,Deva Curl Delight (Volume e Leveza),0.3,4,3
+CLI_0046,3,1,0,0,1,0,0,0,Curly Care ACID-C (Acidificante Antiporosidade),1.0,4,1
+CLI_0047,3,2,1,1,1,0,0,0,Curly Care ACID-C (Acidificante Antiporosidade),0.75,4,3
+CLI_0048,2,1,0,0,0,1,0,0,Deva Curl Delight (Volume e Leveza),0.6,4,1
+CLI_0049,3,1,0,1,1,1,0,0,Arvensis Co-Wash Suave Cachos Naturais,0.4,3,2
+CLI_0050,4,2,1,1,0,0,0,0,Curly Care ACID-C (Acidificante Antiporosidade),0.5,3,2
+CLI_0051,2,1,0,0,0,1,0,0,Arvensis Ativador de Cachos e Crespos,0.8,4,1
+CLI_0052,2,2,0,0,0,1,0,1,Deva Curl Delight (Volume e Leveza),0.5,3,0
+CLI_0053,3,1,1,0,0,1,0,0,Curly Care Manteiga Nutritiva,0.4,2,1
+CLI_0054,4,1,0,1,0,1,0,1,Arvensis Geleia Forte Fixação,0.433,3,0
+CLI_0055,3,1,0,0,0,1,0,1,Arvensis Geleia Forte Fixação,0.55,3,0
+CLI_0056,2,2,0,1,0,1,0,1,Curly Care Manteiga Nutritiva,0.467,2,0
+CLI_0057,3,3,0,0,1,1,0,0,Arvensis Co-Wash Suave Cachos Naturais,0.3,3,1
+CLI_0058,3,3,1,0,1,1,1,0,Deva Curl Delight (Volume e Leveza),0.367,3,3
+CLI_0059,2,3,1,1,1,0,1,0,Curly Care ACID-C (Acidificante Antiporosidade),0.667,4,3
+CLI_0060,4,3,1,1,1,1,0,0,Curly Care ACID-C (Acidificante Antiporosidade),0.7,3,3
+CLI_0061,3,3,0,0,1,1,0,0,Arvensis Co-Wash Suave Cachos Naturais,0.3,3,1
+CLI_0062,3,3,0,1,0,1,0,1,Curly Care Manteiga Nutritiva,0.467,3,0
+CLI_0063,4,3,0,1,0,0,0,0,Curly Care Manteiga Nutritiva,1.0,5,2
+CLI_0064,3,2,0,1,0,1,0,0,Arvensis Geleia Forte Fixação,0.6,3,2
+CLI_0065,3,3,1,1,1,1,1,0,Arvensis Ativador de Cachos e Crespos,0.65,4,3
+CLI_0066,3,2,0,1,0,0,0,1,Arvensis Geleia Forte Fixação,0.15,2,0
+CLI_0067,3,2,0,0,0,1,0,0,Deva Curl Delight (Volume e Leveza),0.6,3,1
+CLI_0068,3,2,1,1,0,1,0,0,Arvensis Co-Wash Suave Cachos Naturais,0.4,3,2
+CLI_0069,4,1,0,0,0,1,0,0,Arvensis Geleia Forte Fixação,1.0,4,1
+CLI_0070,3,3,0,0,0,1,0,0,Arvensis Co-Wash Suave Cachos Naturais,0.2,2,1
+CLI_0071,4,2,0,1,0,1,0,1,Arvensis Ativador de Cachos e Crespos,0.533,4,0
+CLI_0072,3,2,0,0,1,1,0,0,Arvensis Geleia Forte Fixação,0.65,3,1
+CLI_0073,3,3,1,1,1,0,1,0,Deva Curl Delight (Volume e Leveza),0.267,3,3
+CLI_0074,3,3,0,0,1,1,0,0,Curly Care ACID-C (Acidificante Antiporosidade),0.8,4,1
+CLI_0075,4,3,1,1,1,0,0,1,Curly Care ACID-C (Acidificante Antiporosidade),0.567,3,3
+CLI_0076,3,2,0,1,0,1,0,0,Curly Care Manteiga Nutritiva,0.7,3,2
+CLI_0077,3,2,0,0,0,1,0,1,Arvensis Ativador de Cachos e Crespos,0.45,3,0
+CLI_0078,3,1,1,1,0,0,1,0,Arvensis Ativador de Cachos e Crespos,0.7,4,2
+CLI_0079,3,1,0,1,0,0,0,0,Curly Care ACID-C (Acidificante Antiporosidade),0.5,3,2
+CLI_0080,2,3,1,1,1,1,0,1,Curly Care ACID-C (Acidificante Antiporosidade),0.575,3,3
+CLI_0081,2,2,1,0,0,1,0,0,Arvensis Co-Wash Suave Cachos Naturais,0.2,3,1
+CLI_0082,3,2,0,1,0,0,0,0,Arvensis Geleia Forte Fixação,0.2,2,2
+CLI_0083,4,3,1,1,1,1,0,0,Curly Care Manteiga Nutritiva,0.667,3,3
+CLI_0084,4,1,0,1,0,1,0,0,Deva Curl Delight (Volume e Leveza),0.45,3,2
+CLI_0085,4,3,0,1,1,0,0,0,Curly Care ACID-C (Acidificante Antiporosidade),0.75,5,3
+CLI_0086,3,1,0,0,0,1,0,0,Arvensis Co-Wash Suave Cachos Naturais,0.2,2,1
+CLI_0087,3,3,1,1,1,1,0,1,Deva Curl Delight (Volume e Leveza),0.375,3,3
+CLI_0088,3,3,0,0,1,1,1,1,Arvensis Geleia Forte Fixação,0.575,4,0
+CLI_0089,2,1,1,0,0,1,0,0,Deva Curl Delight (Volume e Leveza),0.6,4,1
+CLI_0090,4,1,0,1,0,1,0,0,Curly Care Manteiga Nutritiva,0.7,4,2
+CLI_0091,3,1,0,0,0,1,0,1,Curly Care Manteiga Nutritiva,0.2,3,0
+CLI_0092,3,1,0,0,0,0,0,1,Deva Curl Delight (Volume e Leveza),0.4,3,0
+CLI_0093,4,3,1,1,1,0,0,0,Arvensis Geleia Forte Fixação,0.25,1,3
+CLI_0094,4,1,0,1,0,0,1,0,Arvensis Geleia Forte Fixação,0.55,3,2
+CLI_0095,2,2,1,1,1,1,0,0,Arvensis Ativador de Cachos e Crespos,0.633,3,3
+CLI_0096,3,3,1,1,1,1,0,0,Arvensis Geleia Forte Fixação,0.5,3,3
+CLI_0097,3,3,1,0,1,0,0,0,Curly Care ACID-C (Acidificante Antiporosidade),1.0,4,3
+CLI_0098,2,2,0,0,1,1,0,0,Curly Care Manteiga Nutritiva,0.5,2,1
+CLI_0099,2,3,0,0,1,1,0,0,Arvensis Co-Wash Suave Cachos Naturais,0.3,3,1
+CLI_0100,4,3,1,0,1,1,0,0,Deva Curl Delight (Volume e Leveza),0.4,2,3
+CLI_0101,3,1,0,1,0,0,0,1,Curly Care ACID-C (Acidificante Antiporosidade),0.35,4,0
+CLI_0102,3,2,0,0,0,1,0,0,Curly Care ACID-C (Acidificante Antiporosidade),0.6,4,1
+CLI_0103,3,3,0,1,1,0,0,0,Curly Care ACID-C (Acidificante Antiporosidade),0.75,4,3
+CLI_0104,3,1,0,0,1,1,0,1,Arvensis Ativador de Cachos e Crespos,0.433,3,0
+CLI_0105,4,2,0,1,0,1,0,0,Arvensis Co-Wash Suave Cachos Naturais,0.4,3,2
+CLI_0106,3,1,0,1,0,0,0,0,Arvensis Ativador de Cachos e Crespos,0.7,4,2
+CLI_0107,4,1,1,1,0,1,0,1,Arvensis Ativador de Cachos e Crespos,0.533,4,0
+CLI_0108,3,1,0,0,0,1,1,0,Deva Curl Delight (Volume e Leveza),0.45,3,1
+CLI_0109,2,2,0,1,0,0,0,1,Arvensis Ativador de Cachos e Crespos,0.4,2,0
+CLI_0110,2,2,1,1,1,0,0,0,Arvensis Ativador de Cachos e Crespos,0.55,2,3
+CLI_0111,3,1,0,0,0,0,0,1,Curly Care Manteiga Nutritiva,0.0,1,0
+CLI_0112,4,2,1,1,0,0,0,0,Arvensis Ativador de Cachos e Crespos,0.7,1,2
+CLI_0113,4,2,0,1,0,0,0,0,Curly Care Manteiga Nutritiva,1.0,4,2
+CLI_0114,3,2,1,0,0,1,0,0,Arvensis Geleia Forte Fixação,1.0,5,1
+CLI_0115,3,3,1,1,1,1,0,0,Arvensis Ativador de Cachos e Crespos,0.633,3,3
+CLI_0116,2,2,1,0,0,1,1,1,Curly Care Manteiga Nutritiva,0.267,1,0
+CLI_0117,3,2,0,0,0,1,0,1,Curly Care ACID-C (Acidificante Antiporosidade),0.4,2,0
+CLI_0118,3,3,1,1,1,1,1,0,Curly Care ACID-C (Acidificante Antiporosidade),0.65,3,3
+CLI_0119,3,3,0,1,0,0,1,0,Arvensis Geleia Forte Fixação,0.55,4,2
+CLI_0120,3,3,1,1,1,1,0,0,Arvensis Ativador de Cachos e Crespos,0.633,4,3
+CLI_0121,4,1,0,1,0,0,0,0,Curly Care ACID-C (Acidificante Antiporosidade),0.5,3,2
+CLI_0122,3,2,0,0,0,1,0,0,Curly Care ACID-C (Acidificante Antiporosidade),0.6,4,1
+CLI_0123,2,1,0,0,0,1,0,0,Curly Care Manteiga Nutritiva,0.4,2,1
+CLI_0124,3,1,1,0,0,1,0,0,Curly Care Manteiga Nutritiva,0.4,4,1
+CLI_0125,4,3,1,1,1,1,0,0,Curly Care ACID-C (Acidificante Antiporosidade),0.7,4,3
+CLI_0126,3,3,0,1,0,1,0,0,Deva Curl Delight (Volume e Leveza),0.45,3,2
+CLI_0127,3,2,1,1,0,1,0,0,Arvensis Ativador de Cachos e Crespos,0.75,3,2
+CLI_0128,3,1,0,0,0,1,0,0,Deva Curl Delight (Volume e Leveza),0.6,3,1
+CLI_0129,2,3,1,1,1,0,0,0,Arvensis Ativador de Cachos e Crespos,0.55,2,3
+CLI_0130,2,1,0,0,0,1,1,1,Arvensis Geleia Forte Fixação,0.667,2,0
+CLI_0131,3,2,0,1,0,0,0,0,Arvensis Geleia Forte Fixação,0.2,3,2
+CLI_0132,2,2,0,1,0,0,1,0,Deva Curl Delight (Volume e Leveza),0.3,3,2
+CLI_0133,3,3,1,0,1,1,0,0,Curly Care ACID-C (Acidificante Antiporosidade),0.8,5,3
+CLI_0134,3,2,0,1,0,0,1,0,Curly Care ACID-C (Acidificante Antiporosidade),0.5,4,2
+CLI_0135,4,1,0,1,0,0,0,0,Curly Care Manteiga Nutritiva,1.0,5,2
+CLI_0136,4,2,0,1,0,1,0,0,Arvensis Ativador de Cachos e Crespos,0.75,4,2
+CLI_0137,3,2,0,1,0,1,0,0,Curly Care ACID-C (Acidificante Antiporosidade),0.55,4,2
+CLI_0138,3,1,0,1,0,1,0,0,Deva Curl Delight (Volume e Leveza),0.45,3,2
+CLI_0139,4,2,0,1,0,1,0,0,Arvensis Geleia Forte Fixação,0.6,3,2
+CLI_0140,3,1,0,0,0,1,0,0,Curly Care ACID-C (Acidificante Antiporosidade),0.6,3,1
+CLI_0141,4,1,0,0,0,1,0,0,Arvensis Co-Wash Suave Cachos Naturais,0.2,3,1
+CLI_0142,2,3,1,1,1,0,1,1,Curly Care Manteiga Nutritiva,0.5,2,3
+CLI_0143,3,3,1,1,1,1,0,0,Curly Care Manteiga Nutritiva,0.667,4,3
+CLI_0144,3,1,0,0,0,1,0,0,Arvensis Geleia Forte Fixação,1.0,5,1
+CLI_0145,3,1,0,0,0,1,0,0,Arvensis Geleia Forte Fixação,1.0,4,1
+CLI_0146,2,2,0,0,0,0,0,1,Arvensis Co-Wash Suave Cachos Naturais,1.0,4,0
+CLI_0147,3,1,0,1,1,1,1,0,Arvensis Geleia Forte Fixação,0.6,3,2
+CLI_0148,3,2,0,1,1,1,0,0,Deva Curl Delight (Volume e Leveza),0.367,3,2
+CLI_0149,3,3,0,0,0,1,0,0,Arvensis Ativador de Cachos e Crespos,0.8,5,1
+CLI_0150,4,1,0,1,0,0,0,0,Arvensis Co-Wash Suave Cachos Naturais,0.6,3,2
+CLI_0151,3,3,1,1,1,1,1,1,Curly Care Manteiga Nutritiva,0.48,3,3
+CLI_0152,3,2,0,1,0,0,0,0,Deva Curl Delight (Volume e Leveza),0.3,2,2
+CLI_0153,3,1,0,0,0,1,0,0,Arvensis Geleia Forte Fixação,1.0,4,1
+CLI_0154,3,2,0,1,0,1,0,1,Deva Curl Delight (Volume e Leveza),0.433,3,0
+CLI_0155,3,3,0,0,1,0,0,0,Curly Care Manteiga Nutritiva,0.6,4,3
+CLI_0156,3,2,0,1,0,1,0,0,Arvensis Geleia Forte Fixação,0.6,4,2
+CLI_0157,3,1,0,0,0,1,0,0,Curly Care ACID-C (Acidificante Antiporosidade),0.6,3,1
+CLI_0158,2,3,0,0,0,1,0,0,Curly Care Manteiga Nutritiva,0.4,2,1
+CLI_0159,4,1,0,1,0,0,0,0,Deva Curl Delight (Volume e Leveza),0.3,2,2
+CLI_0160,4,3,1,1,1,1,0,0,Arvensis Co-Wash Suave Cachos Naturais,0.4,3,3
+CLI_0161,4,1,0,1,0,0,1,0,Arvensis Ativador de Cachos e Crespos,0.7,4,2
+CLI_0162,4,3,1,1,0,1,1,0,Curly Care ACID-C (Acidificante Antiporosidade),0.533,4,3
+CLI_0163,3,2,0,1,0,1,0,0,Arvensis Geleia Forte Fixação,0.6,3,2
+CLI_0164,3,2,1,0,0,1,1,0,Curly Care ACID-C (Acidificante Antiporosidade),0.55,3,1
+CLI_0165,2,3,0,0,1,1,0,0,Arvensis Geleia Forte Fixação,0.65,4,1
+CLI_0166,3,2,1,1,1,0,0,0,Curly Care ACID-C (Acidificante Antiporosidade),0.75,4,3
+CLI_0167,3,1,0,1,1,0,0,0,Curly Care Manteiga Nutritiva,0.8,4,2
+CLI_0168,3,3,1,0,1,1,0,0,Curly Care ACID-C (Acidificante Antiporosidade),0.8,4,3
+CLI_0169,3,2,0,0,0,1,0,0,Arvensis Co-Wash Suave Cachos Naturais,0.2,3,1
+CLI_0170,4,2,1,1,0,0,0,0,Arvensis Ativador de Cachos e Crespos,0.7,4,2
+CLI_0171,3,2,1,1,0,1,0,1,Curly Care Manteiga Nutritiva,0.467,3,0
+CLI_0172,4,2,0,1,0,0,0,0,Curly Care ACID-C (Acidificante Antiporosidade),0.5,3,2
+CLI_0173,3,1,0,1,0,0,1,0,Curly Care Manteiga Nutritiva,0.7,3,2
+CLI_0174,4,3,1,1,1,1,0,0,Arvensis Ativador de Cachos e Crespos,0.633,4,3
+CLI_0175,3,3,1,1,1,1,0,0,Arvensis Ativador de Cachos e Crespos,0.633,4,3
+CLI_0176,3,2,0,1,0,1,0,1,Arvensis Co-Wash Suave Cachos Naturais,0.6,3,0
+CLI_0177,3,2,0,1,0,1,0,0,Curly Care Manteiga Nutritiva,0.7,5,2
+CLI_0178,3,1,0,1,0,0,0,0,Arvensis Co-Wash Suave Cachos Naturais,0.6,4,2
+CLI_0179,3,1,0,1,0,0,0,0,Arvensis Co-Wash Suave Cachos Naturais,0.6,4,2
+CLI_0180,3,3,1,0,1,0,1,0,Curly Care Manteiga Nutritiva,0.5,3,3
+CLI_0181,2,2,0,1,0,1,0,1,Deva Curl Delight (Volume e Leveza),0.433,3,0
+CLI_0182,3,3,0,0,0,1,0,0,Curly Care ACID-C (Acidificante Antiporosidade),0.6,1,1
+CLI_0183,3,2,1,0,0,0,1,1,Deva Curl Delight (Volume e Leveza),0.35,3,0
+CLI_0184,3,2,0,1,0,0,1,0,Arvensis Geleia Forte Fixação,0.55,3,2
+CLI_0185,3,1,0,0,1,1,0,0,Arvensis Co-Wash Suave Cachos Naturais,0.3,3,1
+CLI_0186,4,2,1,1,0,0,0,0,Arvensis Ativador de Cachos e Crespos,0.7,4,2
+CLI_0187,2,1,0,1,0,1,0,1,Curly Care Manteiga Nutritiva,0.467,2,0
+CLI_0188,3,2,1,0,0,1,0,0,Curly Care Manteiga Nutritiva,0.4,2,1
+CLI_0189,3,3,1,1,1,0,0,1,Curly Care ACID-C (Acidificante Antiporosidade),0.567,3,3
+CLI_0190,3,3,1,1,1,0,0,0,Curly Care ACID-C (Acidificante Antiporosidade),0.75,4,3
+CLI_0191,4,3,1,1,1,1,0,0,Arvensis Ativador de Cachos e Crespos,0.633,3,3
+CLI_0192,3,1,0,1,0,0,0,0,Curly Care ACID-C (Acidificante Antiporosidade),0.5,3,2
+CLI_0193,4,1,0,1,0,1,0,0,Curly Care Manteiga Nutritiva,0.7,4,2
+CLI_0194,2,2,0,0,0,1,0,0,Curly Care ACID-C (Acidificante Antiporosidade),0.6,3,1
+CLI_0195,3,3,1,0,1,1,1,0,Arvensis Geleia Forte Fixação,0.733,4,3
+CLI_0196,4,2,0,1,0,0,0,0,Arvensis Ativador de Cachos e Crespos,0.7,5,2
+CLI_0197,4,2,1,1,0,0,0,0,Arvensis Ativador de Cachos e Crespos,0.7,4,2
+CLI_0198,3,3,1,1,1,0,0,0,Arvensis Geleia Forte Fixação,0.25,1,3
+CLI_0199,3,2,0,1,0,0,0,0,Arvensis Geleia Forte Fixação,0.2,3,2
+CLI_0200,3,1,0,0,0,1,0,0,Arvensis Co-Wash Suave Cachos Naturais,0.2,3,1
+CLI_0201,3,1,1,1,0,1,1,0,Deva Curl Delight (Volume e Leveza),0.4,3,2
+CLI_0202,3,2,0,0,0,1,0,0,Curly Care Manteiga Nutritiva,0.4,3,1
+CLI_0203,4,3,1,1,1,1,0,0,Deva Curl Delight (Volume e Leveza),0.367,2,3
+CLI_0204,2,2,0,0,1,0,0,1,Deva Curl Delight (Volume e Leveza),0.3,3,0
+CLI_0205,3,1,0,0,1,1,0,0,Arvensis Co-Wash Suave Cachos Naturais,0.3,2,1
+CLI_0206,4,3,1,0,1,1,0,0,Arvensis Ativador de Cachos e Crespos,0.6,4,3
+CLI_0207,2,1,0,1,0,1,0,0,Arvensis Ativador de Cachos e Crespos,0.75,3,1
+CLI_0208,3,3,1,0,1,1,1,0,Curly Care ACID-C (Acidificante Antiporosidade),0.7,2,3
+CLI_0209,2,1,0,0,0,1,0,0,Arvensis Co-Wash Suave Cachos Naturais,0.2,3,1
+CLI_0210,4,2,0,1,0,1,0,0,Curly Care Manteiga Nutritiva,0.7,4,2
+CLI_0211,4,1,0,1,0,1,0,0,Arvensis Co-Wash Suave Cachos Naturais,0.4,3,2
+CLI_0212,4,1,0,1,0,0,0,0,Curly Care ACID-C (Acidificante Antiporosidade),0.5,3,2
+CLI_0213,4,1,1,1,1,1,1,0,Curly Care Manteiga Nutritiva,0.6,4,3
+CLI_0214,3,2,0,0,0,1,0,0,Curly Care Manteiga Nutritiva,0.4,3,1
+CLI_0215,3,2,0,1,0,0,0,0,Arvensis Ativador de Cachos e Crespos,0.7,4,2
+CLI_0216,4,3,1,1,1,1,1,0,Arvensis Co-Wash Suave Cachos Naturais,0.375,3,3
+CLI_0217,3,2,0,0,0,1,0,0,Curly Care ACID-C (Acidificante Antiporosidade),0.6,4,1
+CLI_0218,4,3,1,0,1,1,0,0,Curly Care ACID-C (Acidificante Antiporosidade),0.8,1,3
+CLI_0219,3,1,0,0,1,0,0,0,Curly Care Manteiga Nutritiva,0.6,4,1
+CLI_0220,2,1,0,0,0,1,0,0,Curly Care ACID-C (Acidificante Antiporosidade),0.6,4,1
+CLI_0221,3,2,1,0,0,1,1,0,Arvensis Geleia Forte Fixação,0.95,5,1
+CLI_0222,2,1,0,0,0,1,0,0,Curly Care Manteiga Nutritiva,0.4,2,1
+CLI_0223,4,3,0,1,1,1,0,1,Curly Care ACID-C (Acidificante Antiporosidade),0.575,3,0
+CLI_0224,4,2,0,1,0,1,0,0,Arvensis Geleia Forte Fixação,0.6,4,2
+CLI_0225,3,2,1,1,0,1,0,0,Arvensis Ativador de Cachos e Crespos,0.75,4,2
+CLI_0226,3,2,1,0,0,0,1,0,Curly Care Manteiga Nutritiva,0.4,3,1
+CLI_0227,3,2,1,0,0,1,0,0,Arvensis Ativador de Cachos e Crespos,0.8,4,1
+CLI_0228,3,2,0,0,0,1,0,0,Arvensis Geleia Forte Fixação,1.0,5,1
+CLI_0229,4,3,1,1,1,0,0,0,Curly Care ACID-C (Acidificante Antiporosidade),0.75,4,3
+CLI_0230,3,1,0,0,0,1,0,0,Deva Curl Delight (Volume e Leveza),0.6,4,1
+CLI_0231,3,1,0,1,0,1,0,0,Arvensis Geleia Forte Fixação,0.6,1,2
+CLI_0232,3,1,1,1,0,0,0,0,Arvensis Geleia Forte Fixação,0.2,3,2
+CLI_0233,2,1,0,0,0,1,0,1,Arvensis Ativador de Cachos e Crespos,0.45,5,0
+CLI_0234,3,1,0,0,0,0,1,1,Arvensis Co-Wash Suave Cachos Naturais,0.65,4,0
+CLI_0235,3,3,1,1,1,1,1,0,Curly Care ACID-C (Acidificante Antiporosidade),0.65,5,3
+CLI_0236,3,2,1,0,0,1,0,0,Arvensis Ativador de Cachos e Crespos,0.8,4,1
+CLI_0237,3,1,0,1,0,1,0,0,Curly Care Manteiga Nutritiva,0.7,3,2
+CLI_0238,4,2,1,1,0,1,0,0,Deva Curl Delight (Volume e Leveza),0.45,2,2
+CLI_0239,2,1,1,1,0,1,1,0,Arvensis Geleia Forte Fixação,0.7,4,2
+CLI_0240,4,3,1,1,0,0,1,1,Arvensis Co-Wash Suave Cachos Naturais,0.633,4,0
+CLI_0241,3,1,1,1,0,1,0,0,Curly Care ACID-C (Acidificante Antiporosidade),0.55,4,2
+CLI_0242,3,3,1,1,1,1,0,0,Curly Care Manteiga Nutritiva,0.667,4,3
+CLI_0243,4,3,0,1,0,1,0,0,Deva Curl Delight (Volume e Leveza),0.45,3,2
+CLI_0244,3,2,1,1,0,0,0,0,Arvensis Co-Wash Suave Cachos Naturais,0.6,4,2
+CLI_0245,3,1,1,1,0,0,0,0,Arvensis Co-Wash Suave Cachos Naturais,0.6,3,2
+CLI_0246,4,3,1,1,1,1,0,0,Arvensis Co-Wash Suave Cachos Naturais,0.4,3,3
+CLI_0247,4,2,0,1,0,0,0,0,Arvensis Geleia Forte Fixação,0.2,2,2
+CLI_0248,3,2,0,1,0,0,0,0,Arvensis Ativador de Cachos e Crespos,0.7,5,2
+CLI_0249,3,3,0,0,0,1,0,0,Arvensis Co-Wash Suave Cachos Naturais,0.2,2,1
+CLI_0250,3,2,0,0,0,1,0,0,Arvensis Co-Wash Suave Cachos Naturais,0.2,2,1
+CLI_0251,3,3,1,0,1,0,0,0,Curly Care ACID-C (Acidificante Antiporosidade),1.0,5,3
+CLI_0252,4,3,1,1,1,1,0,0,Arvensis Ativador de Cachos e Crespos,0.633,4,3
+CLI_0253,2,3,1,0,1,1,1,0,Deva Curl Delight (Volume e Leveza),0.367,2,3
+CLI_0254,3,1,0,0,0,1,0,1,Deva Curl Delight (Volume e Leveza),0.5,3,0
+CLI_0255,3,3,1,1,0,1,0,0,Curly Care ACID-C (Acidificante Antiporosidade),0.55,3,3
+CLI_0256,3,1,1,1,0,1,0,0,Curly Care Manteiga Nutritiva,0.7,4,2
+CLI_0257,3,3,1,1,1,0,0,0,Arvensis Geleia Forte Fixação,0.25,2,3
+CLI_0258,4,1,0,1,0,0,0,0,Curly Care Manteiga Nutritiva,1.0,5,2
+CLI_0259,4,1,1,1,1,1,0,1,Curly Care ACID-C (Acidificante Antiporosidade),0.575,4,0
+CLI_0260,3,1,1,1,1,1,0,0,Arvensis Co-Wash Suave Cachos Naturais,0.4,3,3
+CLI_0261,3,2,0,1,0,0,0,0,Arvensis Geleia Forte Fixação,0.2,2,2
+CLI_0262,2,2,1,1,0,1,0,1,Arvensis Geleia Forte Fixação,0.433,3,0
+CLI_0263,3,3,1,0,1,0,0,0,Arvensis Ativador de Cachos e Crespos,0.4,3,3
+CLI_0264,3,2,0,1,0,0,0,1,Arvensis Geleia Forte Fixação,0.15,2,0
+CLI_0265,3,3,1,1,1,0,0,0,Arvensis Co-Wash Suave Cachos Naturais,0.5,4,3
+CLI_0266,4,1,0,1,0,1,0,0,Deva Curl Delight (Volume e Leveza),0.45,1,2
+CLI_0267,3,2,0,0,0,1,0,0,Curly Care ACID-C (Acidificante Antiporosidade),0.6,4,1
+CLI_0268,4,3,1,1,1,1,0,0,Arvensis Geleia Forte Fixação,0.5,3,3
+CLI_0269,3,2,0,0,0,0,0,1,Arvensis Co-Wash Suave Cachos Naturais,1.0,5,0
+CLI_0270,3,3,1,1,1,1,0,0,Arvensis Co-Wash Suave Cachos Naturais,0.4,3,3
+CLI_0271,3,2,1,1,0,0,0,0,Arvensis Ativador de Cachos e Crespos,0.7,4,2
+CLI_0272,3,2,0,1,0,1,0,1,Deva Curl Delight (Volume e Leveza),0.433,4,0
+CLI_0273,4,1,0,1,0,1,0,1,Curly Care ACID-C (Acidificante Antiporosidade),0.433,3,0
+CLI_0274,4,3,1,1,1,0,0,0,Curly Care Manteiga Nutritiva,0.8,3,3
+CLI_0275,3,2,1,1,0,0,0,1,Arvensis Ativador de Cachos e Crespos,0.4,3,0
+CLI_0276,4,3,0,1,1,1,1,0,Deva Curl Delight (Volume e Leveza),0.35,2,3
+CLI_0277,2,3,0,0,0,1,0,0,Deva Curl Delight (Volume e Leveza),0.6,4,1
+CLI_0278,2,3,0,1,0,0,0,1,Arvensis Ativador de Cachos e Crespos,0.4,2,0
+CLI_0279,3,1,0,1,0,1,0,0,Deva Curl Delight (Volume e Leveza),0.45,3,2
+CLI_0280,4,2,0,1,0,1,0,0,Deva Curl Delight (Volume e Leveza),0.45,2,2
+CLI_0281,3,3,1,1,1,1,0,0,Curly Care ACID-C (Acidificante Antiporosidade),0.7,4,3
+CLI_0282,3,1,1,0,0,1,1,0,Arvensis Co-Wash Suave Cachos Naturais,0.25,2,1
+CLI_0283,3,3,0,1,0,1,0,0,Curly Care ACID-C (Acidificante Antiporosidade),0.55,4,2
+CLI_0284,4,2,0,0,0,1,0,0,Arvensis Ativador de Cachos e Crespos,0.8,4,1
+CLI_0285,3,2,0,1,0,0,0,1,Curly Care ACID-C (Acidificante Antiporosidade),0.35,3,0
+CLI_0286,2,2,0,0,0,1,0,0,Deva Curl Delight (Volume e Leveza),0.6,3,1
+CLI_0287,3,2,0,1,0,1,0,0,Deva Curl Delight (Volume e Leveza),0.45,3,2
+CLI_0288,3,1,0,0,0,1,0,0,Arvensis Geleia Forte Fixação,1.0,5,1
+CLI_0289,4,2,0,1,0,1,0,0,Curly Care Manteiga Nutritiva,0.7,4,2
+CLI_0290,4,2,0,1,0,1,0,1,Arvensis Co-Wash Suave Cachos Naturais,0.6,4,0
+CLI_0291,4,3,1,1,1,0,1,0,Arvensis Geleia Forte Fixação,0.467,4,3
+CLI_0292,3,3,1,1,0,0,0,0,Curly Care Manteiga Nutritiva,1.0,5,3
+CLI_0293,3,3,0,1,0,1,0,0,Curly Care ACID-C (Acidificante Antiporosidade),0.55,3,2
+CLI_0294,2,2,0,0,0,1,0,0,Arvensis Co-Wash Suave Cachos Naturais,0.2,2,1
+CLI_0295,4,1,0,1,1,1,0,0,Curly Care Manteiga Nutritiva,0.667,4,2
+CLI_0296,3,1,0,1,0,1,0,0,Arvensis Geleia Forte Fixação,0.6,4,2
+CLI_0297,3,2,0,0,0,1,0,0,Deva Curl Delight (Volume e Leveza),0.6,3,1
+CLI_0298,3,3,0,0,0,1,0,0,Arvensis Geleia Forte Fixação,1.0,5,1
+CLI_0299,3,1,0,0,1,1,0,0,Curly Care Manteiga Nutritiva,0.5,3,1
+CLI_0300,4,3,1,1,1,1,1,0,Arvensis Co-Wash Suave Cachos Naturais,0.375,4,3
+CLI_0301,2,2,0,1,0,1,1,0,Curly Care ACID-C (Acidificante Antiporosidade),0.533,4,2
+CLI_0302,4,2,0,0,0,0,1,0,Arvensis Geleia Forte Fixação,0.9,5,2
+CLI_0303,3,1,0,0,0,1,0,1,Arvensis Geleia Forte Fixação,0.55,4,0
+CLI_0304,3,1,0,1,0,1,0,0,Deva Curl Delight (Volume e Leveza),0.45,3,2
+CLI_0305,3,2,0,0,0,1,0,0,Arvensis Co-Wash Suave Cachos Naturais,0.2,2,1
+CLI_0306,3,3,1,1,1,1,0,0,Arvensis Geleia Forte Fixação,0.5,3,3
+CLI_0307,3,3,1,0,1,1,0,1,Arvensis Geleia Forte Fixação,0.467,3,3
+CLI_0308,3,2,1,0,0,1,0,1,Curly Care Manteiga Nutritiva,0.2,3,0
+CLI_0309,3,1,1,0,0,1,0,0,Curly Care Manteiga Nutritiva,0.4,3,1
+CLI_0310,2,1,0,0,0,1,1,0,Deva Curl Delight (Volume e Leveza),0.45,4,1
+CLI_0311,3,2,0,0,0,1,0,0,Arvensis Co-Wash Suave Cachos Naturais,0.2,3,1
+CLI_0312,4,1,0,1,0,1,0,0,Arvensis Geleia Forte Fixação,0.6,1,2
+CLI_0313,3,2,0,0,0,1,0,0,Arvensis Geleia Forte Fixação,1.0,5,1
+CLI_0314,3,2,0,0,0,1,0,0,Arvensis Geleia Forte Fixação,1.0,5,1
+CLI_0315,3,1,0,0,0,1,0,0,Curly Care ACID-C (Acidificante Antiporosidade),0.6,4,1
+CLI_0316,3,2,1,0,0,1,0,0,Deva Curl Delight (Volume e Leveza),0.6,4,1
+CLI_0317,3,3,1,1,1,1,0,0,Deva Curl Delight (Volume e Leveza),0.367,5,3
+CLI_0318,3,3,1,0,1,1,0,1,Arvensis Co-Wash Suave Cachos Naturais,0.533,3,3
+CLI_0319,3,2,0,1,0,0,1,0,Curly Care ACID-C (Acidificante Antiporosidade),0.5,4,2
+CLI_0320,3,3,0,0,1,0,0,0,Arvensis Geleia Forte Fixação,0.3,3,3
+CLI_0321,3,3,1,1,0,0,1,0,Arvensis Co-Wash Suave Cachos Naturais,0.45,3,3
+CLI_0322,3,2,0,1,0,1,0,0,Deva Curl Delight (Volume e Leveza),0.45,3,2
+CLI_0323,2,1,0,1,0,1,1,0,Arvensis Ativador de Cachos e Crespos,0.733,4,2
+CLI_0324,3,2,1,1,0,1,1,0,Arvensis Geleia Forte Fixação,0.7,3,2
+CLI_0325,4,2,0,1,0,0,0,0,Curly Care ACID-C (Acidificante Antiporosidade),0.5,3,2
+CLI_0326,4,1,0,1,0,1,0,0,Curly Care Manteiga Nutritiva,0.7,4,2
+CLI_0327,3,3,1,0,1,1,0,0,Arvensis Ativador de Cachos e Crespos,0.6,4,3
+CLI_0328,4,1,0,1,0,1,0,0,Arvensis Co-Wash Suave Cachos Naturais,0.4,3,2
+CLI_0329,4,3,0,1,0,0,0,0,Deva Curl Delight (Volume e Leveza),0.3,2,2
+CLI_0330,3,3,0,0,0,1,0,0,Arvensis Geleia Forte Fixação,1.0,5,1
+CLI_0331,4,2,0,1,0,0,1,0,Arvensis Co-Wash Suave Cachos Naturais,0.45,3,2
+CLI_0332,2,3,1,1,1,1,0,0,Curly Care ACID-C (Acidificante Antiporosidade),0.7,4,3
+CLI_0333,3,3,1,1,0,0,0,1,Arvensis Ativador de Cachos e Crespos,0.4,3,0
+CLI_0334,3,3,1,0,1,0,1,1,Arvensis Co-Wash Suave Cachos Naturais,0.567,1,3
+CLI_0335,3,3,1,1,1,1,1,0,Arvensis Ativador de Cachos e Crespos,0.65,4,3
+CLI_0336,3,2,0,0,0,1,0,0,Curly Care Manteiga Nutritiva,0.4,3,1
+CLI_0337,4,2,0,1,0,0,0,0,Curly Care Manteiga Nutritiva,1.0,5,2
+CLI_0338,2,2,0,1,0,1,1,0,Arvensis Geleia Forte Fixação,0.7,4,2
+CLI_0339,3,2,0,0,0,1,0,0,Curly Care Manteiga Nutritiva,0.4,4,1
+CLI_0340,3,2,0,1,0,1,0,1,Curly Care ACID-C (Acidificante Antiporosidade),0.433,3,0
+CLI_0341,3,3,0,1,1,1,0,1,Deva Curl Delight (Volume e Leveza),0.375,3,0
+CLI_0342,2,3,0,0,1,1,0,1,Arvensis Geleia Forte Fixação,0.467,3,0
+CLI_0343,2,2,0,0,0,1,0,0,Curly Care ACID-C (Acidificante Antiporosidade),0.6,4,1
+CLI_0344,3,3,1,1,1,1,0,0,Deva Curl Delight (Volume e Leveza),0.367,3,3
+CLI_0345,3,1,0,0,0,1,0,0,Curly Care Manteiga Nutritiva,0.4,4,1
+CLI_0346,3,1,1,1,0,1,1,0,Arvensis Geleia Forte Fixação,0.7,4,2
+CLI_0347,3,2,0,0,1,1,0,1,Curly Care Manteiga Nutritiva,0.333,3,0
+CLI_0348,3,2,0,1,0,1,0,1,Curly Care ACID-C (Acidificante Antiporosidade),0.433,3,0
+CLI_0349,3,2,0,1,0,1,0,0,Deva Curl Delight (Volume e Leveza),0.45,3,2
+CLI_0350,2,2,1,0,0,0,0,1,Arvensis Co-Wash Suave Cachos Naturais,1.0,5,0
+CLI_0351,4,2,1,1,1,0,1,0,Curly Care Manteiga Nutritiva,0.667,4,3
+CLI_0352,3,3,1,1,1,1,0,1,Arvensis Geleia Forte Fixação,0.4,3,3
+CLI_0353,2,3,1,1,1,0,1,1,Arvensis Co-Wash Suave Cachos Naturais,0.575,3,3
+CLI_0354,3,2,0,0,1,1,0,1,Arvensis Ativador de Cachos e Crespos,0.433,3,0
+CLI_0355,3,2,0,0,1,1,0,0,Arvensis Co-Wash Suave Cachos Naturais,0.3,2,1
+CLI_0356,3,1,0,1,0,1,0,0,Arvensis Co-Wash Suave Cachos Naturais,0.4,2,2
+CLI_0357,3,2,0,0,0,1,0,0,Curly Care Manteiga Nutritiva,0.4,5,1
+CLI_0358,4,3,1,1,1,1,0,0,Arvensis Geleia Forte Fixação,0.5,4,3
+CLI_0359,3,2,1,0,1,1,0,0,Curly Care ACID-C (Acidificante Antiporosidade),0.8,4,3
+CLI_0360,4,2,0,0,0,1,0,0,Curly Care Manteiga Nutritiva,0.4,3,1
+CLI_0361,2,1,0,1,0,1,0,1,Arvensis Geleia Forte Fixação,0.433,3,0
+CLI_0362,3,3,0,1,0,1,0,0,Deva Curl Delight (Volume e Leveza),0.45,3,2
+CLI_0363,3,2,0,1,0,1,1,0,Deva Curl Delight (Volume e Leveza),0.4,3,2
+CLI_0364,3,1,0,1,0,1,0,0,Deva Curl Delight (Volume e Leveza),0.45,3,2
+CLI_0365,2,2,0,1,0,1,0,0,Arvensis Co-Wash Suave Cachos Naturais,0.4,3,1
+CLI_0366,3,2,0,0,1,1,0,0,Arvensis Co-Wash Suave Cachos Naturais,0.3,3,1
+CLI_0367,4,1,0,1,0,1,0,0,Curly Care ACID-C (Acidificante Antiporosidade),0.55,3,2
+CLI_0368,2,3,1,1,1,0,1,0,Arvensis Ativador de Cachos e Crespos,0.6,2,3
+CLI_0369,4,3,1,0,1,1,0,0,Curly Care Manteiga Nutritiva,0.5,4,3
+CLI_0370,3,2,0,1,0,1,0,0,Arvensis Ativador de Cachos e Crespos,0.75,1,2
+CLI_0371,3,2,0,0,0,1,0,1,Arvensis Geleia Forte Fixação,0.55,3,0
+CLI_0372,3,3,1,1,1,1,0,0,Arvensis Ativador de Cachos e Crespos,0.633,4,3
+CLI_0373,3,3,1,1,1,1,1,0,Arvensis Geleia Forte Fixação,0.6,3,3
+CLI_0374,4,2,0,1,1,1,1,0,Curly Care ACID-C (Acidificante Antiporosidade),0.65,4,2
+CLI_0375,4,2,0,1,0,0,0,1,Arvensis Co-Wash Suave Cachos Naturais,0.8,4,0
+CLI_0376,3,2,0,1,0,1,0,0,Curly Care ACID-C (Acidificante Antiporosidade),0.55,4,2
+CLI_0377,3,2,1,0,1,0,0,1,Deva Curl Delight (Volume e Leveza),0.3,2,0
+CLI_0378,3,1,0,1,0,0,0,1,Arvensis Ativador de Cachos e Crespos,0.4,3,0
+CLI_0379,3,3,0,1,1,1,0,1,Arvensis Co-Wash Suave Cachos Naturais,0.55,3,0
+CLI_0380,2,1,0,0,0,1,1,1,Arvensis Geleia Forte Fixação,0.667,4,0
+CLI_0381,4,1,0,1,0,1,0,0,Curly Care ACID-C (Acidificante Antiporosidade),0.55,4,2
+CLI_0382,3,2,0,1,0,1,0,0,Arvensis Ativador de Cachos e Crespos,0.75,4,2
+CLI_0383,4,2,0,1,0,1,0,0,Arvensis Geleia Forte Fixação,0.6,3,2
+CLI_0384,2,2,0,0,1,1,0,0,Deva Curl Delight (Volume e Leveza),0.4,2,1
+CLI_0385,4,2,0,1,0,1,0,0,Arvensis Geleia Forte Fixação,0.6,3,2
+CLI_0386,3,3,1,0,1,1,0,0,Curly Care ACID-C (Acidificante Antiporosidade),0.8,5,3
+CLI_0387,3,2,0,0,0,1,0,0,Arvensis Co-Wash Suave Cachos Naturais,0.2,2,1
+CLI_0388,3,3,1,1,1,1,0,0,Curly Care Manteiga Nutritiva,0.667,3,3
+CLI_0389,3,1,0,0,0,0,0,1,Curly Care Manteiga Nutritiva,0.0,3,0
+CLI_0390,3,1,0,1,0,0,0,1,Curly Care ACID-C (Acidificante Antiporosidade),0.35,2,0
+CLI_0391,4,2,1,1,0,1,0,0,Curly Care Manteiga Nutritiva,0.7,4,2
+CLI_0392,3,1,0,0,0,1,0,0,Arvensis Ativador de Cachos e Crespos,0.8,4,1
+CLI_0393,4,3,0,1,0,0,0,0,Deva Curl Delight (Volume e Leveza),0.3,1,2
+CLI_0394,2,2,1,0,0,1,0,1,Arvensis Co-Wash Suave Cachos Naturais,0.6,3,0
+CLI_0395,2,2,0,1,1,1,0,0,Arvensis Co-Wash Suave Cachos Naturais,0.4,3,1
+CLI_0396,3,1,0,1,0,1,0,1,Arvensis Geleia Forte Fixação,0.433,3,0
+CLI_0397,3,2,1,1,0,1,1,0,Curly Care Manteiga Nutritiva,0.6,4,2
+CLI_0398,3,1,1,1,0,1,0,0,Deva Curl Delight (Volume e Leveza),0.45,3,2
+CLI_0399,3,2,0,1,0,1,1,0,Arvensis Co-Wash Suave Cachos Naturais,0.367,3,2
+CLI_0400,4,3,1,1,1,1,0,0,Curly Care ACID-C (Acidificante Antiporosidade),0.7,4,3
+CLI_0401,3,1,0,0,0,1,0,0,Arvensis Geleia Forte Fixação,1.0,5,1
+CLI_0402,3,1,0,0,0,1,0,1,Curly Care ACID-C (Acidificante Antiporosidade),0.4,3,0
+CLI_0403,4,3,1,1,1,1,1,1,Curly Care Manteiga Nutritiva,0.48,3,3
+CLI_0404,4,1,0,1,0,0,0,0,Deva Curl Delight (Volume e Leveza),0.3,3,2
+CLI_0405,3,3,1,1,1,1,0,0,Arvensis Ativador de Cachos e Crespos,0.633,4,3
+CLI_0406,4,2,0,1,0,1,0,0,Deva Curl Delight (Volume e Leveza),0.45,2,2
+CLI_0407,3,3,1,1,1,1,0,1,Curly Care ACID-C (Acidificante Antiporosidade),0.575,3,3
+CLI_0408,3,1,0,0,0,1,0,0,Arvensis Co-Wash Suave Cachos Naturais,0.2,2,1
+CLI_0409,2,2,1,1,1,1,0,0,Curly Care ACID-C (Acidificante Antiporosidade),0.7,4,3
+CLI_0410,3,1,0,0,0,1,0,1,Deva Curl Delight (Volume e Leveza),0.5,4,0
+CLI_0411,3,1,0,1,0,1,1,1,Curly Care ACID-C (Acidificante Antiporosidade),0.45,3,0
+CLI_0412,3,2,0,1,0,1,0,0,Curly Care ACID-C (Acidificante Antiporosidade),0.55,3,2
+CLI_0413,4,2,1,1,0,1,0,0,Deva Curl Delight (Volume e Leveza),0.45,2,2
+CLI_0414,3,3,1,0,1,1,0,0,Arvensis Ativador de Cachos e Crespos,0.6,4,3
+CLI_0415,3,3,1,1,1,0,0,0,Curly Care Manteiga Nutritiva,0.8,1,3
+CLI_0416,4,3,0,1,1,0,0,0,Arvensis Co-Wash Suave Cachos Naturais,0.5,1,3
+CLI_0417,3,2,0,0,0,1,0,0,Arvensis Co-Wash Suave Cachos Naturais,0.2,2,1
+CLI_0418,4,3,1,1,1,0,0,0,Curly Care Manteiga Nutritiva,0.8,4,3
+CLI_0419,3,1,0,1,0,1,1,0,Deva Curl Delight (Volume e Leveza),0.4,3,2
+CLI_0420,4,3,1,1,0,1,0,1,Deva Curl Delight (Volume e Leveza),0.433,2,0
+CLI_0421,3,2,0,0,0,1,0,0,Curly Care ACID-C (Acidificante Antiporosidade),0.6,3,1
+CLI_0422,3,1,0,1,1,1,1,0,Arvensis Co-Wash Suave Cachos Naturais,0.375,3,2
+CLI_0423,3,3,1,1,1,0,0,0,Deva Curl Delight (Volume e Leveza),0.25,3,3
+CLI_0424,2,3,1,0,1,1,0,0,Curly Care Manteiga Nutritiva,0.5,2,3
+CLI_0425,3,2,0,0,0,1,0,0,Deva Curl Delight (Volume e Leveza),0.6,4,1
+CLI_0426,4,2,1,1,0,1,0,0,Arvensis Ativador de Cachos e Crespos,0.75,4,2
+CLI_0427,3,3,1,1,0,1,0,0,Arvensis Co-Wash Suave Cachos Naturais,0.4,3,3
+CLI_0428,3,2,0,0,0,1,0,0,Deva Curl Delight (Volume e Leveza),0.6,4,1
+CLI_0429,3,3,1,1,1,0,0,0,Curly Care ACID-C (Acidificante Antiporosidade),0.75,1,3
+CLI_0430,3,2,1,0,0,1,0,0,Curly Care ACID-C (Acidificante Antiporosidade),0.6,3,1
+CLI_0431,3,3,0,0,0,1,0,1,Curly Care Manteiga Nutritiva,0.2,2,0
+CLI_0432,3,1,0,0,0,1,0,0,Deva Curl Delight (Volume e Leveza),0.6,4,1
+CLI_0433,2,1,0,1,0,1,0,0,Curly Care Manteiga Nutritiva,0.7,3,1
+CLI_0434,2,1,0,0,0,1,0,0,Arvensis Ativador de Cachos e Crespos,0.8,3,1
+CLI_0435,4,2,0,1,1,1,0,0,Arvensis Ativador de Cachos e Crespos,0.633,3,2
+CLI_0436,2,2,0,1,0,1,0,0,Arvensis Co-Wash Suave Cachos Naturais,0.4,3,1
+CLI_0437,3,2,1,0,0,1,0,0,Deva Curl Delight (Volume e Leveza),0.6,3,1
+CLI_0438,2,1,1,0,0,1,0,0,Arvensis Ativador de Cachos e Crespos,0.8,4,1
+CLI_0439,3,1,0,0,0,1,0,0,Arvensis Co-Wash Suave Cachos Naturais,0.2,2,1
+CLI_0440,3,1,0,0,0,1,0,0,Curly Care ACID-C (Acidificante Antiporosidade),0.6,3,1
+CLI_0441,3,1,0,1,0,1,0,0,Arvensis Ativador de Cachos e Crespos,0.75,4,2
+CLI_0442,4,2,0,1,0,1,0,0,Arvensis Geleia Forte Fixação,0.6,4,2
+CLI_0443,2,3,1,0,1,0,1,1,Deva Curl Delight (Volume e Leveza),0.3,3,3
+CLI_0444,4,3,1,1,1,0,0,0,Arvensis Ativador de Cachos e Crespos,0.55,4,3
+CLI_0445,3,2,0,1,0,0,0,1,Arvensis Co-Wash Suave Cachos Naturais,0.8,5,0
+CLI_0446,3,3,1,1,1,1,0,0,Curly Care ACID-C (Acidificante Antiporosidade),0.7,3,3
+CLI_0447,4,2,0,1,0,0,0,0,Curly Care Manteiga Nutritiva,1.0,5,2
+CLI_0448,3,1,0,1,0,1,0,0,Arvensis Ativador de Cachos e Crespos,0.75,5,2
+CLI_0449,4,3,1,1,1,1,1,0,Arvensis Ativador de Cachos e Crespos,0.65,4,3
+CLI_0450,3,2,1,0,0,1,0,0,Arvensis Geleia Forte Fixação,1.0,5,1
+CLI_0451,4,2,0,0,0,1,0,0,Deva Curl Delight (Volume e Leveza),0.6,3,1
+CLI_0452,3,3,1,1,1,1,1,1,Deva Curl Delight (Volume e Leveza),0.36,3,3
+CLI_0453,4,1,0,0,0,1,0,0,Arvensis Ativador de Cachos e Crespos,0.8,4,1
+CLI_0454,3,3,1,1,1,1,0,0,Curly Care ACID-C (Acidificante Antiporosidade),0.7,4,3
+CLI_0455,3,2,0,0,0,1,0,0,Curly Care Manteiga Nutritiva,0.4,3,1
+CLI_0456,3,2,0,0,0,1,0,0,Arvensis Ativador de Cachos e Crespos,0.8,4,1
+CLI_0457,2,3,1,1,1,1,0,0,Arvensis Geleia Forte Fixação,0.5,1,3
+CLI_0458,4,3,1,1,1,1,0,1,Deva Curl Delight (Volume e Leveza),0.375,2,3
+CLI_0459,4,2,0,1,0,1,0,0,Arvensis Co-Wash Suave Cachos Naturais,0.4,3,2
+CLI_0460,4,3,1,1,1,0,0,0,Curly Care Manteiga Nutritiva,0.8,4,3
+CLI_0461,3,2,0,1,1,1,0,0,Arvensis Co-Wash Suave Cachos Naturais,0.4,3,2
+CLI_0462,4,1,0,1,0,0,0,0,Deva Curl Delight (Volume e Leveza),0.3,1,2
+CLI_0463,3,1,0,0,0,1,0,0,Curly Care ACID-C (Acidificante Antiporosidade),0.6,3,1
+CLI_0464,4,1,0,1,0,1,0,1,Curly Care Manteiga Nutritiva,0.467,3,0
+CLI_0465,3,2,0,0,0,1,0,0,Arvensis Ativador de Cachos e Crespos,0.8,5,1
+CLI_0466,3,1,0,1,1,0,0,0,Arvensis Ativador de Cachos e Crespos,0.55,3,2
+CLI_0467,3,2,0,0,0,1,0,1,Arvensis Ativador de Cachos e Crespos,0.45,3,0
+CLI_0468,3,1,0,0,0,1,1,1,Arvensis Ativador de Cachos e Crespos,0.533,3,0
+CLI_0469,4,1,1,1,0,1,1,0,Curly Care ACID-C (Acidificante Antiporosidade),0.533,4,2
+CLI_0470,4,2,1,1,0,0,0,0,Arvensis Ativador de Cachos e Crespos,0.7,4,2
+CLI_0471,3,2,0,1,0,1,0,0,Arvensis Co-Wash Suave Cachos Naturais,0.4,3,2
+CLI_0472,3,1,1,1,0,0,0,1,Arvensis Ativador de Cachos e Crespos,0.4,3,0
+CLI_0473,3,2,1,0,0,1,0,0,Arvensis Geleia Forte Fixação,1.0,5,1
+CLI_0474,4,3,1,1,1,0,1,0,Arvensis Geleia Forte Fixação,0.467,3,3
+CLI_0475,4,1,1,1,0,1,0,0,Arvensis Co-Wash Suave Cachos Naturais,0.4,3,2
+CLI_0476,3,3,1,0,1,1,0,0,Curly Care Manteiga Nutritiva,0.5,3,3
+CLI_0477,4,3,1,1,1,1,0,1,Arvensis Geleia Forte Fixação,0.4,5,3
+CLI_0478,4,2,0,1,0,0,0,0,Curly Care ACID-C (Acidificante Antiporosidade),0.5,2,2
+CLI_0479,4,2,0,1,0,0,1,0,Arvensis Ativador de Cachos e Crespos,0.7,4,2
+CLI_0480,4,2,0,1,1,0,0,0,Curly Care Manteiga Nutritiva,0.8,4,2
+CLI_0481,3,2,1,1,0,0,1,1,Arvensis Co-Wash Suave Cachos Naturais,0.633,4,0
+CLI_0482,4,1,0,0,0,0,0,1,Curly Care ACID-C (Acidificante Antiporosidade),0.2,2,0
+CLI_0483,3,1,0,1,0,1,0,0,Deva Curl Delight (Volume e Leveza),0.45,3,2
+CLI_0484,2,3,1,0,0,1,0,0,Curly Care Manteiga Nutritiva,0.4,2,1
+CLI_0485,4,3,0,1,0,0,0,0,Deva Curl Delight (Volume e Leveza),0.3,2,2
+CLI_0486,3,2,0,1,1,1,0,0,Deva Curl Delight (Volume e Leveza),0.367,4,2
+CLI_0487,3,1,1,0,0,1,1,0,Arvensis Ativador de Cachos e Crespos,0.75,5,1
+CLI_0488,3,3,1,1,1,1,1,1,Deva Curl Delight (Volume e Leveza),0.36,3,3
+CLI_0489,3,2,0,0,0,1,0,0,Arvensis Geleia Forte Fixação,1.0,5,1
+CLI_0490,3,3,1,0,1,1,0,0,Curly Care ACID-C (Acidificante Antiporosidade),0.8,4,3
+CLI_0491,3,1,0,1,0,0,1,0,Arvensis Geleia Forte Fixação,0.55,4,2
+CLI_0492,3,3,1,1,1,1,0,0,Arvensis Geleia Forte Fixação,0.5,3,3
+CLI_0493,3,3,0,0,0,1,0,0,Arvensis Ativador de Cachos e Crespos,0.8,4,1
+CLI_0494,2,1,1,0,0,1,0,0,Curly Care Manteiga Nutritiva,0.4,2,1
+CLI_0495,3,2,1,1,0,1,1,0,Deva Curl Delight (Volume e Leveza),0.4,3,2
+CLI_0496,3,3,1,1,1,0,0,1,Arvensis Co-Wash Suave Cachos Naturais,0.667,4,3
+CLI_0497,3,3,1,1,1,1,1,0,Curly Care Manteiga Nutritiva,0.6,4,3
+CLI_0498,4,3,1,1,1,0,0,0,Curly Care ACID-C (Acidificante Antiporosidade),0.75,4,3
+CLI_0499,4,3,1,1,1,1,0,1,Arvensis Ativador de Cachos e Crespos,0.5,3,3
+CLI_0500,3,3,0,0,0,0,0,1,Curly Care ACID-C (Acidificante Antiporosidade),0.2,2,0
+CLI_0501,3,2,1,0,0,1,0,0,Arvensis Geleia Forte Fixação,1.0,4,1
+CLI_0502,4,1,0,1,0,0,0,0,Curly Care Manteiga Nutritiva,1.0,5,2
+CLI_0503,3,3,0,0,0,1,0,0,Deva Curl Delight (Volume e Leveza),0.6,1,1
+CLI_0504,4,2,0,1,0,1,0,0,Curly Care Manteiga Nutritiva,0.7,5,2
+CLI_0505,3,2,1,1,0,1,0,0,Arvensis Geleia Forte Fixação,0.6,4,2
+CLI_0506,4,2,1,1,0,1,0,1,Arvensis Co-Wash Suave Cachos Naturais,0.6,4,0
+CLI_0507,3,3,1,1,1,1,0,0,Arvensis Ativador de Cachos e Crespos,0.633,4,3
+CLI_0508,3,1,1,1,0,1,1,1,Curly Care Manteiga Nutritiva,0.45,3,0
+CLI_0509,3,1,0,0,0,1,0,1,Deva Curl Delight (Volume e Leveza),0.5,3,0
+CLI_0510,3,3,0,0,1,1,1,0,Curly Care ACID-C (Acidificante Antiporosidade),0.7,5,3
+CLI_0511,3,3,1,1,1,1,0,0,Curly Care ACID-C (Acidificante Antiporosidade),0.7,4,3
+CLI_0512,4,2,0,1,0,1,0,0,Deva Curl Delight (Volume e Leveza),0.45,2,2
+CLI_0513,4,3,1,1,1,1,0,0,Deva Curl Delight (Volume e Leveza),0.367,2,3
+CLI_0514,3,1,0,0,0,1,1,0,Deva Curl Delight (Volume e Leveza),0.45,4,1
+CLI_0515,3,3,0,0,0,1,0,0,Arvensis Co-Wash Suave Cachos Naturais,0.2,2,1
+CLI_0516,2,2,0,0,0,1,0,1,Arvensis Geleia Forte Fixação,0.55,4,0
+CLI_0517,3,1,1,1,0,1,0,0,Arvensis Ativador de Cachos e Crespos,0.75,4,2
+CLI_0518,2,2,1,0,0,1,0,0,Curly Care ACID-C (Acidificante Antiporosidade),0.6,2,1
+CLI_0519,4,3,0,1,0,1,0,0,Arvensis Geleia Forte Fixação,0.6,4,2
+CLI_0520,4,1,0,0,0,1,0,0,Arvensis Ativador de Cachos e Crespos,0.8,5,1
+CLI_0521,4,2,0,0,0,1,0,0,Arvensis Ativador de Cachos e Crespos,0.8,3,1
+CLI_0522,4,2,0,1,0,1,0,0,Arvensis Co-Wash Suave Cachos Naturais,0.4,4,2
+CLI_0523,2,3,0,0,1,1,0,0,Arvensis Ativador de Cachos e Crespos,0.6,1,1
+CLI_0524,3,1,0,0,0,1,1,0,Curly Care ACID-C (Acidificante Antiporosidade),0.55,4,1
+CLI_0525,3,2,0,1,0,0,0,0,Deva Curl Delight (Volume e Leveza),0.3,2,2
+CLI_0526,4,2,1,0,0,1,1,0,Curly Care ACID-C (Acidificante Antiporosidade),0.55,2,1
+CLI_0527,4,2,0,1,0,0,0,0,Arvensis Geleia Forte Fixação,0.2,2,2
+CLI_0528,2,3,0,1,0,0,0,1,Deva Curl Delight (Volume e Leveza),0.35,3,0
+CLI_0529,3,2,0,0,0,1,1,0,Arvensis Geleia Forte Fixação,0.95,4,1
+CLI_0530,3,1,0,0,0,1,0,0,Curly Care ACID-C (Acidificante Antiporosidade),0.6,2,1
+CLI_0531,2,2,0,0,0,1,0,0,Arvensis Geleia Forte Fixação,1.0,5,1
+CLI_0532,2,2,1,1,0,0,0,0,Curly Care ACID-C (Acidificante Antiporosidade),0.5,3,2
+CLI_0533,3,3,1,1,1,1,1,0,Arvensis Geleia Forte Fixação,0.6,3,3
+CLI_0534,3,3,1,1,1,1,0,1,Arvensis Geleia Forte Fixação,0.4,2,3
+CLI_0535,3,1,0,0,0,1,0,0,Curly Care Manteiga Nutritiva,0.4,3,1
+CLI_0536,2,3,1,0,1,1,1,0,Arvensis Co-Wash Suave Cachos Naturais,0.3,2,3
+CLI_0537,3,3,1,1,1,0,0,0,Curly Care Manteiga Nutritiva,0.8,4,3
+CLI_0538,3,3,0,1,0,1,0,0,Curly Care Manteiga Nutritiva,0.7,5,2
+CLI_0539,3,1,0,1,0,0,0,0,Arvensis Geleia Forte Fixação,0.2,2,2
+CLI_0540,3,2,0,1,0,1,0,0,Deva Curl Delight (Volume e Leveza),0.45,3,2
+CLI_0541,4,2,0,1,0,1,0,0,Deva Curl Delight (Volume e Leveza),0.45,3,2
+CLI_0542,3,2,0,1,1,0,0,0,Curly Care Manteiga Nutritiva,0.8,5,2
+CLI_0543,4,3,1,0,1,0,1,1,Deva Curl Delight (Volume e Leveza),0.3,2,3
+CLI_0544,4,3,0,1,0,1,0,0,Curly Care Manteiga Nutritiva,0.7,3,2
+CLI_0545,4,2,1,1,0,1,0,1,Curly Care ACID-C (Acidificante Antiporosidade),0.433,3,0
+CLI_0546,3,3,1,1,1,0,1,1,Arvensis Co-Wash Suave Cachos Naturais,0.575,3,3
+CLI_0547,2,2,0,0,1,1,0,0,Deva Curl Delight (Volume e Leveza),0.4,3,1
+CLI_0548,4,2,0,1,0,0,0,0,Curly Care ACID-C (Acidificante Antiporosidade),0.5,3,2
+CLI_0549,4,3,1,1,1,1,0,0,Curly Care Manteiga Nutritiva,0.667,1,3
+CLI_0550,2,1,0,0,0,1,0,0,Arvensis Geleia Forte Fixação,1.0,4,1
+CLI_0551,3,1,0,1,0,0,0,0,Arvensis Co-Wash Suave Cachos Naturais,0.6,4,2
+CLI_0552,4,2,1,1,0,0,0,0,Deva Curl Delight (Volume e Leveza),0.3,2,2
+CLI_0553,3,2,1,0,0,1,0,0,Arvensis Co-Wash Suave Cachos Naturais,0.2,3,1
+CLI_0554,3,2,0,0,0,1,0,1,Deva Curl Delight (Volume e Leveza),0.5,3,0
+CLI_0555,2,2,0,0,0,1,0,0,Curly Care ACID-C (Acidificante Antiporosidade),0.6,4,1
+CLI_0556,4,2,0,1,0,1,0,0,Arvensis Co-Wash Suave Cachos Naturais,0.4,3,2
+CLI_0557,2,2,1,0,0,1,0,0,Curly Care Manteiga Nutritiva,0.4,2,1
+CLI_0558,2,2,0,0,0,1,0,0,Curly Care ACID-C (Acidificante Antiporosidade),0.6,3,1
+CLI_0559,4,2,0,1,0,1,0,0,Arvensis Ativador de Cachos e Crespos,0.75,4,2
+CLI_0560,3,3,0,1,1,1,0,0,Deva Curl Delight (Volume e Leveza),0.367,3,3
+CLI_0561,4,1,0,1,0,0,0,0,Deva Curl Delight (Volume e Leveza),0.3,2,2
+CLI_0562,4,2,0,1,0,0,0,0,Arvensis Ativador de Cachos e Crespos,0.7,4,2
+CLI_0563,3,1,0,0,0,0,1,1,Curly Care ACID-C (Acidificante Antiporosidade),0.35,2,0
+CLI_0564,3,1,1,0,0,1,0,0,Deva Curl Delight (Volume e Leveza),0.6,3,1
+CLI_0565,2,3,1,1,1,1,0,0,Curly Care Manteiga Nutritiva,0.667,2,3
+CLI_0566,2,3,1,1,1,1,0,0,Curly Care Manteiga Nutritiva,0.667,3,3
+CLI_0567,3,1,0,0,0,1,0,0,Curly Care ACID-C (Acidificante Antiporosidade),0.6,4,1
+CLI_0568,2,3,1,1,1,1,1,1,Deva Curl Delight (Volume e Leveza),0.36,2,3
+CLI_0569,4,2,0,0,0,1,0,0,Arvensis Ativador de Cachos e Crespos,0.8,4,1
+CLI_0570,4,2,0,1,0,0,0,0,Arvensis Ativador de Cachos e Crespos,0.7,4,2
+CLI_0571,3,2,1,1,0,1,1,0,Arvensis Geleia Forte Fixação,0.7,4,2
+CLI_0572,4,3,0,1,0,0,1,0,Arvensis Co-Wash Suave Cachos Naturais,0.45,3,2
+CLI_0573,3,3,1,0,0,1,0,0,Deva Curl Delight (Volume e Leveza),0.6,4,1
+CLI_0574,4,2,1,1,0,1,0,0,Arvensis Geleia Forte Fixação,0.6,3,2
+CLI_0575,4,3,1,1,1,0,0,1,Arvensis Geleia Forte Fixação,0.2,2,3
+CLI_0576,3,1,0,0,0,1,0,0,Arvensis Co-Wash Suave Cachos Naturais,0.2,3,1
+CLI_0577,4,3,1,1,1,0,0,0,Curly Care ACID-C (Acidificante Antiporosidade),0.75,3,3
+CLI_0578,3,3,1,1,0,1,0,0,Deva Curl Delight (Volume e Leveza),0.45,2,3
+CLI_0579,3,2,0,1,0,1,0,0,Arvensis Ativador de Cachos e Crespos,0.75,4,2
+CLI_0580,3,3,0,1,1,1,0,0,Curly Care Manteiga Nutritiva,0.667,4,3
+CLI_0581,3,3,1,1,1,1,0,0,Arvensis Ativador de Cachos e Crespos,0.633,4,3
+CLI_0582,2,3,1,1,1,1,0,0,Arvensis Co-Wash Suave Cachos Naturais,0.4,3,3
+CLI_0583,4,3,1,1,1,1,0,0,Arvensis Geleia Forte Fixação,0.5,3,3
+CLI_0584,4,2,1,1,0,0,0,0,Arvensis Co-Wash Suave Cachos Naturais,0.6,4,2
+CLI_0585,4,3,0,1,0,1,0,0,Curly Care ACID-C (Acidificante Antiporosidade),0.55,3,2
+CLI_0586,3,1,0,0,0,1,0,0,Arvensis Ativador de Cachos e Crespos,0.8,4,1
+CLI_0587,2,2,0,1,0,0,0,0,Deva Curl Delight (Volume e Leveza),0.3,2,2
+CLI_0588,2,3,1,1,0,0,0,0,Arvensis Geleia Forte Fixação,0.2,3,3
+CLI_0589,3,3,0,0,0,1,0,1,Curly Care Manteiga Nutritiva,0.2,2,0
+CLI_0590,3,3,1,1,1,1,0,0,Curly Care Manteiga Nutritiva,0.667,4,3
+CLI_0591,4,3,1,1,0,0,1,0,Deva Curl Delight (Volume e Leveza),0.3,2,3
+CLI_0592,3,2,0,0,0,1,0,0,Curly Care Manteiga Nutritiva,0.4,3,1
+CLI_0593,4,1,0,1,0,1,0,0,Arvensis Ativador de Cachos e Crespos,0.75,4,2
+CLI_0594,4,1,0,1,1,1,0,0,Curly Care ACID-C (Acidificante Antiporosidade),0.7,4,2
+CLI_0595,3,2,1,0,1,1,0,0,Curly Care Manteiga Nutritiva,0.5,3,3
+CLI_0596,3,3,0,0,0,0,0,1,Arvensis Co-Wash Suave Cachos Naturais,1.0,4,0
+CLI_0597,3,1,0,1,0,0,0,1,Curly Care Manteiga Nutritiva,0.5,3,0
+CLI_0598,4,2,0,1,0,1,0,0,Curly Care ACID-C (Acidificante Antiporosidade),0.55,4,2
+CLI_0599,3,1,0,1,0,1,1,0,Curly Care Manteiga Nutritiva,0.6,3,2
+CLI_0600,3,1,0,0,0,1,0,0,Arvensis Ativador de Cachos e Crespos,0.8,4,1
+CLI_0601,3,3,1,0,1,1,0,0,Arvensis Geleia Forte Fixação,0.65,4,3
+CLI_0602,3,1,0,0,0,1,0,0,Deva Curl Delight (Volume e Leveza),0.6,3,1
+CLI_0603,4,2,0,0,0,1,0,0,Curly Care ACID-C (Acidificante Antiporosidade),0.6,3,1
+CLI_0604,3,2,1,0,0,1,1,1,Deva Curl Delight (Volume e Leveza),0.433,3,0
+CLI_0605,3,1,0,1,0,1,0,0,Deva Curl Delight (Volume e Leveza),0.45,3,2
+CLI_0606,3,3,1,1,1,1,0,0,Arvensis Co-Wash Suave Cachos Naturais,0.4,3,3
+CLI_0607,3,3,1,1,1,1,0,0,Curly Care Manteiga Nutritiva,0.667,3,3
+CLI_0608,3,2,0,0,0,1,0,0,Curly Care ACID-C (Acidificante Antiporosidade),0.6,3,1
+CLI_0609,3,2,1,1,0,1,0,0,Deva Curl Delight (Volume e Leveza),0.45,3,2
+CLI_0610,3,1,1,1,0,0,1,0,Curly Care ACID-C (Acidificante Antiporosidade),0.5,5,2
+CLI_0611,3,2,1,0,0,1,0,0,Curly Care Manteiga Nutritiva,0.4,3,1
+CLI_0612,4,2,0,1,0,1,0,0,Curly Care ACID-C (Acidificante Antiporosidade),0.55,4,2
+CLI_0613,3,1,0,0,0,1,0,1,Deva Curl Delight (Volume e Leveza),0.5,3,0
+CLI_0614,3,1,1,0,0,1,1,0,Arvensis Co-Wash Suave Cachos Naturais,0.25,2,1
+CLI_0615,4,1,0,1,0,1,0,0,Arvensis Co-Wash Suave Cachos Naturais,0.4,3,2
+CLI_0616,3,3,1,1,0,1,0,0,Curly Care ACID-C (Acidificante Antiporosidade),0.55,3,3
+CLI_0617,3,2,1,1,0,1,1,0,Arvensis Ativador de Cachos e Crespos,0.733,4,2
+CLI_0618,4,2,1,0,0,1,0,0,Deva Curl Delight (Volume e Leveza),0.6,2,1
+CLI_0619,4,1,0,1,0,1,0,0,Arvensis Ativador de Cachos e Crespos,0.75,4,2
+CLI_0620,4,3,1,1,1,1,1,0,Curly Care ACID-C (Acidificante Antiporosidade),0.65,3,3
+CLI_0621,4,1,0,1,0,0,0,0,Curly Care ACID-C (Acidificante Antiporosidade),0.5,3,2
+CLI_0622,3,1,1,1,0,1,1,0,Deva Curl Delight (Volume e Leveza),0.4,4,2
+CLI_0623,3,3,1,0,1,0,1,1,Curly Care Manteiga Nutritiva,0.333,3,3
+CLI_0624,3,3,1,1,1,1,0,0,Curly Care Manteiga Nutritiva,0.667,4,3
+CLI_0625,2,3,0,1,0,1,0,1,Curly Care Manteiga Nutritiva,0.467,1,0
+CLI_0626,3,2,0,0,0,1,0,0,Curly Care ACID-C (Acidificante Antiporosidade),0.6,3,1
+CLI_0627,2,1,0,1,0,1,0,0,Arvensis Co-Wash Suave Cachos Naturais,0.4,3,1
+CLI_0628,3,1,0,0,0,1,1,1,Arvensis Ativador de Cachos e Crespos,0.533,4,0
+CLI_0629,4,2,1,1,0,1,0,0,Curly Care Manteiga Nutritiva,0.7,4,2
+CLI_0630,2,2,0,0,0,1,0,0,Arvensis Geleia Forte Fixação,1.0,5,1
+CLI_0631,2,2,0,0,0,1,0,1,Arvensis Geleia Forte Fixação,0.55,3,0
+CLI_0632,3,1,0,0,0,1,0,0,Arvensis Geleia Forte Fixação,1.0,1,1
+CLI_0633,3,2,0,0,0,1,0,1,Curly Care ACID-C (Acidificante Antiporosidade),0.4,2,0
+CLI_0634,3,2,0,0,0,1,0,0,Deva Curl Delight (Volume e Leveza),0.6,3,1
+CLI_0635,4,3,1,1,0,1,0,0,Deva Curl Delight (Volume e Leveza),0.45,3,2
+CLI_0636,4,1,0,0,0,1,0,0,Curly Care ACID-C (Acidificante Antiporosidade),0.6,4,1
+CLI_0637,3,1,0,0,0,0,0,1,Deva Curl Delight (Volume e Leveza),0.4,2,0
+CLI_0638,3,3,1,1,1,0,1,0,Deva Curl Delight (Volume e Leveza),0.267,1,3
+CLI_0639,3,1,0,0,0,1,0,0,Curly Care ACID-C (Acidificante Antiporosidade),0.6,4,1
+CLI_0640,3,1,0,1,0,1,0,0,Curly Care Manteiga Nutritiva,0.7,4,2
+CLI_0641,2,3,0,1,0,1,0,1,Arvensis Geleia Forte Fixação,0.433,3,0
+CLI_0642,2,3,1,1,1,1,0,0,Arvensis Ativador de Cachos e Crespos,0.633,3,3
+CLI_0643,4,2,1,0,0,0,0,1,Curly Care Manteiga Nutritiva,0.0,2,0
+CLI_0644,2,2,0,0,0,1,0,0,Curly Care Manteiga Nutritiva,0.4,2,1
+CLI_0645,3,3,1,1,1,1,0,0,Arvensis Geleia Forte Fixação,0.5,3,3
+CLI_0646,3,1,0,0,0,0,1,0,Curly Care ACID-C (Acidificante Antiporosidade),0.5,3,1
+CLI_0647,4,2,0,1,0,0,1,0,Arvensis Geleia Forte Fixação,0.55,3,2
+CLI_0648,3,1,0,1,0,1,0,0,Arvensis Ativador de Cachos e Crespos,0.75,4,2
+CLI_0649,4,2,1,1,1,1,0,0,Deva Curl Delight (Volume e Leveza),0.367,2,3
+CLI_0650,3,2,1,1,1,0,1,0,Arvensis Ativador de Cachos e Crespos,0.6,4,3
+CLI_0651,3,2,0,1,0,1,0,0,Deva Curl Delight (Volume e Leveza),0.45,5,2
+CLI_0652,4,3,1,1,0,1,0,0,Curly Care ACID-C (Acidificante Antiporosidade),0.55,3,2
+CLI_0653,4,2,0,1,0,1,0,0,Deva Curl Delight (Volume e Leveza),0.45,2,2
+CLI_0654,3,1,1,0,0,1,0,0,Arvensis Geleia Forte Fixação,1.0,5,1
+CLI_0655,3,2,0,0,0,0,1,0,Arvensis Ativador de Cachos e Crespos,0.7,4,1
+CLI_0656,3,2,1,1,0,1,0,1,Curly Care ACID-C (Acidificante Antiporosidade),0.433,4,0
+CLI_0657,3,3,1,1,1,0,0,1,Arvensis Geleia Forte Fixação,0.2,2,3
+CLI_0658,3,1,1,0,0,1,0,0,Arvensis Ativador de Cachos e Crespos,0.8,4,1
+CLI_0659,3,1,0,0,0,1,0,0,Arvensis Ativador de Cachos e Crespos,0.8,4,1
+CLI_0660,3,3,0,1,0,1,0,0,Arvensis Geleia Forte Fixação,0.6,1,2
+CLI_0661,4,3,0,1,1,0,0,0,Curly Care Manteiga Nutritiva,0.8,4,3
+CLI_0662,2,3,1,1,1,0,0,1,Deva Curl Delight (Volume e Leveza),0.3,2,3
+CLI_0663,3,3,0,0,0,1,0,0,Deva Curl Delight (Volume e Leveza),0.6,3,1
+CLI_0664,3,3,1,1,1,0,0,1,Curly Care ACID-C (Acidificante Antiporosidade),0.567,3,3
+CLI_0665,3,1,0,0,0,1,0,0,Curly Care ACID-C (Acidificante Antiporosidade),0.6,3,1
+CLI_0666,3,3,0,1,0,1,0,1,Arvensis Ativador de Cachos e Crespos,0.533,3,0
+CLI_0667,3,1,1,1,0,1,0,1,Curly Care Manteiga Nutritiva,0.467,3,0
+CLI_0668,2,1,1,1,0,0,1,0,Curly Care ACID-C (Acidificante Antiporosidade),0.5,3,2
+CLI_0669,3,3,1,1,1,1,0,0,Arvensis Geleia Forte Fixação,0.5,3,3
+CLI_0670,3,1,0,0,0,1,0,0,Curly Care ACID-C (Acidificante Antiporosidade),0.6,4,1
+CLI_0671,3,2,0,0,0,1,1,0,Arvensis Co-Wash Suave Cachos Naturais,0.25,3,1
+CLI_0672,4,3,0,1,0,1,0,0,Deva Curl Delight (Volume e Leveza),0.45,2,2
+CLI_0673,4,1,0,1,0,1,0,0,Curly Care ACID-C (Acidificante Antiporosidade),0.55,3,2
+CLI_0674,3,2,0,1,0,1,0,0,Curly Care ACID-C (Acidificante Antiporosidade),0.55,3,2
+CLI_0675,2,2,0,1,0,1,0,0,Arvensis Geleia Forte Fixação,0.6,3,1
+CLI_0676,3,2,0,0,0,1,0,1,Curly Care Manteiga Nutritiva,0.2,3,0
+CLI_0677,3,1,0,0,0,1,0,1,Arvensis Co-Wash Suave Cachos Naturais,0.6,4,0
+CLI_0678,3,2,0,1,0,0,0,1,Curly Care Manteiga Nutritiva,0.5,3,0
+CLI_0679,2,2,1,1,0,1,0,1,Deva Curl Delight (Volume e Leveza),0.433,3,0
+CLI_0680,3,2,1,0,0,1,0,1,Arvensis Ativador de Cachos e Crespos,0.45,3,0
+CLI_0681,4,3,0,1,0,1,0,0,Deva Curl Delight (Volume e Leveza),0.45,3,2
+CLI_0682,3,1,1,0,0,1,0,0,Curly Care Manteiga Nutritiva,0.4,3,1
+CLI_0683,2,1,0,0,1,0,0,0,Arvensis Co-Wash Suave Cachos Naturais,0.4,3,1
+CLI_0684,3,3,1,0,0,1,0,0,Curly Care ACID-C (Acidificante Antiporosidade),0.6,4,1
+CLI_0685,3,3,1,1,1,0,0,0,Curly Care Manteiga Nutritiva,0.8,5,3
+CLI_0686,3,1,1,1,0,1,0,0,Arvensis Geleia Forte Fixação,0.6,4,2
+CLI_0687,3,3,1,1,1,0,1,0,Arvensis Co-Wash Suave Cachos Naturais,0.433,3,3
+CLI_0688,3,1,0,0,0,1,1,0,Deva Curl Delight (Volume e Leveza),0.45,4,1
+CLI_0689,3,2,0,0,0,1,0,0,Arvensis Geleia Forte Fixação,1.0,5,1
+CLI_0690,4,2,1,1,0,0,0,1,Deva Curl Delight (Volume e Leveza),0.35,2,0
+CLI_0691,2,3,1,0,1,1,1,0,Arvensis Geleia Forte Fixação,0.733,4,3
+CLI_0692,3,1,0,0,0,1,0,0,Curly Care ACID-C (Acidificante Antiporosidade),0.6,4,1
+CLI_0693,4,3,0,0,0,1,0,0,Curly Care Manteiga Nutritiva,0.4,3,1
+CLI_0694,3,2,1,1,0,1,0,0,Arvensis Geleia Forte Fixação,0.6,3,2
+CLI_0695,4,3,1,1,1,1,0,0,Arvensis Co-Wash Suave Cachos Naturais,0.4,3,3
+CLI_0696,3,2,0,0,0,1,0,0,Curly Care ACID-C (Acidificante Antiporosidade),0.6,4,1
+CLI_0697,4,3,1,0,1,1,0,0,Arvensis Co-Wash Suave Cachos Naturais,0.3,2,3
+CLI_0698,3,3,1,1,1,1,1,1,Deva Curl Delight (Volume e Leveza),0.36,2,3
+CLI_0699,4,2,1,1,0,1,0,0,Arvensis Co-Wash Suave Cachos Naturais,0.4,3,2
+CLI_0700,2,3,1,1,1,1,0,0,Curly Care Manteiga Nutritiva,0.667,2,3
+CLI_0701,3,3,1,1,1,0,0,0,Arvensis Geleia Forte Fixação,0.25,3,3
+CLI_0702,3,2,0,1,0,1,0,0,Curly Care ACID-C (Acidificante Antiporosidade),0.55,3,2
+CLI_0703,4,2,1,1,1,1,0,0,Arvensis Ativador de Cachos e Crespos,0.633,4,3
+CLI_0704,3,1,0,0,1,1,0,1,Arvensis Co-Wash Suave Cachos Naturais,0.533,3,0
+CLI_0705,3,1,1,0,0,1,1,0,Arvensis Geleia Forte Fixação,0.95,5,1
+CLI_0706,2,1,1,1,0,1,0,1,Arvensis Ativador de Cachos e Crespos,0.533,3,0
+CLI_0707,4,2,0,1,0,0,0,0,Curly Care ACID-C (Acidificante Antiporosidade),0.5,4,2
+CLI_0708,3,3,1,0,1,1,1,1,Arvensis Co-Wash Suave Cachos Naturais,0.475,3,3
+CLI_0709,4,3,1,1,1,1,0,0,Arvensis Co-Wash Suave Cachos Naturais,0.4,3,3
+CLI_0710,3,3,1,0,1,0,0,0,Arvensis Ativador de Cachos e Crespos,0.4,5,3
+CLI_0711,3,3,0,1,0,1,0,0,Arvensis Geleia Forte Fixação,0.6,3,2
+CLI_0712,4,2,0,1,0,0,0,0,Arvensis Geleia Forte Fixação,0.2,1,2
+CLI_0713,3,3,1,1,1,1,0,0,Arvensis Geleia Forte Fixação,0.5,3,3
+CLI_0714,3,3,1,0,0,1,0,1,Arvensis Ativador de Cachos e Crespos,0.45,3,0
+CLI_0715,3,2,1,1,0,1,0,0,Deva Curl Delight (Volume e Leveza),0.45,3,2
+CLI_0716,3,2,1,0,1,0,1,0,Arvensis Ativador de Cachos e Crespos,0.55,3,3
+CLI_0717,3,2,0,1,0,1,1,1,Arvensis Co-Wash Suave Cachos Naturais,0.525,3,0
+CLI_0718,3,3,0,1,0,0,0,0,Curly Care ACID-C (Acidificante Antiporosidade),0.5,4,2
+CLI_0719,3,3,1,1,1,1,0,0,Arvensis Ativador de Cachos e Crespos,0.633,4,3
+CLI_0720,3,3,1,1,1,1,1,0,Arvensis Geleia Forte Fixação,0.6,5,3
+CLI_0721,4,1,0,0,0,1,0,0,Arvensis Ativador de Cachos e Crespos,0.8,4,1
+CLI_0722,4,2,0,1,0,1,0,0,Curly Care ACID-C (Acidificante Antiporosidade),0.55,3,2
+CLI_0723,2,2,0,0,0,1,1,0,Arvensis Ativador de Cachos e Crespos,0.75,3,1
+CLI_0724,2,2,0,1,0,1,0,1,Arvensis Co-Wash Suave Cachos Naturais,0.6,4,0
+CLI_0725,3,1,0,0,0,1,0,1,Deva Curl Delight (Volume e Leveza),0.5,3,0
+CLI_0726,2,3,1,0,0,0,0,1,Deva Curl Delight (Volume e Leveza),0.4,3,0
+CLI_0727,3,2,0,0,1,1,1,0,Curly Care Manteiga Nutritiva,0.467,3,1
+CLI_0728,2,3,0,1,0,1,0,0,Arvensis Co-Wash Suave Cachos Naturais,0.4,3,1
+CLI_0729,3,2,0,0,0,1,0,0,Curly Care ACID-C (Acidificante Antiporosidade),0.6,4,1
+CLI_0730,3,3,1,1,1,0,0,0,Arvensis Geleia Forte Fixação,0.25,3,3
+CLI_0731,4,3,1,1,1,0,1,0,Arvensis Ativador de Cachos e Crespos,0.6,3,3
+CLI_0732,3,2,0,1,0,1,0,0,Curly Care Manteiga Nutritiva,0.7,4,2
+CLI_0733,3,2,0,1,0,0,0,0,Curly Care Manteiga Nutritiva,1.0,5,2
+CLI_0734,4,2,0,1,1,1,0,0,Arvensis Geleia Forte Fixação,0.5,3,2
+CLI_0735,2,1,1,0,0,1,1,0,Arvensis Ativador de Cachos e Crespos,0.75,4,1
+CLI_0736,3,2,1,0,0,1,0,0,Curly Care ACID-C (Acidificante Antiporosidade),0.6,5,1
+CLI_0737,3,2,0,0,0,1,0,0,Deva Curl Delight (Volume e Leveza),0.6,4,1
+CLI_0738,4,3,1,1,1,0,0,0,Deva Curl Delight (Volume e Leveza),0.25,2,3
+CLI_0739,4,3,1,1,0,1,0,1,Arvensis Co-Wash Suave Cachos Naturais,0.6,3,0
+CLI_0740,4,3,1,0,0,0,0,1,Curly Care Manteiga Nutritiva,0.0,2,0
+CLI_0741,3,3,0,0,0,1,0,0,Deva Curl Delight (Volume e Leveza),0.6,3,1
+CLI_0742,2,2,1,1,0,0,0,1,Curly Care ACID-C (Acidificante Antiporosidade),0.35,3,0
+CLI_0743,3,2,0,1,0,1,0,0,Curly Care Manteiga Nutritiva,0.7,2,2
+CLI_0744,4,1,0,0,0,1,0,0,Arvensis Geleia Forte Fixação,1.0,4,1
+CLI_0745,4,2,0,1,0,0,0,1,Curly Care ACID-C (Acidificante Antiporosidade),0.35,2,0
+CLI_0746,2,3,1,1,1,0,0,1,Arvensis Ativador de Cachos e Crespos,0.4,2,3
+CLI_0747,4,1,0,1,0,1,1,0,Curly Care Manteiga Nutritiva,0.6,3,2
+CLI_0748,4,1,0,0,0,1,0,0,Arvensis Co-Wash Suave Cachos Naturais,0.2,2,1
+CLI_0749,3,1,0,0,0,1,0,0,Curly Care ACID-C (Acidificante Antiporosidade),0.6,4,1
+CLI_0750,3,1,1,1,0,1,0,0,Arvensis Ativador de Cachos e Crespos,0.75,4,2
+CLI_0751,4,2,1,1,0,1,0,0,Deva Curl Delight (Volume e Leveza),0.45,2,2
+CLI_0752,2,1,0,0,0,1,1,1,Curly Care Manteiga Nutritiva,0.267,1,0
+CLI_0753,3,2,1,1,0,0,0,0,Curly Care Manteiga Nutritiva,1.0,4,2
+CLI_0754,2,1,0,1,0,1,0,0,Arvensis Ativador de Cachos e Crespos,0.75,3,1
+CLI_0755,3,3,1,0,1,0,0,1,Arvensis Co-Wash Suave Cachos Naturais,0.7,4,3
+CLI_0756,3,1,0,1,0,0,0,0,Arvensis Geleia Forte Fixação,0.2,3,2
+CLI_0757,4,3,1,1,1,0,1,0,Arvensis Ativador de Cachos e Crespos,0.6,4,3
+CLI_0758,2,3,1,1,1,1,1,1,Deva Curl Delight (Volume e Leveza),0.36,3,3
+CLI_0759,4,3,1,0,1,0,0,0,Arvensis Geleia Forte Fixação,0.3,3,3
+CLI_0760,3,2,0,1,0,1,0,1,Arvensis Ativador de Cachos e Crespos,0.533,4,0
+CLI_0761,4,1,0,1,0,0,0,0,Arvensis Geleia Forte Fixação,0.2,3,2
+CLI_0762,3,1,0,1,0,1,0,0,Curly Care Manteiga Nutritiva,0.7,3,2
+CLI_0763,4,3,0,1,1,1,0,0,Deva Curl Delight (Volume e Leveza),0.367,1,3
+CLI_0764,3,3,1,0,1,1,1,0,Deva Curl Delight (Volume e Leveza),0.367,3,3
+CLI_0765,3,1,0,1,0,1,0,0,Arvensis Geleia Forte Fixação,0.6,4,2
+CLI_0766,3,3,0,0,0,0,0,1,Arvensis Ativador de Cachos e Crespos,0.1,2,0
+CLI_0767,3,3,1,1,0,1,0,0,Arvensis Ativador de Cachos e Crespos,0.75,4,3
+CLI_0768,2,1,0,0,0,1,0,0,Arvensis Geleia Forte Fixação,1.0,5,1
+CLI_0769,2,2,1,1,1,1,0,1,Arvensis Co-Wash Suave Cachos Naturais,0.55,2,3
+CLI_0770,3,3,1,1,1,1,0,0,Arvensis Ativador de Cachos e Crespos,0.633,4,3
+CLI_0771,3,2,1,0,0,1,0,0,Curly Care ACID-C (Acidificante Antiporosidade),0.6,4,1
+CLI_0772,4,2,0,1,0,1,0,0,Arvensis Co-Wash Suave Cachos Naturais,0.4,3,2
+CLI_0773,3,1,0,1,0,1,0,0,Arvensis Co-Wash Suave Cachos Naturais,0.4,3,2
+CLI_0774,3,2,0,1,0,1,1,1,Arvensis Co-Wash Suave Cachos Naturais,0.525,2,0
+CLI_0775,3,2,1,1,0,1,0,0,Arvensis Co-Wash Suave Cachos Naturais,0.4,3,2
+CLI_0776,4,3,1,1,1,1,0,0,Arvensis Geleia Forte Fixação,0.5,4,3
+CLI_0777,4,2,1,1,0,0,0,0,Arvensis Geleia Forte Fixação,0.2,3,2
+CLI_0778,2,2,0,0,0,1,0,1,Arvensis Geleia Forte Fixação,0.55,3,0
+CLI_0779,4,1,0,1,0,1,0,0,Arvensis Co-Wash Suave Cachos Naturais,0.4,2,2
+CLI_0780,4,2,1,0,0,1,1,1,Curly Care Manteiga Nutritiva,0.267,3,0
+CLI_0781,2,3,1,0,1,0,0,0,Arvensis Geleia Forte Fixação,0.3,3,3
+CLI_0782,3,3,0,0,1,1,0,0,Deva Curl Delight (Volume e Leveza),0.4,3,1
+CLI_0783,3,1,0,1,0,0,0,0,Curly Care Manteiga Nutritiva,1.0,5,2
+CLI_0784,4,2,0,0,0,1,0,0,Deva Curl Delight (Volume e Leveza),0.6,3,1
+CLI_0785,2,2,0,0,0,1,0,1,Curly Care ACID-C (Acidificante Antiporosidade),0.4,3,0
+CLI_0786,3,3,1,1,0,0,0,0,Arvensis Co-Wash Suave Cachos Naturais,0.6,3,3
+CLI_0787,3,2,0,1,0,1,0,0,Arvensis Geleia Forte Fixação,0.6,3,2
+CLI_0788,3,3,1,1,0,1,0,0,Arvensis Co-Wash Suave Cachos Naturais,0.4,3,3
+CLI_0789,3,3,1,1,0,1,0,0,Arvensis Ativador de Cachos e Crespos,0.75,4,3
+CLI_0790,3,2,0,1,0,0,0,0,Arvensis Geleia Forte Fixação,0.2,2,2
+CLI_0791,4,1,1,1,0,1,1,0,Arvensis Ativador de Cachos e Crespos,0.733,4,2
+CLI_0792,3,2,1,1,0,0,0,0,Curly Care ACID-C (Acidificante Antiporosidade),0.5,3,2
+CLI_0793,3,1,0,1,0,1,0,0,Arvensis Geleia Forte Fixação,0.6,3,2
+CLI_0794,3,1,0,0,0,1,0,0,Deva Curl Delight (Volume e Leveza),0.6,4,1
+CLI_0795,4,2,1,1,0,0,0,0,Arvensis Co-Wash Suave Cachos Naturais,0.6,4,2
+CLI_0796,3,3,1,0,1,1,0,0,Curly Care Manteiga Nutritiva,0.5,3,3
+CLI_0797,3,2,1,1,0,0,0,1,Arvensis Co-Wash Suave Cachos Naturais,0.8,5,0
+CLI_0798,3,2,0,0,0,1,0,1,Curly Care Manteiga Nutritiva,0.2,3,0
+CLI_0799,3,3,1,1,1,1,0,0,Deva Curl Delight (Volume e Leveza),0.367,3,3
+CLI_0800,3,3,1,1,1,1,0,0,Deva Curl Delight (Volume e Leveza),0.367,5,3
+CLI_0801,4,1,0,1,0,1,0,0,Arvensis Co-Wash Suave Cachos Naturais,0.4,3,2
+CLI_0802,3,1,1,1,0,1,1,0,Arvensis Ativador de Cachos e Crespos,0.733,5,2
+CLI_0803,2,2,0,1,0,1,0,1,Deva Curl Delight (Volume e Leveza),0.433,3,0
+CLI_0804,4,1,0,1,0,0,0,0,Arvensis Ativador de Cachos e Crespos,0.7,4,2
+CLI_0805,4,2,0,1,0,1,0,0,Deva Curl Delight (Volume e Leveza),0.45,3,2
+CLI_0806,3,1,0,0,0,1,0,1,Arvensis Co-Wash Suave Cachos Naturais,0.6,3,0
+CLI_0807,4,2,0,0,0,0,1,0,Arvensis Geleia Forte Fixação,0.9,5,2
+CLI_0808,2,2,0,1,0,1,0,0,Arvensis Ativador de Cachos e Crespos,0.75,3,1
+CLI_0809,3,2,0,0,0,1,0,0,Arvensis Ativador de Cachos e Crespos,0.8,4,1
+CLI_0810,2,1,1,0,0,1,0,0,Arvensis Co-Wash Suave Cachos Naturais,0.2,3,1
+CLI_0811,4,3,1,1,1,1,1,0,Arvensis Ativador de Cachos e Crespos,0.65,4,3
+CLI_0812,4,1,0,1,0,0,1,0,Curly Care ACID-C (Acidificante Antiporosidade),0.5,3,2
+CLI_0813,3,1,0,0,0,1,0,1,Curly Care Manteiga Nutritiva,0.2,3,0
+CLI_0814,3,2,0,0,0,1,0,0,Arvensis Geleia Forte Fixação,1.0,5,1
+CLI_0815,4,2,0,1,0,1,0,0,Arvensis Ativador de Cachos e Crespos,0.75,4,2
+CLI_0816,2,1,1,1,0,0,0,1,Deva Curl Delight (Volume e Leveza),0.35,3,0
+CLI_0817,3,3,1,0,1,1,0,0,Curly Care Manteiga Nutritiva,0.5,3,3
+CLI_0818,3,3,1,0,1,1,0,1,Curly Care ACID-C (Acidificante Antiporosidade),0.6,4,3
+CLI_0819,4,1,0,1,0,0,0,0,Arvensis Co-Wash Suave Cachos Naturais,0.6,4,2
+CLI_0820,4,2,1,1,0,0,0,1,Arvensis Ativador de Cachos e Crespos,0.4,2,0
+CLI_0821,4,3,1,1,1,0,0,0,Arvensis Ativador de Cachos e Crespos,0.55,2,3
+CLI_0822,3,3,1,1,1,1,0,0,Curly Care ACID-C (Acidificante Antiporosidade),0.7,3,3
+CLI_0823,3,1,0,1,1,1,0,1,Curly Care Manteiga Nutritiva,0.5,4,0
+CLI_0824,3,1,0,0,0,1,0,0,Curly Care Manteiga Nutritiva,0.4,3,1
+CLI_0825,3,2,0,1,0,0,0,0,Deva Curl Delight (Volume e Leveza),0.3,2,2
+CLI_0826,3,3,0,0,1,1,0,0,Curly Care ACID-C (Acidificante Antiporosidade),0.8,4,1
+CLI_0827,4,2,1,1,0,0,0,0,Deva Curl Delight (Volume e Leveza),0.3,1,2
+CLI_0828,4,2,0,1,0,0,0,0,Curly Care ACID-C (Acidificante Antiporosidade),0.5,3,2
+CLI_0829,3,1,0,0,0,1,0,0,Arvensis Geleia Forte Fixação,1.0,4,1
+CLI_0830,3,3,1,0,1,1,0,0,Deva Curl Delight (Volume e Leveza),0.4,4,3
+CLI_0831,3,2,1,1,0,0,1,0,Curly Care Manteiga Nutritiva,0.7,5,2
+CLI_0832,3,2,0,0,0,1,0,0,Curly Care ACID-C (Acidificante Antiporosidade),0.6,4,1
+CLI_0833,4,3,1,1,1,0,1,0,Arvensis Ativador de Cachos e Crespos,0.6,3,3
+CLI_0834,3,2,1,1,0,1,1,0,Curly Care Manteiga Nutritiva,0.6,4,2
+CLI_0835,3,2,0,1,0,0,0,0,Arvensis Ativador de Cachos e Crespos,0.7,3,2
+CLI_0836,4,3,1,1,0,0,0,0,Arvensis Ativador de Cachos e Crespos,0.7,4,2
+CLI_0837,3,1,0,1,0,1,1,0,Curly Care ACID-C (Acidificante Antiporosidade),0.533,3,2
+CLI_0838,4,1,1,1,0,1,0,0,Deva Curl Delight (Volume e Leveza),0.45,2,2
+CLI_0839,3,3,0,0,0,1,0,0,Deva Curl Delight (Volume e Leveza),0.6,4,1
+CLI_0840,3,3,1,1,1,1,0,1,Curly Care Manteiga Nutritiva,0.5,3,3
+CLI_0841,4,1,0,1,0,1,0,0,Deva Curl Delight (Volume e Leveza),0.45,3,2
+CLI_0842,2,2,0,0,0,1,0,0,Deva Curl Delight (Volume e Leveza),0.6,4,1
+CLI_0843,3,1,0,0,0,1,0,1,Arvensis Ativador de Cachos e Crespos,0.45,3,0
+CLI_0844,3,3,1,0,1,0,0,0,Arvensis Co-Wash Suave Cachos Naturais,0.4,3,3
+CLI_0845,4,2,0,0,0,1,0,0,Arvensis Geleia Forte Fixação,1.0,5,1
+CLI_0846,3,3,1,0,1,1,0,1,Deva Curl Delight (Volume e Leveza),0.4,3,3
+CLI_0847,3,2,1,1,0,0,0,0,Arvensis Ativador de Cachos e Crespos,0.7,4,2
+CLI_0848,4,2,0,1,0,0,0,0,Arvensis Co-Wash Suave Cachos Naturais,0.6,3,2
+CLI_0849,3,3,1,1,1,1,0,1,Curly Care ACID-C (Acidificante Antiporosidade),0.575,3,3
+CLI_0850,3,2,1,1,0,1,0,0,Deva Curl Delight (Volume e Leveza),0.45,3,2
+CLI_0851,3,3,1,1,1,0,0,0,Arvensis Geleia Forte Fixação,0.25,3,3
+CLI_0852,3,3,1,1,1,0,0,0,Arvensis Geleia Forte Fixação,0.25,3,3
+CLI_0853,2,2,0,1,0,1,0,0,Arvensis Geleia Forte Fixação,0.6,4,1
+CLI_0854,4,3,1,1,1,1,0,0,Curly Care ACID-C (Acidificante Antiporosidade),0.7,4,3
+CLI_0855,4,2,0,1,0,1,0,0,Arvensis Co-Wash Suave Cachos Naturais,0.4,3,2
+CLI_0856,3,3,1,1,1,1,1,0,Curly Care Manteiga Nutritiva,0.6,3,3
+CLI_0857,3,1,1,1,0,0,0,0,Arvensis Ativador de Cachos e Crespos,0.7,4,2
+CLI_0858,3,2,0,0,1,1,0,0,Deva Curl Delight (Volume e Leveza),0.4,3,1
+CLI_0859,3,2,0,1,0,1,0,0,Deva Curl Delight (Volume e Leveza),0.45,3,2
+CLI_0860,2,1,1,1,0,0,0,0,Deva Curl Delight (Volume e Leveza),0.3,3,2
+CLI_0861,3,3,1,1,1,0,0,0,Arvensis Ativador de Cachos e Crespos,0.55,3,3
+CLI_0862,4,2,0,0,0,0,0,1,Deva Curl Delight (Volume e Leveza),0.4,2,0
+CLI_0863,3,1,0,1,0,1,0,0,Arvensis Co-Wash Suave Cachos Naturais,0.4,3,2
+CLI_0864,3,1,0,1,0,0,0,0,Curly Care Manteiga Nutritiva,1.0,5,2
+CLI_0865,2,3,1,0,0,1,0,0,Deva Curl Delight (Volume e Leveza),0.6,3,1
+CLI_0866,3,3,1,1,1,1,0,0,Arvensis Ativador de Cachos e Crespos,0.633,4,3
+CLI_0867,4,3,1,1,1,1,0,0,Arvensis Co-Wash Suave Cachos Naturais,0.4,3,3
+CLI_0868,3,1,0,0,0,1,0,0,Curly Care ACID-C (Acidificante Antiporosidade),0.6,3,1
+CLI_0869,3,2,0,1,0,1,0,1,Curly Care ACID-C (Acidificante Antiporosidade),0.433,3,0
+CLI_0870,4,1,0,1,0,0,0,1,Arvensis Ativador de Cachos e Crespos,0.4,3,0
+CLI_0871,4,1,0,1,0,1,0,0,Curly Care ACID-C (Acidificante Antiporosidade),0.55,4,2
+CLI_0872,2,2,1,1,0,1,0,1,Deva Curl Delight (Volume e Leveza),0.433,3,0
+CLI_0873,4,2,0,1,0,0,0,0,Arvensis Ativador de Cachos e Crespos,0.7,5,2
+CLI_0874,4,2,0,1,0,1,0,0,Curly Care ACID-C (Acidificante Antiporosidade),0.55,3,2
+CLI_0875,3,1,0,1,0,1,0,0,Curly Care Manteiga Nutritiva,0.7,1,2
+CLI_0876,4,2,1,1,0,0,0,1,Curly Care Manteiga Nutritiva,0.5,3,0
+CLI_0877,3,2,0,1,0,1,1,0,Arvensis Co-Wash Suave Cachos Naturais,0.367,3,2
+CLI_0878,4,1,0,1,0,1,0,0,Arvensis Geleia Forte Fixação,0.6,3,2
+CLI_0879,4,3,1,1,1,1,1,0,Arvensis Co-Wash Suave Cachos Naturais,0.375,3,3
+CLI_0880,3,3,0,0,0,1,0,0,Curly Care Manteiga Nutritiva,0.4,2,1
+CLI_0881,4,2,0,1,0,1,0,1,Deva Curl Delight (Volume e Leveza),0.433,2,0
+CLI_0882,4,2,0,1,0,1,0,0,Curly Care Manteiga Nutritiva,0.7,3,2
+CLI_0883,4,2,1,1,0,1,0,1,Curly Care Manteiga Nutritiva,0.467,4,0
+CLI_0884,3,1,0,1,0,0,1,0,Curly Care Manteiga Nutritiva,0.7,4,2
+CLI_0885,4,3,0,1,0,1,0,0,Curly Care ACID-C (Acidificante Antiporosidade),0.55,3,2
+CLI_0886,3,2,1,0,0,1,0,0,Arvensis Ativador de Cachos e Crespos,0.8,4,1
+CLI_0887,4,3,0,0,0,1,0,0,Curly Care ACID-C (Acidificante Antiporosidade),0.6,3,1
+CLI_0888,3,1,0,1,0,0,0,0,Arvensis Co-Wash Suave Cachos Naturais,0.6,3,2
+CLI_0889,3,2,0,0,0,1,0,0,Deva Curl Delight (Volume e Leveza),0.6,3,1
+CLI_0890,3,3,1,0,1,1,0,0,Curly Care Manteiga Nutritiva,0.5,4,3
+CLI_0891,3,3,1,0,1,1,0,0,Deva Curl Delight (Volume e Leveza),0.4,3,3
+CLI_0892,3,3,1,1,0,0,0,0,Deva Curl Delight (Volume e Leveza),0.3,2,3
+CLI_0893,3,2,0,1,0,1,0,0,Deva Curl Delight (Volume e Leveza),0.45,3,2
+CLI_0894,3,3,1,0,1,1,0,1,Curly Care ACID-C (Acidificante Antiporosidade),0.6,4,3
+CLI_0895,3,2,0,0,0,0,0,1,Curly Care ACID-C (Acidificante Antiporosidade),0.2,2,0
+CLI_0896,3,3,1,0,1,0,0,1,Deva Curl Delight (Volume e Leveza),0.3,5,3
+CLI_0897,3,3,1,1,1,1,0,0,Arvensis Co-Wash Suave Cachos Naturais,0.4,3,3
+CLI_0898,4,2,0,1,0,1,0,1,Curly Care Manteiga Nutritiva,0.467,3,0
+CLI_0899,2,2,0,1,0,0,0,0,Curly Care Manteiga Nutritiva,1.0,3,2
+CLI_0900,4,2,0,1,0,0,1,0,Deva Curl Delight (Volume e Leveza),0.3,2,2
+CLI_0901,3,1,0,0,0,1,0,0,Curly Care ACID-C (Acidificante Antiporosidade),0.6,1,1
+CLI_0902,3,2,0,1,0,1,1,1,Curly Care Manteiga Nutritiva,0.45,4,0
+CLI_0903,4,3,1,1,0,1,0,0,Arvensis Ativador de Cachos e Crespos,0.75,4,2
+CLI_0904,3,3,1,0,1,0,0,0,Curly Care ACID-C (Acidificante Antiporosidade),1.0,1,3
+CLI_0905,3,2,0,0,0,0,1,1,Arvensis Ativador de Cachos e Crespos,0.4,3,0
+CLI_0906,4,1,0,1,0,1,0,0,Arvensis Co-Wash Suave Cachos Naturais,0.4,3,2
+CLI_0907,3,3,1,1,1,0,0,0,Arvensis Ativador de Cachos e Crespos,0.55,4,3
+CLI_0908,4,2,0,1,1,0,0,1,Arvensis Ativador de Cachos e Crespos,0.4,3,0
+CLI_0909,2,1,0,0,0,1,0,0,Curly Care Manteiga Nutritiva,0.4,2,1
+CLI_0910,4,3,1,1,1,0,0,0,Deva Curl Delight (Volume e Leveza),0.25,2,3
+CLI_0911,4,2,1,1,0,0,0,0,Curly Care ACID-C (Acidificante Antiporosidade),0.5,3,2
+CLI_0912,4,3,1,1,1,1,0,0,Arvensis Geleia Forte Fixação,0.5,3,3
+CLI_0913,3,2,0,0,0,1,0,1,Curly Care ACID-C (Acidificante Antiporosidade),0.4,3,0
+CLI_0914,3,3,1,1,0,0,0,0,Deva Curl Delight (Volume e Leveza),0.3,2,3
+CLI_0915,4,3,1,1,0,1,0,1,Deva Curl Delight (Volume e Leveza),0.433,2,0
+CLI_0916,3,3,1,1,1,1,0,0,Arvensis Ativador de Cachos e Crespos,0.633,4,3
+CLI_0917,3,3,0,0,0,1,0,0,Curly Care ACID-C (Acidificante Antiporosidade),0.6,4,1
+CLI_0918,4,1,0,1,0,1,0,1,Arvensis Geleia Forte Fixação,0.433,3,0
+CLI_0919,4,3,0,1,0,1,0,0,Curly Care Manteiga Nutritiva,0.7,4,2
+CLI_0920,2,3,1,1,1,0,0,0,Arvensis Geleia Forte Fixação,0.25,3,3
+CLI_0921,3,1,0,1,0,1,0,0,Curly Care Manteiga Nutritiva,0.7,4,2
+CLI_0922,3,2,0,0,0,1,0,0,Arvensis Ativador de Cachos e Crespos,0.8,5,1
+CLI_0923,3,3,1,1,1,1,0,0,Curly Care Manteiga Nutritiva,0.667,3,3
+CLI_0924,3,2,0,0,0,1,0,0,Arvensis Geleia Forte Fixação,1.0,5,1
+CLI_0925,3,3,1,0,0,1,0,0,Deva Curl Delight (Volume e Leveza),0.6,3,1
+CLI_0926,3,3,1,1,0,1,0,0,Arvensis Ativador de Cachos e Crespos,0.75,4,3
+CLI_0927,3,3,1,1,1,1,0,0,Arvensis Co-Wash Suave Cachos Naturais,0.4,3,3
+CLI_0928,3,3,1,0,1,1,1,0,Arvensis Co-Wash Suave Cachos Naturais,0.3,3,3
+CLI_0929,3,1,0,0,0,1,0,0,Curly Care ACID-C (Acidificante Antiporosidade),0.6,3,1
+CLI_0930,3,1,0,0,0,1,1,0,Curly Care Manteiga Nutritiva,0.4,3,1
+CLI_0931,3,2,0,0,0,0,0,1,Arvensis Ativador de Cachos e Crespos,0.1,2,0
+CLI_0932,2,2,0,1,0,0,0,0,Arvensis Geleia Forte Fixação,0.2,2,2
+CLI_0933,3,3,0,0,0,1,0,0,Arvensis Co-Wash Suave Cachos Naturais,0.2,3,1
+CLI_0934,2,3,1,0,1,1,0,1,Curly Care Manteiga Nutritiva,0.333,2,3
+CLI_0935,4,1,0,1,0,0,0,0,Arvensis Ativador de Cachos e Crespos,0.7,4,2
+CLI_0936,3,1,1,1,0,1,0,0,Arvensis Ativador de Cachos e Crespos,0.75,3,2
+CLI_0937,4,1,0,1,1,0,0,0,Arvensis Co-Wash Suave Cachos Naturais,0.5,3,2
+CLI_0938,3,1,0,1,0,0,0,1,Arvensis Ativador de Cachos e Crespos,0.4,3,0
+CLI_0939,3,2,0,1,0,0,1,0,Curly Care Manteiga Nutritiva,0.7,4,2
+CLI_0940,4,3,1,1,1,0,0,0,Deva Curl Delight (Volume e Leveza),0.25,2,3
+CLI_0941,3,2,0,1,0,1,0,0,Arvensis Ativador de Cachos e Crespos,0.75,4,2
+CLI_0942,4,2,1,1,1,0,1,1,Arvensis Co-Wash Suave Cachos Naturais,0.575,4,3
+CLI_0943,4,3,0,1,0,1,0,0,Curly Care ACID-C (Acidificante Antiporosidade),0.55,4,2
+CLI_0944,4,1,0,1,0,1,0,0,Deva Curl Delight (Volume e Leveza),0.45,2,2
+CLI_0945,3,1,0,1,0,0,0,0,Deva Curl Delight (Volume e Leveza),0.3,3,2
+CLI_0946,4,3,1,1,0,1,0,0,Arvensis Ativador de Cachos e Crespos,0.75,4,2
+CLI_0947,4,1,0,1,0,1,0,0,Arvensis Geleia Forte Fixação,0.6,3,2
+CLI_0948,3,3,0,0,0,0,0,1,Arvensis Co-Wash Suave Cachos Naturais,1.0,5,0
+CLI_0949,4,3,0,1,0,1,1,0,Arvensis Co-Wash Suave Cachos Naturais,0.367,4,2
+CLI_0950,2,3,1,1,1,1,1,1,Arvensis Geleia Forte Fixação,0.5,4,3
+CLI_0951,4,1,0,1,0,1,0,0,Arvensis Co-Wash Suave Cachos Naturais,0.4,3,2
+CLI_0952,3,1,0,0,0,1,0,0,Arvensis Co-Wash Suave Cachos Naturais,0.2,2,1
+CLI_0953,4,2,0,1,0,1,1,0,Arvensis Geleia Forte Fixação,0.7,4,2
+CLI_0954,2,3,1,1,1,1,0,1,Curly Care ACID-C (Acidificante Antiporosidade),0.575,4,3
+CLI_0955,3,3,1,0,1,0,0,0,Arvensis Co-Wash Suave Cachos Naturais,0.4,3,3
+CLI_0956,3,1,0,1,0,1,0,1,Arvensis Geleia Forte Fixação,0.433,3,0
+CLI_0957,3,3,1,1,1,1,0,1,Arvensis Geleia Forte Fixação,0.4,3,3
+CLI_0958,2,2,1,0,0,1,1,1,Curly Care ACID-C (Acidificante Antiporosidade),0.433,3,0
+CLI_0959,2,2,1,1,0,1,1,1,Arvensis Geleia Forte Fixação,0.55,3,0
+CLI_0960,4,3,1,1,1,1,0,1,Arvensis Co-Wash Suave Cachos Naturais,0.55,3,3
+CLI_0961,3,2,0,0,0,1,0,0,Deva Curl Delight (Volume e Leveza),0.6,4,1
+CLI_0962,4,1,1,1,0,1,0,0,Arvensis Co-Wash Suave Cachos Naturais,0.4,3,2
+CLI_0963,2,3,1,1,1,0,0,0,Arvensis Geleia Forte Fixação,0.25,3,3
+CLI_0964,3,2,0,0,0,1,1,0,Deva Curl Delight (Volume e Leveza),0.45,4,1
+CLI_0965,3,2,1,0,1,1,1,0,Curly Care ACID-C (Acidificante Antiporosidade),0.7,3,3
+CLI_0966,3,2,0,1,0,1,0,0,Arvensis Ativador de Cachos e Crespos,0.75,4,2
+CLI_0967,4,3,0,1,0,1,0,1,Deva Curl Delight (Volume e Leveza),0.433,2,0
+CLI_0968,3,3,1,1,1,1,1,0,Curly Care Manteiga Nutritiva,0.6,3,3
+CLI_0969,3,2,0,0,0,1,0,0,Deva Curl Delight (Volume e Leveza),0.6,4,1
+CLI_0970,2,1,0,0,0,0,0,1,Arvensis Ativador de Cachos e Crespos,0.1,2,0
+CLI_0971,3,3,1,1,1,1,1,0,Deva Curl Delight (Volume e Leveza),0.35,2,3
+CLI_0972,3,3,1,0,1,0,1,0,Curly Care ACID-C (Acidificante Antiporosidade),0.75,5,3
+CLI_0973,4,1,0,0,0,1,0,0,Arvensis Geleia Forte Fixação,1.0,5,1
+CLI_0974,3,2,0,1,0,0,0,0,Deva Curl Delight (Volume e Leveza),0.3,3,2
+CLI_0975,3,1,0,1,0,1,0,0,Arvensis Co-Wash Suave Cachos Naturais,0.4,3,2
+CLI_0976,3,3,1,1,1,1,0,1,Curly Care Manteiga Nutritiva,0.5,4,3
+CLI_0977,2,2,1,0,1,0,1,0,Arvensis Co-Wash Suave Cachos Naturais,0.35,3,3
+CLI_0978,2,1,0,1,0,0,0,0,Curly Care Manteiga Nutritiva,1.0,4,2
+CLI_0979,3,3,1,0,1,1,1,1,Curly Care Manteiga Nutritiva,0.35,2,3
+CLI_0980,4,3,1,1,1,1,0,0,Arvensis Co-Wash Suave Cachos Naturais,0.4,3,3
+CLI_0981,2,3,1,1,1,1,0,0,Arvensis Geleia Forte Fixação,0.5,3,3
+CLI_0982,3,3,1,0,1,1,0,0,Curly Care Manteiga Nutritiva,0.5,4,3
+CLI_0983,3,1,1,1,0,1,1,0,Curly Care ACID-C (Acidificante Antiporosidade),0.533,3,2
+CLI_0984,3,3,1,1,1,1,0,0,Arvensis Ativador de Cachos e Crespos,0.633,4,3
+CLI_0985,3,3,1,1,1,1,0,0,Curly Care ACID-C (Acidificante Antiporosidade),0.7,4,3
+CLI_0986,3,2,0,1,0,1,0,1,Arvensis Co-Wash Suave Cachos Naturais,0.6,4,0
+CLI_0987,3,1,0,0,0,1,0,0,Curly Care Manteiga Nutritiva,0.4,3,1
+CLI_0988,3,1,0,1,0,1,0,0,Arvensis Ativador de Cachos e Crespos,0.75,3,2
+CLI_0989,2,1,0,0,0,1,0,1,Deva Curl Delight (Volume e Leveza),0.5,3,0
+CLI_0990,3,2,0,0,0,1,0,0,Curly Care Manteiga Nutritiva,0.4,3,1
+CLI_0991,4,2,0,1,0,0,0,0,Curly Care Manteiga Nutritiva,1.0,5,2
+CLI_0992,3,1,0,0,0,1,0,0,Arvensis Ativador de Cachos e Crespos,0.8,4,1
+CLI_0993,3,3,0,1,0,1,0,1,Curly Care ACID-C (Acidificante Antiporosidade),0.433,3,0
+CLI_0994,3,1,1,1,0,1,1,0,Arvensis Geleia Forte Fixação,0.7,4,2
+CLI_0995,3,1,1,0,1,0,0,0,Curly Care ACID-C (Acidificante Antiporosidade),1.0,5,3
+CLI_0996,4,3,1,1,1,1,0,1,Arvensis Co-Wash Suave Cachos Naturais,0.55,3,3
+CLI_0997,3,2,0,1,0,0,1,1,Arvensis Ativador de Cachos e Crespos,0.5,3,0
+CLI_0998,3,1,0,0,0,1,0,0,Arvensis Geleia Forte Fixação,1.0,5,1
+CLI_0999,2,2,0,0,0,1,0,0,Arvensis Ativador de Cachos e Crespos,0.8,3,1
+CLI_1000,3,1,0,0,1,0,0,0,Arvensis Ativador de Cachos e Crespos,0.4,3,1
+FEEDBACK_1001,3,3,1,0,1,0,0,0,Curly Care ACID-C (Acidificante Antiporosidade),,5,3
+FEEDBACK_1002,3,3,1,0,1,0,0,0,Curly Care ACID-C (Acidificante Antiporosidade),,5,3
+FEEDBACK_1003,3,3,1,0,1,0,0,0,Curly Care ACID-C (Acidificante Antiporosidade),,5,3
+FEEDBACK_1004,3,3,1,0,1,0,0,0,Curly Care ACID-C (Acidificante Antiporosidade),,5,3

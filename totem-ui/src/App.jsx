@@ -16,7 +16,9 @@ import {
   CheckCircle2
 } from 'lucide-react';
 
-const API_BASE_URL = 'http://127.0.0.1:8000';
+// Configuração dinâmica da URL da API (lê do .env / Vercel com fallback local)
+const RAW_API_URL = import.meta.env.VITE_API_URL || 'http://127.0.0.1:8000';
+const API_BASE_URL = RAW_API_URL.replace(/\/+$/, '');
 
 export default function App() {
   // Máquina de estados das telas: 'welcome' | 'anamnese' | 'loading' | 'results'

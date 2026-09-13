@@ -4,7 +4,7 @@
 > *Sistema Híbrido de Recomendação de Produtos Capilares com Feedback Loop Bayesiano: Uma Solução para o Problema do Cold Start em Salões Especializados*
 
 **Título Alternativo (mais curto):**
-> *Recomendação Inteligente de Cosméticos Capilares: Motor Híbrido com Clusterização e Aprendizado Contínuo para Totem de Autoatendimento*
+> *Recomendação Inteligente de Cosméticos Capilares: Motor Híbrido com Clusterização e Aprendizado Contínuo como Módulo Web Integrado*
 
 ---
 
@@ -59,7 +59,7 @@ ELEMENTOS PRÉ-TEXTUAIS
   - 3.2.2 Modelagem do Domínio Capilar (Taxonomia de Queixas e Catálogo)
   - 3.2.3 Geração de Dados Sintéticos com Causalidade
   - 3.2.4 Projeto e Implementação do Motor Híbrido
-  - 3.2.5 Construção da API e Interface do Totem
+  - 3.2.5 Construção da API e Interface do Web App de Diagnóstico (Módulo Web)
   - 3.2.6 Validação e Testes
 - 3.3 Ferramentas e Tecnologias Utilizadas
 
@@ -78,7 +78,7 @@ ELEMENTOS PRÉ-TEXTUAIS
   - 4.3.5 Módulo de Explicabilidade (XAI)
 - 4.4 Arquitetura de Software
   - 4.4.1 API RESTful com FastAPI (Rotas, Schemas, CORS)
-  - 4.4.2 Interface do Totem (React, Vite, Tailwind CSS)
+  - 4.4.2 Web App de Diagnóstico — Módulo Web (React, Vite, Tailwind CSS, hospedagem Vercel)
   - 4.4.3 Diagrama de Arquitetura Geral
 
 ### CAPÍTULO 5 — RESULTADOS E DISCUSSÃO
@@ -118,11 +118,13 @@ O mercado brasileiro de produtos e serviços para cabelos cacheados e crespos vi
 
 ### 1.2 Justificativa
 
-A padronização do diagnóstico capilar por meio de Inteligência Artificial representa uma oportunidade concreta de diferenciação competitiva para pequenos e médios salões de beleza especializados. Um sistema inteligente instalado em um totem de autoatendimento pode (i) reduzir a variabilidade do diagnóstico entre profissionais diferentes, (ii) gerar dados analíticos que alimentem estratégias de estoque e marketing, e (iii) oferecer à cliente uma experiência personalizada e memorável desde o primeiro contato com o salão — mesmo quando ainda não existe nenhum registro histórico sobre ela. Além disso, a capacidade de aprendizado contínuo do sistema, por meio de avaliações pós-atendimento (notas de 1 a 5 estrelas), permite que a qualidade das recomendações evolua organicamente à medida que o salão acumula dados reais, substituindo gradualmente as estimativas iniciais baseadas em conhecimento especialista por evidências empíricas coletivas.
+A padronização do diagnóstico capilar por meio de Inteligência Artificial representa uma oportunidade concreta de diferenciação competitiva para pequenos e médios salões de beleza especializados. Um sistema inteligente disponibilizado como **Módulo Web de Diagnóstico Integrado** pode (i) reduzir a variabilidade do diagnóstico entre profissionais diferentes, (ii) gerar dados analíticos que alimentem estratégias de estoque e marketing, e (iii) oferecer à cliente uma experiência personalizada e memorável desde o primeiro contato com o salão — mesmo quando ainda não existe nenhum registro histórico sobre ela. Além disso, a capacidade de aprendizado contínuo do sistema, por meio de avaliações pós-atendimento (notas de 1 a 5 estrelas), permite que a qualidade das recomendações evolua organicamente à medida que o salão acumula dados reais, substituindo gradualmente as estimativas iniciais baseadas em conhecimento especialista por evidências empíricas coletivas.
+
+A escolha por uma **arquitetura Web App** — em detrimento de um totem físico de hardware dedicado — foi fundamentada em três critérios arquitetônicos: (1) **Escalabilidade**: o módulo pode ser acessado via link direto integrado ao site oficial do salão (hospedado na Locaweb), eliminando dependências de equipamentos específicos e permitindo acesso tanto no espaço físico do salão quanto de forma remota, por qualquer dispositivo com navegador; (2) **Redução de custos de hardware**: a implantação dispensa investimento em terminais físicos (totens, tablets fixos, cabeamento), reduzindo a barreira financeira de adoção pelo salão; (3) **Manutenibilidade e atualizações contínuas**: evoluções no motor de IA (novas personas, produtos ou pesos) são aplicadas centralmente na API hospedada em nuvem (Render.com), sem necessidade de atualizações em dispositivos físicos distribuídos.
 
 ### 1.3 Objetivo Geral
 
-Este trabalho tem como objetivo geral projetar, implementar e validar um Motor Híbrido de Recomendação de produtos e tratamentos capilares que resolva o problema do *Cold Start* em um salão especializado em cabelos cacheados. O sistema combina três camadas complementares: (1) uma camada de **Recomendação Baseada em Conhecimento** (*Knowledge-Based*), fundamentada em uma matriz de afinidade terapêutica entre queixas capilares e formulações cosméticas; (2) uma camada de **Segmentação de Personas** por meio do algoritmo K-Means aplicado a um espaço de 8 variáveis normalizadas; e (3) uma camada de **Aprendizado Contínuo** (*Feedback Loop*) que utiliza Média Bayesiana Amortecida para recalibrar os pesos das recomendações com base na satisfação explícita das clientes, evitando distorções estatísticas causadas por amostras pequenas. O motor é exposto por meio de uma API RESTful (FastAPI) e consumido por uma interface de totem (React) que fornece justificativas explicáveis (XAI) para cada recomendação gerada.
+Este trabalho tem como objetivo geral projetar, implementar e validar um Motor Híbrido de Recomendação de produtos e tratamentos capilares que resolva o problema do *Cold Start* em um salão especializado em cabelos cacheados. O sistema combina três camadas complementares: (1) uma camada de **Recomendação Baseada em Conhecimento** (*Knowledge-Based*), fundamentada em uma matriz de afinidade terapêutica entre queixas capilares e formulações cosméticas; (2) uma camada de **Segmentação de Personas** por meio do algoritmo K-Means aplicado a um espaço de 8 variáveis normalizadas; e (3) uma camada de **Aprendizado Contínuo** (*Feedback Loop*) que utiliza Média Bayesiana Amortecida para recalibrar os pesos das recomendações com base na satisfação explícita das clientes, evitando distorções estatísticas causadas por amostras pequenas. O motor é exposto por meio de uma API RESTful (FastAPI) e consumido por um **Web App de Diagnóstico Integrado** (React, hospedado na Vercel e acessível via link no site do salão) que fornece justificativas explicáveis (XAI) para cada recomendação gerada.
 
 ---
 
@@ -154,13 +156,14 @@ Este trabalho tem como objetivo geral projetar, implementar e validar um Motor H
 
 ---
 
-### Slide 3 — Demonstração ao Vivo do MVP (Totem + API)
+### Slide 3 — Demonstração ao Vivo do MVP (Web App + API)
 **O que mostrar:**
-- Gravação de tela ou demo ao vivo: abrir o Totem no navegador, preencher o wizard (Curvatura → Porosidade → Química → Queixas) e mostrar o Top 3 com justificativas.
-- Mostrar o Swagger UI (/docs) com o contrato da API.
+- Gravação de tela ou demo ao vivo: abrir o **Web App de Diagnóstico** no navegador (link da Vercel integrado ao site da Vila Cachos), preencher o wizard (Curvatura → Porosidade → Química → Queixas) e mostrar o Top 3 com justificativas.
+- Mostrar o Swagger UI (/docs) com o contrato da API hospedada no Render.
 - Clicar no feedback de 5 estrelas e mostrar que a base foi atualizada em tempo real.
+- Destacar a arquitetura sem hardware físico: cliente acessa pelo celular ou computador via link no site da Locaweb.
 
-**Por que impressiona a banca:** Prova que não é só teoria — o sistema funciona de ponta a ponta, do input da cliente até a calibração automática. Defesas com demonstração ao vivo se destacam.
+**Por que impressiona a banca:** Prova que não é só teoria — o sistema funciona de ponta a ponta em produção real (Vercel + Render), do input da cliente até a calibração automática. Defesas com demonstração ao vivo se destacam.
 
 ---
 

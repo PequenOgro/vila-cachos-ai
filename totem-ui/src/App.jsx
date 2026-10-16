@@ -18,10 +18,9 @@ import {
 } from 'lucide-react';
 
 // Configuração dinâmica da URL da API (lê do .env / Vercel com fallback do Render)
-const RAW_API_URL = (import.meta.env.VITE_API_URL || 'https://vila-cachos-ai.onrender.com')
-  .replace(/[[\]()]/g, '')
-  .trim();
-const API_BASE_URL = RAW_API_URL.replace(/\/+$/, '') || 'https://vila-cachos-ai.onrender.com';
+const rawEnvUrl = String(import.meta.env.VITE_API_URL || 'https://vila-cachos-ai.onrender.com');
+const urlMatch = rawEnvUrl.match(/https?:\/\/[^\s)\]]+/i);
+const API_BASE_URL = (urlMatch ? urlMatch[0] : 'https://vila-cachos-ai.onrender.com').replace(/\/+$/, '');
 
 export default function App() {
   const [isDarkMode, setIsDarkMode] = useState(false);

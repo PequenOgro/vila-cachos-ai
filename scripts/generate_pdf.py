@@ -1,0 +1,554 @@
+import os
+import subprocess
+import pypdf
+
+DOCS_DIR = r"c:\Users\Marcos Vinícius\Documents\TCC"
+HTML_PATH = os.path.join(DOCS_DIR, "relatorio_status_yolo.html")
+PDF_PATH = os.path.join(DOCS_DIR, "relatorio_status_yolo.pdf")
+CHROME_PATH = r"C:\Program Files\Google\Chrome\Application\chrome.exe"
+
+html_content = """<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Relatório de Atualização de Arquitetura e Status — TCC</title>
+  
+  <!-- KaTeX for crisp LaTeX formulas -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+  
+  <!-- Mermaid.js for architectural diagrams -->
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+  
+  <style>
+    @page {
+      size: A4;
+      margin: 12mm 14mm 12mm 14mm;
+    }
+
+    * {
+      box-sizing: border-box;
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+    }
+
+    body {
+      font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif;
+      color: #1e293b;
+      line-height: 1.42;
+      font-size: 9pt;
+      margin: 0;
+      padding: 0;
+      background: #ffffff;
+    }
+
+    /* Header & Metadata */
+    .header-bar {
+      border-bottom: 2px solid #1d4ed8;
+      padding-bottom: 8px;
+      margin-bottom: 10px;
+    }
+
+    .doc-type {
+      text-transform: uppercase;
+      font-size: 7.2pt;
+      font-weight: 700;
+      letter-spacing: 1px;
+      color: #1d4ed8;
+      margin-bottom: 2px;
+    }
+
+    h1 {
+      font-size: 14.5pt;
+      color: #0f172a;
+      margin: 0 0 6px 0;
+      font-weight: 700;
+      line-height: 1.2;
+    }
+
+    .meta-grid {
+      display: grid;
+      grid-template-columns: 2.2fr 1fr;
+      gap: 4px 12px;
+      background-color: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 5px;
+      padding: 6px 10px;
+      margin-top: 6px;
+      font-size: 8.2pt;
+    }
+
+    .meta-item {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .meta-label {
+      font-size: 6.5pt;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: #64748b;
+      font-weight: 600;
+    }
+
+    .meta-value {
+      font-weight: 600;
+      color: #1e293b;
+    }
+
+    /* Headings */
+    h2 {
+      font-size: 11pt;
+      color: #0f172a;
+      border-bottom: 1px solid #cbd5e1;
+      padding-bottom: 2px;
+      margin-top: 12px;
+      margin-bottom: 5px;
+      font-weight: 700;
+      break-after: avoid;
+    }
+
+    h3 {
+      font-size: 9.3pt;
+      color: #1e40af;
+      margin-top: 8px;
+      margin-bottom: 3px;
+      font-weight: 600;
+      break-after: avoid;
+    }
+
+    p {
+      margin: 0 0 5px 0;
+      text-align: justify;
+    }
+
+    ul, ol {
+      margin: 0 0 6px 0;
+      padding-left: 18px;
+    }
+
+    li {
+      margin-bottom: 2.5px;
+      text-align: justify;
+    }
+
+    /* Tables */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 6px 0 8px 0;
+      font-size: 8pt;
+      break-inside: avoid;
+    }
+
+    th, td {
+      border: 1px solid #cbd5e1;
+      padding: 4.5px 7px;
+      text-align: left;
+    }
+
+    th {
+      background-color: #0f172a;
+      color: #ffffff;
+      font-weight: 600;
+      font-size: 8pt;
+    }
+
+    tr:nth-child(even) td {
+      background-color: #f8fafc;
+    }
+
+    .badge-valid {
+      display: inline-block;
+      background-color: #dcfce7;
+      color: #15803d;
+      font-weight: 600;
+      padding: 1px 5px;
+      border-radius: 9999px;
+      border: 1px solid #86efac;
+      font-size: 7.2pt;
+      white-space: nowrap;
+    }
+
+    .badge-progress {
+      display: inline-block;
+      background-color: #eff6ff;
+      color: #1d4ed8;
+      font-weight: 600;
+      padding: 1px 5px;
+      border-radius: 9999px;
+      border: 1px solid #bfdbfe;
+      font-size: 7.2pt;
+      white-space: nowrap;
+    }
+
+    /* Math Formula Card */
+    .formula-card {
+      background-color: #f8fafc;
+      border-left: 3px solid #1d4ed8;
+      border-top: 1px solid #e2e8f0;
+      border-right: 1px solid #e2e8f0;
+      border-bottom: 1px solid #e2e8f0;
+      border-radius: 4px;
+      padding: 6px 10px;
+      margin: 6px 0;
+      text-align: center;
+      break-inside: avoid;
+    }
+
+    .formula-desc {
+      font-size: 7.8pt;
+      color: #475569;
+      margin-top: 3px;
+      text-align: justify;
+    }
+
+    /* Diagram Card */
+    .diagram-card {
+      background-color: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 5px;
+      padding: 6px;
+      margin: 8px 0;
+      break-inside: avoid;
+      text-align: center;
+    }
+
+    .diagram-caption {
+      font-size: 7.5pt;
+      color: #64748b;
+      margin-top: 4px;
+      font-style: italic;
+    }
+
+    /* Callout / Risk Section */
+    .risk-box {
+      background-color: #fffbeb;
+      border: 1px solid #fde68a;
+      border-radius: 5px;
+      padding: 7px 10px;
+      margin-top: 8px;
+      break-inside: avoid;
+    }
+
+    .risk-box h4 {
+      margin: 0 0 4px 0;
+      font-size: 8.5pt;
+      color: #92400e;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .risk-box ul {
+      margin: 0;
+      padding-left: 15px;
+      color: #78350f;
+      font-size: 7.8pt;
+    }
+
+    .risk-box li {
+      margin-bottom: 2px;
+    }
+
+    /* Footer Sign-off */
+    .signoff {
+      margin-top: 10px;
+      padding-top: 8px;
+      border-top: 1px dashed #cbd5e1;
+      font-size: 8.5pt;
+      break-inside: avoid;
+    }
+
+    .signoff p {
+      margin-bottom: 2px;
+    }
+
+    .signature-name {
+      font-weight: 700;
+      color: #0f172a;
+    }
+
+    .page-break {
+      page-break-before: always;
+      break-before: page;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ==================== PÁGINA 1: CONTEXTO ATUAL E BASE VALIDADA ==================== -->
+  <div class="header-bar">
+    <div class="doc-type">Trabalho de Conclusão de Curso — Relatório Técnico de Evolução</div>
+    <h1>Relatório de Atualização de Arquitetura e Status</h1>
+    
+    <div class="meta-grid">
+      <div class="meta-item">
+        <span class="meta-label">Projeto</span>
+        <span class="meta-value">Vila Cachos AI — Sistema Especialista B2B para Recomendação Híbrida</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Data</span>
+        <span class="meta-value">05 de Outubro de 2026</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Aluno</span>
+        <span class="meta-value">Marcos Vinícius</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Destinatário</span>
+        <span class="meta-value">Prof.(a) Orientador(a)</span>
+      </div>
+    </div>
+  </div>
+
+  <h2>1. Resumo Executivo do Status Atual</h2>
+  <p>
+    O <strong>Vila Cachos AI</strong> encontra-se com seu <strong>núcleo de inteligência validado</strong>: o pipeline composto por anamnese estruturada, clusterização não supervisionada (K-Means) e ranqueamento de produtos com suavização bayesiana está plenamente funcional e integrado em uma arquitetura cliente-servidor desacoplada (React/Vite no front-end e FastAPI no back-end).
+  </p>
+  <p>
+    Durante a validação prática, identificou-se que a principal fonte de incerteza do sistema <strong>não reside no motor de recomendação, mas na entrada de dados</strong>: a classificação manual de variáveis morfológicas (curvatura e nível de frizz) é intrinsecamente subjetiva e sujeita à variabilidade perceptual entre diferentes profissionais. Para mitigar esse viés sistemático, propõe-se a <strong>incorporação de um módulo de Visão Computacional baseado em YOLO</strong>, capaz de automatizar a extração dessas variáveis morfológicas diretamente a partir de fotografias capturadas em ambiente de salão.
+  </p>
+  <p>
+    Com essa evolução, o projeto migra de um sistema especialista fundamentado puramente em entrada declarativa para um <strong>sistema híbrido multimodal</strong> (dados tabulares + visão computacional), elevando significativamente sua robustez metodológica, reprodutibilidade e relevância científica.
+  </p>
+
+  <table>
+    <thead>
+      <tr>
+        <th style="width: 62%;">Componente do Sistema</th>
+        <th style="width: 38%;">Status de Desenvolvimento</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Anamnese guiada (8 variáveis tabulares)</td>
+        <td><span class="badge-valid">✔ Validado</span></td>
+      </tr>
+      <tr>
+        <td>Clusterização K-Means (4 personas capilares)</td>
+        <td><span class="badge-valid">✔ Validado</span></td>
+      </tr>
+      <tr>
+        <td>Score ponderado de produto + Média Bayesiana</td>
+        <td><span class="badge-valid">✔ Validado</span></td>
+      </tr>
+      <tr>
+        <td>Arquitetura Front-end (React/Vite) & Back-end (FastAPI)</td>
+        <td><span class="badge-valid">✔ Validado</span></td>
+      </tr>
+      <tr>
+        <td>Módulo de Visão Computacional (YOLO para detecção e segmentação)</td>
+        <td><span class="badge-progress">⚙ Em Especificação / Treinamento</span></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>2. Arquitetura Base Validada</h2>
+
+  <h3>2.1 Coleta e Estruturação de Dados</h3>
+  <p>
+    A anamnese digital captura <strong>8 variáveis essenciais</strong>: curvatura da fibra capilar (tipos 2A a 4C), porosidade, histórico de danos químicos e 5 queixas capilares frequentes (frizz, ressecamento, quebra, oleosidade na raiz e perda de definição). Esses atributos são codificados e normalizados, compondo o vetor de características da cliente.
+  </p>
+
+  <h3>2.2 Segmentação via K-Means (Scikit-Learn)</h3>
+  <p>
+    O vetor de características é submetido a um modelo não supervisionado <strong>K-Means com <em>k</em> = 4</strong>, associando a cliente a uma de quatro <strong>personas capilares</strong>. A determinação do hiperparâmetro <em>k</em> fundamentou-se em análises de agrupamento (método do cotovelo e coeficiente de silhueta), assegurando separabilidade estatística e interpretabilidade sob a ótica da tricologia aplicada.
+  </p>
+
+  <h3>2.3 Ranqueamento e Suavização Bayesiana de Feedback</h3>
+  <p>
+    O score final de cada produto conjuga a compatibilidade com a persona e as avaliações empíricas dos profissionais (notas de 1 a 5). Para neutralizar distorções estatísticas decorrentes de <em>cold start</em> (poucos feedbacks), aplica-se a <strong>Média Bayesiana ponderada</strong>:
+  </p>
+
+  <div class="formula-card">
+    <div id="bayes-formula"></div>
+    <div class="formula-desc">
+      Onde <em>m</em> representa a média global do catálogo, <em>C</em> é o peso de confiança mínima e <em>n</em> é a quantidade de avaliações do produto com notas <em>r</em>. Dessa forma, produtos novos com poucas notas máximas não superam produtos consolidados no catálogo.
+    </div>
+  </div>
+
+  <!-- ==================== PÁGINA 2: INTEGRAÇÃO COM YOLO ==================== -->
+  <div class="page-break"></div>
+
+  <h2>3. Integração com YOLO (Visão Computacional)</h2>
+
+  <h3>3.1 Motivação e Justificativa Tecnológica</h3>
+  <p>
+    O objetivo do módulo de visão é <strong>automatizar a detecção da curvatura e a quantificação do nível de frizz capilar a partir de imagens reais capturadas no salão</strong>, minimizando a margem de erro humano e o tempo de preenchimento da anamnese manual.
+  </p>
+  <p>
+    A opção pela arquitetura <strong>YOLO</strong> (<em>You Only Look Once</em>) — especificamente implementações da família Ultralytics (YOLOv8/YOLO11) — fundamenta-se nas seguintes premissas técnicas:
+  </p>
+  <ul>
+    <li><strong>Inferência em tempo real:</strong> Topologia <em>single-stage</em> otimizada para execução em dispositivos de balcão e servidores de aplicação de custo acessível, viabilizando resposta instantânea.</li>
+    <li><strong>Suporte a tarefas híbridas:</strong> Capacidade nativa de combinar segmentação de instâncias (delimitando a mecha capilar e isolando o fundo) com classificação hierárquica das curvaturas.</li>
+    <li><strong>Eficiência em Transfer Learning:</strong> Pesos pré-treinados que permitem convergência acurada mesmo com datasets específicos e controlados de salão.</li>
+    <li><strong>Homogeneidade de ecossistema:</strong> Integração nativa em Python, viabilizando execução direta no mesmo pipeline assíncrono do FastAPI existente.</li>
+  </ul>
+
+  <h3>3.2 Encaixe no Fluxo de Diagnóstico (Casos de Uso)</h3>
+  <ul>
+    <li><strong>UC-01 — Realizar Anamnese Capilar:</strong> A profissional fotografa a fibra capilar; o modelo YOLO isola a região do cabelo, prevê a classe da curvatura (2A a 4C) e infere o nível de frizz juntamente com a métrica de confiança. Os dados preenchem automaticamente a ficha clínica. Caso a confiança fique abaixo de um limiar estipulado (&tau;), ativa-se o protocolo <em>human-in-the-loop</em> para validação da profissional.</li>
+    <li><strong>UC-02 — Gerar Diagnóstico e Recomendação:</strong> Os atributos validados alimentam o vetor de entrada do modelo K-Means, mantendo a compatibilidade estrita com a lógica de personas e com a Média Bayesiana já consolidadas.</li>
+  </ul>
+
+  <div class="diagram-card">
+    <div class="mermaid">
+flowchart LR
+    A["Foto no Salão"] --> B["YOLO: Detecção / Segmentação"]
+    B --> C{"Confiança &ge; &tau;?"}
+    C -- "Sim" --> D["Preenchimento Automático"]
+    C -- "Não" --> E["Validação Manual (Profissional)"]
+    E --> D
+    F["Anamnese (Porosidade, Danos, Queixas)"] --> G["Vetor de Atributos (8D)"]
+    D --> G
+    G --> H["K-Means (4 Personas)"]
+    H --> I["Score + Média Bayesiana"]
+    I --> J["Recomendação Híbrida"]
+
+    style A fill:#f1f5f9,stroke:#64748b,stroke-width:1px
+    style B fill:#dbeafe,stroke:#1d4ed8,stroke-width:1.5px
+    style C fill:#fef3c7,stroke:#d97706,stroke-width:1px
+    style D fill:#dcfce7,stroke:#16a34a,stroke-width:1px
+    style E fill:#fee2e2,stroke:#dc2626,stroke-width:1px
+    style F fill:#f1f5f9,stroke:#64748b,stroke-width:1px
+    style G fill:#e0e7ff,stroke:#4338ca,stroke-width:1px
+    style H fill:#e0e7ff,stroke:#4338ca,stroke-width:1px
+    style I fill:#fef9c3,stroke:#ca8a04,stroke-width:1px
+    style J fill:#dcfce7,stroke:#16a34a,stroke-width:1.5px
+    </div>
+    <div class="diagram-caption">Figura 1: Arquitetura integrada do fluxo de diagnóstico multimodal (YOLO &rarr; K-Means &rarr; Média Bayesiana).</div>
+  </div>
+
+  <h3>3.3 Valor Tecnológico e Rigor Científico</h3>
+  <ol>
+    <li><strong>Objetividade e Reprodutibilidade:</strong> Substitui a avaliação exclusivamente perceptual por uma métrica determinística, possibilitando a mensuração formal da concordância diagnóstica (ex.: coeficiente Kappa de Cohen).</li>
+    <li><strong>Arquitetura Multimodal Completa:</strong> Estabelece uma ponte metodológica entre aprendizado supervisionado (visão computacional), não supervisionado (K-Means) e inferência estatística (Média Bayesiana).</li>
+    <li><strong>Hipótese Experimental Verificável:</strong> Permite comprovar se o uso de visão computacional na entrada estabiliza a atribuição de personas e reduz a variância nas recomendações de produtos.</li>
+    <li><strong>Contribuição para a Comunidade:</strong> Formação e curadoria de uma base rotulada de curvaturas capilares brasileiras — segmento notadamente sub-representado em datasets públicos de visão.</li>
+  </ol>
+
+  <!-- ==================== PÁGINA 3: ROADMAP E MITIGAÇÃO DE RISCOS ==================== -->
+  <div class="page-break"></div>
+
+  <h2>4. Próximos Passos e Cronograma Técnico (Roadmap)</h2>
+
+  <table>
+    <thead>
+      <tr>
+        <th style="width: 5%;">#</th>
+        <th style="width: 48%;">Etapa Metodológica</th>
+        <th style="width: 47%;">Entregável Técnico</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>1</strong></td>
+        <td><strong>Construção e Anotação do Dataset:</strong> Coleta padronizada de imagens no salão parceiro e anotação bounding box/segmentação com balanceamento (curvaturas 2, 3 e 4).</td>
+        <td>Dataset versionado + Protocolo de anotação e consentimento LGPD</td>
+      </tr>
+      <tr>
+        <td><strong>2</strong></td>
+        <td><strong>Treinamento e Fine-Tuning do YOLO:</strong> Transfer learning com aumentação de dados (variação de iluminação, ruído e contraste).</td>
+        <td>Pesos treinados e serializados (<code>best.pt</code> / formato ONNX)</td>
+      </tr>
+      <tr>
+        <td><strong>3</strong></td>
+        <td><strong>Avaliação e Validação Empírica:</strong> Análise de mAP50, precisão, recall, F1-Score por curvatura e matriz de confusão.</td>
+        <td>Relatório formal de métricas e convergência</td>
+      </tr>
+      <tr>
+        <td><strong>4</strong></td>
+        <td><strong>Integração na API FastAPI:</strong> Implementação do endpoint assíncrono <code>POST /diagnostico/imagem</code> para inferência em tempo real.</td>
+        <td>Documentação interativa OpenAPI/Swagger</td>
+      </tr>
+      <tr>
+        <td><strong>5</strong></td>
+        <td><strong>Interface de Captura no Front-end:</strong> Componente React para upload/captura de câmera e interface de conferência <em>human-in-the-loop</em>.</td>
+        <td>Módulo de captura integrado e responsivo</td>
+      </tr>
+      <tr>
+        <td><strong>6</strong></td>
+        <td><strong>Estudo Comparativo e Análise Estatística:</strong> Comparação entre preenchimento puramente manual vs. assistido por IA no salão.</td>
+        <td>Capítulo de Resultados e Discussão do TCC</td>
+      </tr>
+      <tr>
+        <td><strong>7</strong></td>
+        <td><strong>Consolidação da Monografia:</strong> Atualização dos diagramas UML, casos de uso e fundamentação teórica.</td>
+        <td>Texto final da monografia revisado</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="risk-box">
+    <h4>⚠ Gestão de Riscos e Estratégias de Mitigação</h4>
+    <ul>
+      <li><strong>Variabilidade de iluminação no salão:</strong> Mitigada mediante protocolo físico de enquadramento e técnicas de <em>data augmentation</em> (HSV jitter, rotações e ruído gaussiano).</li>
+      <li><strong>Desbalanceamento amostral:</strong> Coleta orientada e ponderação da função de custo (<em>class weights</em>) para curvaturas com menor representatividade.</li>
+      <li><strong>Incerteza na inferência:</strong> Mecanismo de fallback <em>human-in-the-loop</em>; imagens com índice de confiança inferior ao limiar &tau; são obrigatoriamente submetidas à validação manual do profissional.</li>
+      <li><strong>Conformidade LGPD:</strong> Processamento estrito da fibra capilar (sem armazenamento desnecessário de traços faciais) e termo formal de esclarecimento e consentimento.</li>
+    </ul>
+  </div>
+
+  <div class="signoff">
+    <p>Coloco-me à inteira disposição para alinharmos o escopo de anotação do dataset e a granularidade das métricas na próxima reunião de orientação.</p>
+    <br>
+    <p>Respeitosamente,</p>
+    <p class="signature-name">Marcos Vinícius</p>
+    <p style="color: #64748b; font-size: 7.8pt; margin: 0;">Graduando em Ciência / Engenharia da Computação</p>
+  </div>
+
+  <script>
+    // Initialize KaTeX
+    document.addEventListener("DOMContentLoaded", function() {
+      katex.render("S_{bayes} = \\\\frac{C \\\\cdot m + \\\\sum_{i=1}^{n} r_i}{C + n}", document.getElementById("bayes-formula"), {
+        displayMode: true,
+        throwOnError: false
+      });
+      
+      // Initialize Mermaid with clean professional styling
+      mermaid.initialize({
+        startOnLoad: true,
+        theme: 'base',
+        themeVariables: {
+          primaryColor: '#f1f5f9',
+          primaryTextColor: '#0f172a',
+          primaryBorderColor: '#64748b',
+          lineColor: '#475569',
+          fontFamily: "'Segoe UI', Roboto, sans-serif",
+          fontSize: '9.5px'
+        }
+      });
+    });
+  </script>
+</body>
+</html>
+"""
+
+with open(HTML_PATH, "w", encoding="utf-8") as f:
+    f.write(html_content)
+
+chrome_cmd = [
+    CHROME_PATH,
+    "--headless=new",
+    "--disable-gpu",
+    "--no-pdf-header-footer",
+    "--run-all-compositor-stages-before-draw",
+    f"--print-to-pdf={PDF_PATH}",
+    f"file:///{HTML_PATH}"
+]
+
+result = subprocess.run(chrome_cmd, capture_output=True, text=True)
+
+if os.path.exists(PDF_PATH):
+    size_kb = os.path.getsize(PDF_PATH) / 1024
+    reader = pypdf.PdfReader(PDF_PATH)
+    num_pages = len(reader.pages)
+    print(f"PDF gerado com sucesso!")
+    print(f"Caminho: {PDF_PATH}")
+    print(f"Páginas: {num_pages}")
+    print(f"Tamanho: {size_kb:.2f} KB")
+else:
+    print("Erro: PDF não foi criado.")
+    print("Stderr:", result.stderr)

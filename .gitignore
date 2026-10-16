@@ -39,6 +39,14 @@ venv.bak/
 .coverage
 htmlcov/
 
+# Heavy Datasets & Media
+dataset_cachos/
+dataset_cachos.zip
+insta viila cheio/
+*.mp4
+print_antes_cabelo.jpg
+print_depois_cabelo.jpg
+
 # Node / Front-end (totem-ui)
 totem-ui/node_modules/
 totem-ui/dist/

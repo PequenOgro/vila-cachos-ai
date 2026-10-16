@@ -1,0 +1,40 @@
+sequenceDiagram
+    autonumber
+    actor G as Gestor / responsável técnico
+    participant UI as Interface Web
+    participant API as RecommenderAPI
+    participant Motor as VilaCachosRecommender
+    participant Historico as RegistroHistorico
+
+    G->>UI: Acessa dashboard de status ou rota de monitoramento
+    activate UI
+    UI->>API: GET /health
+    activate API
+
+    Note over API, Motor: Verificacao do Estado Operacional
+    API->>Motor: Avalia se motor carregado e treinado (motor.is_fitted)
+
+    alt Excecao E1: Motor indisponivel ou nao ajustado (RNF-08)
+        API-->>UI: HTTP 503 Service Unavailable ("Motor de recomendacao nao carregado")
+        UI-->>G: Exibe alerta critico de indisponibilidade do motor
+    else Fluxo Principal: Telemetria e Metricas Academicas
+        API->>Historico: Obter len(df_historico) e media_global_salao
+        Historico-->>API: total_clientes_historico e media_satisfacao_global
+
+        Note over API, Motor: Calculo Cientifico da Qualidade dos Clusters (RNF-12)
+        API->>Motor: avaliar_qualidade_clusters()
+        activate Motor
+        Motor->>Motor: scaler.transform(df_historico[feature_cols])
+        Motor->>Motor: silhouette_score(X_scaled, clusters)
+        Motor->>Motor: Extrai inercia_intra_cluster (kmeans.inertia_)
+        Motor-->>API: Retorna metricas (silhouette_score, inercia, num_clusters=4)
+        deactivate Motor
+
+        Note over API: Montagem do payload HealthResponse
+        API-->>UI: HTTP 200 OK (status="operacional", motor_carregado=True, total_clientes, media_satisfacao, num_clusters, silhouette_score)
+        deactivate API
+
+        UI->>UI: Renderiza painel com indicadores de saude e score Silhouette
+        UI-->>G: Apresenta metricas em tempo real do sistema
+        deactivate UI
+    end

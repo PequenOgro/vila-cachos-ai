@@ -94,10 +94,49 @@ def test_validation_errors():
         assert resp_invalid_nota.status_code == 422
         print("[PASS] Testes de validação Pydantic (HTTP 422) bem-sucedidos!")
 
+def test_image_diagnosis():
+    import io
+    import numpy as np
+    from PIL import Image
+
+    with TestClient(app) as tc:
+        # 1. Criação de imagem JPEG sintética em memória
+        img = Image.fromarray((np.random.rand(240, 240, 3) * 255).astype("uint8"))
+        buf = io.BytesIO()
+        img.save(buf, format="JPEG")
+        image_bytes = buf.getvalue()
+
+        # 2. Teste de sucesso (200 OK)
+        files = {"file": ("cabelo_amostra.jpg", image_bytes, "image/jpeg")}
+        resp = tc.post("/diagnostico/imagem", files=files)
+        assert resp.status_code == 200, f"Erro: {resp.text}"
+        data = resp.json()
+        assert data["curvatura_detectada"] in [2, 3, 4]
+        assert "curvatura_label" in data
+        assert 0.0 <= data["confianca_curvatura"] <= 1.0
+        assert data["frizz_detectado"] in [0, 1]
+        assert "sugestao_perfil" in data
+        assert data["sugestao_perfil"]["curvatura"] in [2, 3, 4]
+        assert "tempo_inferencia_ms" in data
+        print(f"[PASS] Teste POST /diagnostico/imagem bem-sucedido! Curvatura: {data['curvatura_label']} (Confiança: {data['confianca_curvatura']})")
+
+        # 3. Teste de formato inválido (HTTP 415)
+        files_invalid = {"file": ("documento.pdf", b"%PDF-1.4 dummy", "application/pdf")}
+        resp_invalid = tc.post("/diagnostico/imagem", files=files_invalid)
+        assert resp_invalid.status_code == 415
+        print("[PASS] Teste de formato não suportado (HTTP 415) bem-sucedido!")
+
+        # 4. Teste de arquivo corrompido (HTTP 422)
+        files_corrupt = {"file": ("corrupt.jpg", b"corrupted bytes content not an image", "image/jpeg")}
+        resp_corrupt = tc.post("/diagnostico/imagem", files=files_corrupt)
+        assert resp_corrupt.status_code == 422
+        print("[PASS] Teste de imagem corrompida (HTTP 422) bem-sucedido!")
+
 if __name__ == "__main__":
     print("=== EXECUTANDO TESTES DE INTEGRAÇÃO DA API FASTAPI ===")
     test_health()
     test_recommendation_flow()
     test_feedback_flow()
     test_validation_errors()
+    test_image_diagnosis()
     print("=== TODOS OS TESTES PASSARAM COM SUCESSO! ===")

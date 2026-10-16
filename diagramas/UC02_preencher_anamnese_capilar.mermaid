@@ -1,0 +1,69 @@
+sequenceDiagram
+    autonumber
+    actor C as Cliente do salão
+    participant UI as Interface Web
+
+    Note over C, UI: Início da Jornada no Totem / Web App
+    C->>UI: Clica em "Iniciar Diagnóstico"
+    activate UI
+    UI->>UI: Inicializa estado temporário da anamnese
+    UI-->>C: Exibe Etapa 1: Seleção de Curvatura (2 - Ondulado, 3 - Cacheado, 4 - Crespo)
+    deactivate UI
+
+    C->>UI: Seleciona curvatura (ex: 3)
+    activate UI
+    UI->>UI: Salva curvatura no estado local
+    UI-->>C: Exibe Etapa 2: Nível de Porosidade (1 - Baixa, 2 - Média, 3 - Alta)
+    deactivate UI
+
+    opt Fluxo Alternativo A1: Voltar etapa anterior
+        C->>UI: Clica no botão "Voltar"
+        activate UI
+        UI-->>C: Apresenta Etapa 1 com a opção anterior preservada
+        C->>UI: Altera opção e avança novamente
+        deactivate UI
+    end
+
+    C->>UI: Seleciona porosidade (ex: 3)
+    activate UI
+    UI->>UI: Salva porosidade no estado local
+    UI-->>C: Exibe Etapa 3: Histórico de Dano Químico (0 - Não, 1 - Sim)
+    deactivate UI
+
+    C->>UI: Informa presença de dano químico (ex: 1)
+    activate UI
+    UI->>UI: Salva flag de dano químico
+    UI-->>C: Exibe Etapa 4: Seleção das 5 Queixas Capilares Ativas
+    deactivate UI
+
+    alt Fluxo Alternativo A3: Nenhuma queixa selecionada (RN-04 / RN-05)
+        C->>UI: Deixa as 5 queixas desmarcadas e prossegue
+        activate UI
+        UI->>UI: Define flags zeradas (Motor aplicara score 0.5 e Manutencao Geral)
+        deactivate UI
+    else Cliente seleciona uma ou mais queixas
+        C->>UI: Marca queixas (ex: alta porosidade quimica e frizz)
+        activate UI
+        UI->>UI: Atualiza vetor com queixas ativas = 1
+        deactivate UI
+    end
+
+    opt Excecao E1: Inatividade de 15 minutos (RNF-06)
+        Note over UI: Timer de 15 minutos sem interacao expira
+        UI->>UI: Limpa estado local da sessao por seguranca
+        UI-->>C: Redireciona para tela inicial de acolhimento
+    end
+
+    opt Fluxo Alternativo A2: Cancelamento voluntario
+        C->>UI: Clica em "Cancelar / Reiniciar"
+        activate UI
+        UI->>UI: Limpa formulario e descarta dados
+        UI-->>C: Retorna a tela inicial
+        deactivate UI
+    end
+
+    C->>UI: Clica em "Gerar Recomendacao"
+    activate UI
+    UI->>UI: Consolida payload ClienteProfile com as 8 variaveis
+    Note over UI: Inicia execucao do UC-03 (POST /recommend)
+    deactivate UI

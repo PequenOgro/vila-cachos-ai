@@ -1,0 +1,62 @@
+sequenceDiagram
+    autonumber
+    participant UI as Interface Web
+    participant API as RecommenderAPI
+    participant Motor as VilaCachosRecommender
+    participant Catalogo as ProdutoCatalogo
+    participant Historico as RegistroHistorico
+
+    UI->>API: POST /recommend?top_k=3 (Payload: ClienteProfile)
+    activate API
+
+    alt Excecao E2: Limite de taxa excedido (RNF-03)
+        API-->>UI: HTTP 429 Too Many Requests (Limite de 10 req/min)
+    else Excecao E1: Perfil capilar invalido (RF-04 / RN-01 a RN-03)
+        API-->>UI: HTTP 422 Unprocessable Entity (Validacao Pydantic)
+    else Excecao E3: Motor indisponivel / nao treinado (RF-22 / RNF-08)
+        API-->>UI: HTTP 503 Service Unavailable (is_fitted == False)
+    else Fluxo Principal: Processamento da Recomendacao Hibrida
+        API->>Motor: recomendar(perfil_cliente, top_k=3)
+        activate Motor
+
+        Note over Motor: 1. Normalizacao e Predicao do Cluster (Persona)
+        Motor->>Motor: scaler.transform(vetor_8_variaveis)
+        Motor->>Motor: cluster_id = kmeans.predict(vetor_scaled)
+        Motor->>Motor: Recupera descricao_persona correspondente
+
+        Note over Motor: 2. Calculo dos Pesos Adaptativos (RN-10)
+        Motor->>Historico: Consulta quantidade de registros do cluster
+        Historico-->>Motor: total_avaliacoes_cluster
+        Motor->>Motor: alpha_feedback = min(0.60, total_avaliacoes_cluster / 100)
+        Motor->>Motor: peso_conteudo = 1.0 - alpha_feedback
+
+        Note over Motor, Catalogo: 3. Scoring Hibrido para cada Produto do Catalogo
+        loop Para cada produto no catalogo
+            Motor->>Catalogo: Obter regras terapeuticas e curvaturas indicadas
+            Catalogo-->>Motor: Dados do produto
+
+            Note over Motor: Score de Conteudo (Knowledge-Based / RN-06 a RN-08)
+            Motor->>Motor: Calcula fator_curvatura (1.0 normal, 0.4 incompativel, 0.2 pesado em tipo 2)
+            Motor->>Motor: Calcula score_terapeutico (media das queixas ou 0.5 se vazio)
+            Motor->>Motor: score_conteudo = score_terapeutico * fator_curvatura
+
+            Note over Motor, Historico: Score Colaborativo Bayesiano (RN-09)
+            Motor->>Historico: Filtrar notas do produto no cluster_id
+            Historico-->>Motor: n avaliacoes e soma das notas
+            Motor->>Motor: media_amortecida = (5 * media_global + soma_notas) / (5 + n)
+            Motor->>Motor: score_bayesiano = (media_amortecida - 1.0) / 4.0
+
+            Note over Motor: Combinacao Convexa e Estrelas (RN-11 / RN-12)
+            Motor->>Motor: score_final = (peso_conteudo * score_conteudo) + (alpha_feedback * score_bayesiano)
+            Motor->>Motor: estrelas_estimadas = 1.0 + (score_final * 4.0)
+            Motor->>Motor: Gera justificativa explicavel (XAI) do produto
+        end
+
+        Motor->>Motor: Ordena candidatos por score_final decrescente
+        Motor->>Motor: Seleciona os 3 primeiros colocados (Top K = 3)
+        Motor-->>API: Retorna cluster_id, descricao_persona, pesos e Top 3 produtos
+        deactivate Motor
+
+        API-->>UI: HTTP 200 OK (RecomendacaoResponse)
+    end
+    deactivate API

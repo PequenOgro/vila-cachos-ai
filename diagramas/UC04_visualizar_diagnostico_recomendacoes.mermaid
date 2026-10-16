@@ -1,0 +1,41 @@
+sequenceDiagram
+    autonumber
+    actor C as Cliente do salão
+    participant UI as Interface Web
+    participant API as RecommenderAPI
+
+    Note over UI, API: Retorno do calculo de recomendacao (UC-03)
+    API-->>UI: Retorna payload RecomendacaoResponse (HTTP 200)
+    activate UI
+
+    alt Excecao E1: Resposta incompleta ou erro de rede
+        UI->>UI: Identifica dados ausentes ou falha HTTP
+        UI-->>C: Exibe mensagem amigavel orientando refazer a anamnese
+    else Fluxo Principal: Apresentacao Completa dos Resultados
+        UI->>UI: Renderiza badge da Persona (cluster_id e descricao_persona)
+        UI->>UI: Renderiza barra de calibracao de pesos (Conteudo % vs Historico %)
+        
+        Note over UI: Renderizacao do Top 3 Cosméticos
+        UI->>UI: Aplica destaque visual no 1o item (Produto Campeao / Match Principal)
+        UI->>UI: Exibe para cada item: nome, marca, categoria e estrelas estimadas
+        UI->>UI: Exibe texto de justificativa clinica explicavel (XAI - Motivo)
+        UI->>UI: Renderiza botoes de acao (Avaliar Produto / Novo Diagnostico)
+
+        UI-->>C: Apresenta tela de resultados finalizada
+        deactivate UI
+
+        opt Acao 1: Reiniciar diagnostico (RF-19)
+            C->>UI: Clica em "Novo Diagnostico"
+            activate UI
+            UI->>UI: Limpa estado e variaveis em memoria
+            UI-->>C: Redireciona para tela inicial de acolhimento
+            deactivate UI
+        end
+
+        opt Acao 2: Avaliar produto (Extensao para UC-05)
+            C->>UI: Clica em "Avaliar" em um dos produtos do Top 3
+            activate UI
+            UI-->>C: Abre modal interativo de avaliacao (estrelas de 1 a 5)
+            deactivate UI
+        end
+    end

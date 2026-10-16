@@ -9,7 +9,7 @@ import os
 import pandas as pd
 from typing import List, Dict, Any, Literal
 from contextlib import asynccontextmanager
-from fastapi import FastAPI, HTTPException, status, Request
+from fastapi import FastAPI, HTTPException, status, Request, UploadFile, File
 from fastapi.middleware.cors import CORSMiddleware
 from slowapi import Limiter, _rate_limit_exceeded_handler
 from slowapi.util import get_remote_address
@@ -19,6 +19,7 @@ from pydantic import BaseModel, Field
 from catalog import CATALOGO_PRODUTOS, TAXONOMIA_QUEIXAS
 from generate_dataset import gerar_dataset_causal
 from recommender_engine import VilaCachosRecommender
+from vision_engine import classifier_instance
 
 # Caminho do banco de dados analítico (CSV) - resolução absoluta para nuvem/Render
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -173,6 +174,28 @@ class HealthResponse(BaseModel):
     silhouette_score: float
 
 
+class VisionPerfilSugestao(BaseModel):
+    curvatura: Literal[2, 3, 4]
+    porosidade: Literal[1, 2, 3]
+    frizz_falta_definicao: Literal[0, 1]
+    ressecamento_opacidade: Literal[0, 1]
+
+
+class VisionDiagnosisResponse(BaseModel):
+    curvatura_detectada: Literal[2, 3, 4]
+    curvatura_label: str
+    confianca_curvatura: float
+    frizz_detectado: Literal[0, 1]
+    confianca_frizz: float
+    porosidade_aparente: Literal[1, 2, 3]
+    confianca_porosidade: float
+    sugestao_perfil: VisionPerfilSugestao
+    requer_confirmacao_humana: bool
+    tempo_inferencia_ms: float
+    modelo_utilizado: str
+    detalhes_morfologicos: Dict[str, Any]
+
+
 # =====================================================================
 # ROTAS DA API
 # =====================================================================
@@ -270,6 +293,39 @@ def register_feedback(request: Request, feedback: FeedbackInput):
 def list_catalogo():
     """Retorna o catálogo completo de produtos disponíveis na Vila Cachos."""
     return CATALOGO_PRODUTOS
+
+
+@app.post("/diagnostico/imagem", response_model=VisionDiagnosisResponse, tags=["Visão Computacional (YOLO)"])
+@limiter.limit("20/minute")
+async def diagnosticar_imagem_capilar(request: Request, file: UploadFile = File(...)):
+    """
+    Recebe uma foto do cabelo da cliente (Totem / Web App), executa a inferência
+    do modelo YOLO com análise morfológica e infere a curvatura, nível de frizz e
+    sugestão de pré-preenchimento das 8 variáveis capilares.
+    """
+    # Validação de formato de arquivo de imagem
+    formatos_permitidos = ["image/jpeg", "image/png", "image/webp", "image/jpg"]
+    if file.content_type not in formatos_permitidos:
+        raise HTTPException(
+            status_code=status.HTTP_415_UNSUPPORTED_MEDIA_TYPE,
+            detail=f"Formato '{file.content_type}' não suportado. Envie uma imagem JPEG, PNG ou WebP."
+        )
+
+    conteudo = await file.read()
+    if len(conteudo) > 10 * 1024 * 1024:  # Limite de 10MB
+        raise HTTPException(
+            status_code=status.HTTP_413_REQUEST_ENTITY_TOO_LARGE,
+            detail="A imagem enviada excede o limite máximo permitido de 10MB."
+        )
+
+    try:
+        resultado = classifier_instance.predict_image_bytes(conteudo, filename=file.filename or "amostra.jpg")
+        return resultado
+    except ValueError as ve:
+        raise HTTPException(
+            status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+            detail=f"Falha ao processar arquivo de imagem: {str(ve)}"
+        )
 
 
 if __name__ == "__main__":

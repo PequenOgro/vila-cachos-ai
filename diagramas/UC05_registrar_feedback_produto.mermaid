@@ -1,0 +1,60 @@
+sequenceDiagram
+    autonumber
+    actor C as Cliente do salão
+    participant UI as Interface Web
+    participant API as RecommenderAPI
+    participant Motor as VilaCachosRecommender
+    participant Catalogo as ProdutoCatalogo
+    participant Historico as RegistroHistorico
+
+    C->>UI: Seleciona nota de 1 a 5 estrelas e confirma envio
+    activate UI
+    UI->>API: POST /feedback (Payload: FeedbackInput)
+    activate API
+
+    alt Excecao E3: Limite de requisicoes excedido (RNF-03)
+        API-->>UI: HTTP 429 Too Many Requests
+        UI-->>C: Alerta sobre limite de envios atingido
+    else Excecao E1: Nota fora do intervalo 1 a 5 (RF-13 / RN-13)
+        API-->>UI: HTTP 422 Unprocessable Entity
+        UI-->>C: Alerta que a nota informada e invalida
+    else Validacao de Integridade do Catalogo Oficial (RF-14)
+        API->>Catalogo: Verifica se nome_produto existe no CATALOGO_PRODUTOS
+        Catalogo-->>API: Retorna resultado da busca
+
+        alt Excecao E2: Produto nao cadastrado no catalogo
+            API-->>UI: HTTP 400 Bad Request ("Produto nao encontrado no catalogo")
+            UI-->>C: Exibe erro informando incompatibilidade de catalogo
+        else Fluxo Principal: Produto Valido e Processamento de Feedback
+            API->>Motor: registrar_feedback(dados_cliente, nome_produto, nota)
+            activate Motor
+
+            Note over Motor: 1. Identificacao do Cluster da Avaliacao (RF-15)
+            Motor->>Motor: cluster_id = prever_cluster(dados_cliente)
+
+            Note over Motor: 2. Anexacao do Novo Registro no Historico
+            Motor->>Historico: Concatena novo RegistroHistorico (cliente_id, variaveis, nota, cluster)
+            Historico-->>Motor: DataFrame atualizado com sucesso
+
+            Note over Motor: 3. Recalculo da Media Global do Salao
+            Motor->>Historico: Recalcula media_global_salao = df_historico['nota_satisfacao'].mean()
+            Historico-->>Motor: Nova media_global calculada
+
+            Motor-->>API: Feedback registrado com sucesso
+            deactivate Motor
+
+            Note over API, Historico: 4. Persistencia Imediata em Disco (RF-16)
+            API->>Historico: Salva DataFrame no arquivo CSV (dataset_historico_vila_cachos.csv)
+            Historico-->>API: Gravacao confirmada com sucesso
+
+            API->>Motor: prever_cluster(dados_cliente)
+            Motor-->>API: Retorna cluster_afetado
+
+            API-->>UI: HTTP 200 OK (FeedbackResponse: status="sucesso", cluster_afetado, media_atualizada)
+            deactivate API
+
+            UI->>UI: Substitui componentes de avaliacao por mensagem de sucesso
+            UI-->>C: Exibe confirmacao e agradecimento pelo feedback
+            deactivate UI
+        end
+    end

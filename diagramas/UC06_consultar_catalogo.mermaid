@@ -1,0 +1,25 @@
+sequenceDiagram
+    autonumber
+    actor G as Gestor / responsável técnico
+    participant UI as Interface Web
+    participant API as RecommenderAPI
+    participant Catalogo as ProdutoCatalogo
+
+    G->>UI: Acessa rota de consulta de produtos cadastrados
+    activate UI
+    UI->>API: GET /catalogo
+    activate API
+
+    Note over API, Catalogo: Leitura da Matriz Oficial de Cosmeticos
+    API->>Catalogo: Obter lista completa CATALOGO_PRODUTOS
+    activate Catalogo
+    Catalogo-->>API: Retorna lista de entidades ProdutoCatalogo
+    deactivate Catalogo
+
+    Note over API: Serializacao dos atributos (id, nome, marca, afinidades, curvaturas)
+    API-->>UI: HTTP 200 OK (Array de produtos com regras terapeuticas)
+    deactivate API
+
+    UI->>UI: Formata catalogo em tabela / cards com especificacoes tecnicas
+    UI-->>G: Exibe produtos oficiais e regras terapeuticas cadastradas
+    deactivate UI

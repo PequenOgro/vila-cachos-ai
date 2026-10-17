@@ -1,6 +1,21 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-export const API_URL =
-  (import.meta.env["VITE_API_URL"] as string | undefined) ?? "https://vila-cachos-ai.onrender.com";
+function sanitizeApiUrl(raw?: string): string {
+  if (!raw) return "https://vila-cachos-ai.onrender.com";
+  // Remove colchetes [], aspas "", '', e espaços em branco
+  const cleaned = raw.replace(/[\[\]"'\s]/g, "").trim();
+  const match = cleaned.match(/https?:\/\/[^\s/?#]+(?::\d+)?/i);
+  if (match) return match[0].replace(/\/+$/, "");
+  if (cleaned.startsWith("http://") || cleaned.startsWith("https://")) {
+    return cleaned.replace(/\/+$/, "");
+  }
+  return "https://vila-cachos-ai.onrender.com";
+}
+
+export const API_URL = sanitizeApiUrl(import.meta.env["VITE_API_URL"] as string | undefined);
+
+if (typeof window !== "undefined") {
+  console.log("[Vila Cachos API] Conectado ao backend:", API_URL);
+}
 
 export type Perfil = {
   curvatura: number;
@@ -34,38 +49,61 @@ export type Recomendacao = { persona: string; produtos: Produto[] };
 export async function diagnosticarImagem(file: File): Promise<DiagnosticoImagem> {
   const fd = new FormData();
   fd.append("file", file);
-  const r = await fetch(`${API_URL}/diagnostico/imagem`, { method: "POST", body: fd });
-  if (!r.ok) throw new Error("falha");
-  return r.json();
+  const targetUrl = `${API_URL}/diagnostico/imagem`;
+  try {
+    const r = await fetch(targetUrl, { method: "POST", body: fd });
+    if (!r.ok) {
+      console.warn(`[Vila Cachos API] Falha HTTP ${r.status} em ${targetUrl}`);
+      throw new Error(`HTTP ${r.status}`);
+    }
+    return await r.json();
+  } catch (err) {
+    console.error(`[Vila Cachos API] Erro ao chamar ${targetUrl}:`, err);
+    throw err;
+  }
 }
 
 // Normaliza variações de formato do backend.
 export async function recomendar(perfil: Perfil): Promise<Recomendacao> {
-  const r = await fetch(`${API_URL}/recommend?top_k=3`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(perfil),
-  });
-  if (!r.ok) throw new Error("falha");
-  const d = await r.json();
-  const lista = d.produtos ?? d.recomendacoes ?? d.recommendations ?? [];
-  return {
-    persona: d.persona ?? d.cluster_label ?? d.cluster ?? "Persona personalizada",
-    produtos: lista.map((p: any) => ({
-      nome: String(p.nome ?? p.produto ?? p.name ?? "Produto"),
-      score: Number(p.score ?? p.score_hibrido ?? 0),
-      motivo: String(p.motivo ?? p.explicacao ?? p.reason ?? ""),
-      estrelas_estimadas: Number(p.estrelas_estimadas ?? p.estrelas ?? 4.5),
-    })),
-  };
+  const targetUrl = `${API_URL}/recommend?top_k=3`;
+  try {
+    const r = await fetch(targetUrl, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(perfil),
+    });
+    if (!r.ok) {
+      console.warn(`[Vila Cachos API] Falha HTTP ${r.status} em ${targetUrl}`);
+      throw new Error(`HTTP ${r.status}`);
+    }
+    const d = await r.json();
+    const lista = d.produtos ?? d.recomendacoes ?? d.recommendations ?? [];
+    return {
+      persona: d.persona ?? d.cluster_label ?? d.cluster ?? "Persona personalizada",
+      produtos: lista.map((p: any) => ({
+        nome: String(p.nome ?? p.produto ?? p.name ?? "Produto"),
+        score: Number(p.score ?? p.score_hibrido ?? 0),
+        motivo: String(p.motivo ?? p.explicacao ?? p.reason ?? ""),
+        estrelas_estimadas: Number(p.estrelas_estimadas ?? p.estrelas ?? 4.5),
+      })),
+    };
+  } catch (err) {
+    console.error(`[Vila Cachos API] Erro ao chamar ${targetUrl}:`, err);
+    throw err;
+  }
 }
 
 export async function enviarFeedback(perfil: Perfil, produto_nome: string, nota: number) {
-  await fetch(`${API_URL}/feedback`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ perfil, produto_nome, nota }),
-  }).catch(() => undefined);
+  const targetUrl = `${API_URL}/feedback`;
+  try {
+    await fetch(targetUrl, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ perfil, produto_nome, nota }),
+    });
+  } catch (err) {
+    console.warn(`[Vila Cachos API] Falha ao enviar feedback para ${targetUrl}:`, err);
+  }
 }
 
 export function recomendacaoDemo(p: Perfil): Recomendacao {

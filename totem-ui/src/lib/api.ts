@@ -76,12 +76,12 @@ export async function recomendar(perfil: Perfil): Promise<Recomendacao> {
       throw new Error(`HTTP ${r.status}`);
     }
     const d = await r.json();
-    const lista = d.produtos ?? d.recomendacoes ?? d.recommendations ?? [];
+    const lista = d.recomendacoes ?? d.produtos ?? d.recommendations ?? [];
     return {
-      persona: d.persona ?? d.cluster_label ?? d.cluster ?? "Persona personalizada",
+      persona: d.descricao_persona ?? d.persona ?? d.cluster_label ?? d.cluster ?? "Persona personalizada",
       produtos: lista.map((p: any) => ({
         nome: String(p.nome ?? p.produto ?? p.name ?? "Produto"),
-        score: Number(p.score ?? p.score_hibrido ?? 0),
+        score: Number(p.score_final ?? p.score ?? p.score_hibrido ?? 0.85),
         motivo: String(p.motivo ?? p.explicacao ?? p.reason ?? ""),
         estrelas_estimadas: Number(p.estrelas_estimadas ?? p.estrelas ?? 4.5),
       })),
@@ -95,11 +95,33 @@ export async function recomendar(perfil: Perfil): Promise<Recomendacao> {
 export async function enviarFeedback(perfil: Perfil, produto_nome: string, nota: number) {
   const targetUrl = `${API_URL}/feedback`;
   try {
-    await fetch(targetUrl, {
+    const perfilSanitizado = {
+      curvatura: Math.max(2, Math.min(4, Number(perfil.curvatura) || 3)),
+      porosidade: Math.max(1, Math.min(3, Number(perfil.porosidade) || 2)),
+      dano_quimico: perfil.dano_quimico ? 1 : 0,
+      ressecamento_opacidade: perfil.ressecamento_opacidade ? 1 : 0,
+      alta_porosidade_quimica: perfil.alta_porosidade_quimica ? 1 : 0,
+      frizz_falta_definicao: perfil.frizz_falta_definicao ? 1 : 0,
+      transicao_capilar: perfil.transicao_capilar ? 1 : 0,
+      couro_sensivel_oleoso: perfil.couro_sensivel_oleoso ? 1 : 0,
+    };
+    const payload = {
+      perfil_cliente: perfilSanitizado,
+      nome_produto: produto_nome,
+      nota_satisfacao: Math.max(1, Math.min(5, Math.round(nota))),
+    };
+    const r = await fetch(targetUrl, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ perfil, produto_nome, nota }),
+      body: JSON.stringify(payload),
     });
+    if (!r.ok) {
+      const errText = await r.text();
+      console.warn(`[Vila Cachos API] Falha HTTP ${r.status} em ${targetUrl}:`, errText);
+      return;
+    }
+    const resData = await r.json();
+    console.log(`[Vila Cachos API] Feedback de ${nota}★ registrado para '${produto_nome}':`, resData);
   } catch (err) {
     console.warn(`[Vila Cachos API] Falha ao enviar feedback para ${targetUrl}:`, err);
   }

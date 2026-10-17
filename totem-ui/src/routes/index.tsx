@@ -62,13 +62,17 @@ function Totem() {
   };
 
   const finalizar = async () => {
-    const q = form.queixas;
+    const rawPorosidade = Number(form.porosidade);
+    const porosidadeNormalizada = (rawPorosidade >= 1 && rawPorosidade <= 3) ? rawPorosidade : 2;
+    const rawCurvatura = Number(form.curvatura);
+    const curvaturaNormalizada = (rawCurvatura >= 2 && rawCurvatura <= 4) ? rawCurvatura : 3;
+
     const p: Perfil = {
-      curvatura: form.curvatura ?? 3,
-      porosidade: form.porosidade ?? 1,
+      curvatura: curvaturaNormalizada,
+      porosidade: porosidadeNormalizada,
       dano_quimico: form.quimica === 2 ? 1 : 0,
       transicao_capilar: form.quimica === 1 ? 1 : 0,
-      alta_porosidade_quimica: form.quimica === 2 && form.porosidade === 2 ? 1 : 0,
+      alta_porosidade_quimica: form.quimica === 2 && porosidadeNormalizada === 3 ? 1 : 0,
       frizz_falta_definicao: q.includes("frizz") ? 1 : 0,
       ressecamento_opacidade: q.includes("ressecamento") ? 1 : 0,
       couro_sensivel_oleoso: q.includes("couro") ? 1 : 0,
@@ -194,7 +198,7 @@ function Anamnese({ form, setForm, onVoltar, onFinalizar }: { form: Form; setFor
             <Titulo t="Como seus fios absorvem água?" s="A porosidade indica o quanto as cutículas estão abertas." />
             <div className="grid gap-4 md:grid-cols-3">
               {[["Baixa", "Cutículas seladas, produto demora a penetrar."], ["Média", "Equilibrada, absorve e retém bem."], ["Alta", "Fios ásperos, secam rápido e perdem brilho."]].map(([t, d], i) => (
-                <Opcao key={t} ativo={form.porosidade === i} onClick={() => setForm({ ...form, porosidade: i })} titulo={t!} desc={d!} />
+                <Opcao key={t} ativo={form.porosidade === (i + 1)} onClick={() => setForm({ ...form, porosidade: i + 1 })} titulo={t!} desc={d!} />
               ))}
             </div>
           </>
@@ -302,7 +306,7 @@ function PassoCurvatura({ form, setForm }: { form: Form; setForm: (f: Form) => v
               <div className="flex flex-wrap gap-2 text-sm">
                 <span className="rounded-full bg-primary-foreground/15 px-3 py-1">Confiança {Math.round(diag.confianca_curvatura * 100)}%</span>
                 <span className="rounded-full bg-primary-foreground/15 px-3 py-1">Frizz {diag.frizz_detectado ? "presente" : "baixo"}</span>
-                <span className="rounded-full bg-primary-foreground/15 px-3 py-1">Porosidade {["baixa", "média", "alta"][diag.porosidade_aparente] ?? "média"}</span>
+                <span className="rounded-full bg-primary-foreground/15 px-3 py-1">Porosidade {["baixa", "média", "alta"][(diag.porosidade_aparente || 2) - 1] ?? "média"}</span>
                 <span className="rounded-full bg-primary-foreground/15 px-3 py-1">{diag.tempo_inferencia_ms.toFixed(1)} ms</span>
               </div>
               <button
@@ -310,7 +314,7 @@ function PassoCurvatura({ form, setForm }: { form: Form; setForm: (f: Form) => v
                   setForm({
                     ...form,
                     curvatura: diag.curvatura_detectada,
-                    porosidade: diag.porosidade_aparente,
+                    porosidade: diag.porosidade_aparente || 2,
                     queixas: diag.frizz_detectado && !form.queixas.includes("frizz") ? [...form.queixas, "frizz"] : form.queixas,
                   })
                 }

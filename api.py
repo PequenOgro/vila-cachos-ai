@@ -130,19 +130,29 @@ class ClienteProfile(BaseModel):
 
 
 class FeedbackInput(BaseModel):
-    perfil_cliente: ClienteProfile = Field(..., description="Perfil capilar e queixas da cliente atendida")
+    perfil_cliente: ClienteProfile = Field(
+        ..., 
+        alias="perfil", 
+        description="Perfil capilar e queixas da cliente atendida"
+    )
     nome_produto: str = Field(
         ..., 
+        alias="produto_nome", 
         description="Nome exato do produto recomendado/utilizado",
         example="Curly Care ACID-C (Acidificante Antiporosidade)"
     )
     nota_satisfacao: int = Field(
         ..., 
+        alias="nota", 
         ge=1, 
         le=5, 
         description="Nota explícita de satisfação pós-atendimento (1 a 5)",
         example=5
     )
+
+    model_config = {
+        "populate_by_name": True
+    }
 
 
 class RecomendacaoItem(BaseModel):

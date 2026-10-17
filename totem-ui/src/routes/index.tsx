@@ -388,7 +388,10 @@ function Resultado({ r, perfil, onReiniciar }: { r: Recomendacao; perfil: Perfil
 
 function ProdutoCard({ p, img, perfil, delay }: { p: Recomendacao["produtos"][number]; img: string; perfil: Perfil; delay: number }) {
   const [nota, setNota] = useState(0);
-  const pct = Math.round((p.score <= 1 ? p.score * 100 : p.score));
+  const rawScore = Number(p.score);
+  const pct = (!isNaN(rawScore) && rawScore > 0)
+    ? Math.round(rawScore <= 1 ? rawScore * 100 : rawScore)
+    : Math.round(((Number(p.estrelas_estimadas) || 4.2) / 5) * 100);
   return (
     <article className="flex animate-rise flex-col overflow-hidden rounded-3xl bg-card shadow-soft" style={{ animationDelay: `${delay}ms` }}>
       <div className="relative">

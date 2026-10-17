@@ -22,7 +22,7 @@ def treinar_modelo_curvatura(
     data_yaml_ou_dir: str = "dataset_cachos",
     model_base: str = "yolov8n-cls.pt",
     epochs: int = 25,
-    imgsz: int = 640,
+    imgsz: int = 224,
     batch: int = 16,
     project: str = "runs_cachos",
     name: str = "experimento_yolo_curvatura"
@@ -38,6 +38,10 @@ def treinar_modelo_curvatura(
     print(f"[*] Modelo Base: {model_base}")
     print(f"[*] Dataset: {data_yaml_ou_dir}")
     print(f"[*] Épocas: {epochs} | Batch Size: {batch} | Img Size: {imgsz}")
+
+    # Verifica se os pesos base estão em assets/ se não encontrado na raiz
+    if not os.path.exists(model_base) and os.path.exists(os.path.join("assets", model_base)):
+        model_base = os.path.join("assets", model_base)
 
     # Inicializa modelo com pesos pré-treinados (ImageNet transfer learning)
     modelo = YOLO(model_base)
@@ -69,14 +73,17 @@ def treinar_modelo_curvatura(
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Treinamento YOLO Vila Cachos")
     parser.add_argument("--data", default="dataset_cachos", help="Caminho do dataset ou data.yaml")
-    parser.add_argument("--model", default="yolov8n-cls.pt", help="Pesos base")
+    parser.add_argument("--model", default="assets/yolov8n-cls.pt", help="Pesos base")
     parser.add_argument("--epochs", type=int, default=20, help="Número de épocas")
     parser.add_argument("--batch", type=int, default=16, help="Batch size")
+    parser.add_argument("--imgsz", type=int, default=224, help="Tamanho da imagem (224 é o padrão para classificação)")
     args = parser.parse_args()
 
     treinar_modelo_curvatura(
         data_yaml_ou_dir=args.data,
         model_base=args.model,
         epochs=args.epochs,
-        batch=args.batch
+        batch=args.batch,
+        imgsz=args.imgsz
     )
+

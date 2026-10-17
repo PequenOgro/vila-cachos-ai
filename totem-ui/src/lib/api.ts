@@ -78,7 +78,8 @@ export async function recomendar(perfil: Perfil): Promise<Recomendacao> {
     const d = await r.json();
     const lista = d.recomendacoes ?? d.produtos ?? d.recommendations ?? [];
     return {
-      persona: d.descricao_persona ?? d.persona ?? d.cluster_label ?? d.cluster ?? "Persona personalizada",
+      persona:
+        d.descricao_persona ?? d.persona ?? d.cluster_label ?? d.cluster ?? "Persona personalizada",
       produtos: lista.map((p: any) => ({
         nome: String(p.nome ?? p.produto ?? p.name ?? "Produto"),
         score: Number(p.score_final ?? p.score ?? p.score_hibrido ?? 0.85),
@@ -121,7 +122,10 @@ export async function enviarFeedback(perfil: Perfil, produto_nome: string, nota:
       return;
     }
     const resData = await r.json();
-    console.log(`[Vila Cachos API] Feedback de ${nota}★ registrado para '${produto_nome}':`, resData);
+    console.log(
+      `[Vila Cachos API] Feedback de ${nota}★ registrado para '${produto_nome}':`,
+      resData,
+    );
   } catch (err) {
     console.warn(`[Vila Cachos API] Falha ao enviar feedback para ${targetUrl}:`, err);
   }
@@ -132,9 +136,27 @@ export function recomendacaoDemo(p: Perfil): Recomendacao {
   return {
     persona: `Cabelos ${nomes[p.curvatura - 1] ?? "Cacheado"}s${p.porosidade === 2 ? " com Alta Porosidade" : ""}${p.dano_quimico ? " e Química" : ""}`,
     produtos: [
-      { nome: "Acidificante ACID-C", score: 0.94, estrelas_estimadas: 4.8, motivo: "O pH ácido sela as cutículas abertas, reduzindo a perda de água e o frizz típico de fios porosos." },
-      { nome: "Geleia Arvensis", score: 0.89, estrelas_estimadas: 4.6, motivo: "Ativadores botânicos agrupam os cachos e dão definição duradoura sem pesar na raiz." },
-      { nome: "Máscara Reconstrutora", score: 0.85, estrelas_estimadas: 4.5, motivo: "Repõe massa proteica nas áreas fragilizadas, devolvendo resistência e elasticidade." },
+      {
+        nome: "Acidificante ACID-C",
+        score: 0.94,
+        estrelas_estimadas: 4.8,
+        motivo:
+          "O pH ácido sela as cutículas abertas, reduzindo a perda de água e o frizz típico de fios porosos.",
+      },
+      {
+        nome: "Geleia Arvensis",
+        score: 0.89,
+        estrelas_estimadas: 4.6,
+        motivo:
+          "Ativadores botânicos agrupam os cachos e dão definição duradoura sem pesar na raiz.",
+      },
+      {
+        nome: "Máscara Reconstrutora",
+        score: 0.85,
+        estrelas_estimadas: 4.5,
+        motivo:
+          "Repõe massa proteica nas áreas fragilizadas, devolvendo resistência e elasticidade.",
+      },
     ],
   };
 }

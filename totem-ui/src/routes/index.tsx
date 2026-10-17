@@ -1,9 +1,63 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 import hero from "@/assets/hero.jpg";
-import prod1 from "@/assets/prod-1.jpg";
-import prod2 from "@/assets/prod-2.jpg";
-import prod3 from "@/assets/prod-3.jpg";
+import acidC from "@/assets/produtos/curly-care-acid-c.png";
+import manteigaNutritiva from "@/assets/produtos/curly-care-manteiga-nutritiva.png";
+import arvensisGeleia from "@/assets/produtos/arvensis-geleia-forte.png";
+import arvensisAtivador from "@/assets/produtos/arvensis-ativador-cachos.png";
+import arvensisCowash from "@/assets/produtos/arvensis-cowash.png";
+import devaDelight from "@/assets/produtos/deva-curl-delight.png";
+import curlyMarshmallow from "@/assets/produtos/curly-care-marshmallow.png";
+import curlyPudding from "@/assets/produtos/curly-care-pudding.png";
+import curlyFixU from "@/assets/produtos/curly-care-fix-u.png";
+import curlyMousse from "@/assets/produtos/curly-care-mousse.png";
+import curlyBeStrong from "@/assets/produtos/curly-care-be-strong.png";
+import curlyBeFree from "@/assets/produtos/curly-care-be-free.png";
+import curlySpume from "@/assets/produtos/curly-care-spume.png";
+import curlyHighCondition from "@/assets/produtos/curly-care-high-condition.png";
+import curlyNoSpume from "@/assets/produtos/curly-care-no-spume.png";
+import curlyAtivador from "@/assets/produtos/curly-care-ativador.png";
+import devaAngell from "@/assets/produtos/deva-curl-angell.png";
+import devaHeaven from "@/assets/produtos/deva-curl-heaven-in-hair.png";
+import devaStyling from "@/assets/produtos/deva-curl-styling-cream.png";
+import devaLowPooOriginal from "@/assets/produtos/deva-curl-low-poo-original.png";
+import devaOneConditionOriginal from "@/assets/produtos/deva-curl-one-condition-original.png";
+import devaNoPooOriginal from "@/assets/produtos/deva-curl-no-poo-original.png";
+import devaOneConditionDecadence from "@/assets/produtos/deva-curl-one-condition-decadence.png";
+import devaNoPooDecadence from "@/assets/produtos/deva-curl-no-poo-decadence.png";
+import arvensisShampoo from "@/assets/produtos/arvensis-shampoo.png";
+
+function getImagemProduto(nome: string): string {
+  const n = (nome || "").toLowerCase();
+  if (n.includes("acid-c") || n.includes("acidificante")) return acidC;
+  if (n.includes("manteiga") || n.includes("nutritiva")) return manteigaNutritiva;
+  if (n.includes("marshmallow")) return curlyMarshmallow;
+  if (n.includes("pudding") || n.includes("gelatina")) return curlyPudding;
+  if (n.includes("fix u") || n.includes("fix-u")) return curlyFixU;
+  if (n.includes("mousse")) return curlyMousse;
+  if (n.includes("be strong")) return curlyBeStrong;
+  if (n.includes("be free")) return curlyBeFree;
+  if (n.includes("spume!") || n.includes("shampoo hidratante spume")) return curlySpume;
+  if (n.includes("high condition")) return curlyHighCondition;
+  if (n.includes("no spume") || n.includes("no-spume")) return curlyNoSpume;
+  if (n.includes("ativador") && n.includes("curly care")) return curlyAtivador;
+  if (n.includes("geleia")) return arvensisGeleia;
+  if (n.includes("ativador") && n.includes("arvensis")) return arvensisAtivador;
+  if (n.includes("co-wash") || n.includes("cowash") || n.includes("higienizador"))
+    return arvensisCowash;
+  if (n.includes("shampoo") && n.includes("arvensis")) return arvensisShampoo;
+  if (n.includes("delight")) return devaDelight;
+  if (n.includes("angell") || n.includes("angéll")) return devaAngell;
+  if (n.includes("heaven")) return devaHeaven;
+  if (n.includes("styling") || n.includes("supercream")) return devaStyling;
+  if (n.includes("decadence") && n.includes("one condition")) return devaOneConditionDecadence;
+  if (n.includes("decadence") && (n.includes("no poo") || n.includes("no-poo")))
+    return devaNoPooDecadence;
+  if (n.includes("low-poo") || n.includes("low poo")) return devaLowPooOriginal;
+  if (n.includes("one condition")) return devaOneConditionOriginal;
+  if (n.includes("no-poo") || n.includes("no poo")) return devaNoPooOriginal;
+  return acidC;
+}
 import {
   diagnosticarImagem,
   enviarFeedback,
@@ -18,9 +72,17 @@ export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
       { title: "Vila Cachos — Totem de Diagnóstico Capilar" },
-      { name: "description", content: "Descubra em menos de 1 minuto os produtos ideais para seus cachos, ondas e crespos na Vila Cachos." },
+      {
+        name: "description",
+        content:
+          "Descubra em menos de 1 minuto os produtos ideais para seus cachos, ondas e crespos na Vila Cachos.",
+      },
       { property: "og:title", content: "Vila Cachos — Totem de Diagnóstico Capilar" },
-      { property: "og:description", content: "Diagnóstico capilar personalizado com IA para cabelos ondulados, cacheados e crespos." },
+      {
+        property: "og:description",
+        content:
+          "Diagnóstico capilar personalizado com IA para cabelos ondulados, cacheados e crespos.",
+      },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
@@ -29,15 +91,28 @@ export const Route = createFileRoute("/")({
 });
 
 type Etapa = "inicio" | "anamnese" | "processando" | "resultado";
-type Form = { curvatura: number | null; porosidade: number | null; quimica: number | null; queixas: string[] };
+type Form = {
+  curvatura: number | null;
+  porosidade: number | null;
+  quimica: number | null;
+  queixas: string[];
+};
 
 const formInicial: Form = { curvatura: null, porosidade: null, quimica: null, queixas: [] };
-const imagens = [prod1, prod2, prod3];
 
 function Logo({ light }: { light?: boolean }) {
   return (
-    <div className={`flex items-center gap-3 ${light ? "text-primary-foreground" : "text-foreground"}`}>
-      <svg viewBox="0 0 40 56" className="h-11 w-8" fill="none" stroke="currentColor" strokeWidth="1.6" aria-hidden>
+    <div
+      className={`flex items-center gap-3 ${light ? "text-primary-foreground" : "text-foreground"}`}
+    >
+      <svg
+        viewBox="0 0 40 56"
+        className="h-11 w-8"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.6"
+        aria-hidden
+      >
         <rect x="2" y="2" width="36" height="52" rx="18" />
         <path d="M14 46 C 10 30, 12 18, 22 10 M20 46 C 18 32, 22 22, 30 16 M12 22 c 6 -2, 10 2, 10 8" />
       </svg>
@@ -63,9 +138,9 @@ function Totem() {
 
   const finalizar = async () => {
     const rawPorosidade = Number(form.porosidade);
-    const porosidadeNormalizada = (rawPorosidade >= 1 && rawPorosidade <= 3) ? rawPorosidade : 2;
+    const porosidadeNormalizada = rawPorosidade >= 1 && rawPorosidade <= 3 ? rawPorosidade : 2;
     const rawCurvatura = Number(form.curvatura);
-    const curvaturaNormalizada = (rawCurvatura >= 2 && rawCurvatura <= 4) ? rawCurvatura : 3;
+    const curvaturaNormalizada = rawCurvatura >= 2 && rawCurvatura <= 4 ? rawCurvatura : 3;
 
     const p: Perfil = {
       curvatura: curvaturaNormalizada,
@@ -104,7 +179,13 @@ function Totem() {
 function Inicio({ onStart }: { onStart: () => void }) {
   return (
     <section className="relative min-h-dvh overflow-hidden">
-      <img src={hero} alt="Mulher com cabelos cacheados volumosos" width={1280} height={1600} className="absolute inset-0 h-full w-full object-cover" />
+      <img
+        src={hero}
+        alt="Mulher com cabelos cacheados volumosos"
+        width={1280}
+        height={1600}
+        className="absolute inset-0 h-full w-full object-cover"
+      />
       <div className="absolute inset-0 bg-veil" />
       <div className="relative flex min-h-dvh flex-col justify-between p-8 md:p-14">
         <header className="flex items-start justify-between">
@@ -114,7 +195,9 @@ function Inicio({ onStart }: { onStart: () => void }) {
           </p>
         </header>
         <div className="max-w-2xl animate-rise pb-6">
-          <p className="mb-4 text-sm uppercase tracking-[0.3em] text-primary-foreground/70">Slow Beauty</p>
+          <p className="mb-4 text-sm uppercase tracking-[0.3em] text-primary-foreground/70">
+            Slow Beauty
+          </p>
           <h1 className="text-5xl font-light leading-[1.05] text-primary-foreground md:text-7xl">
             Seu cacho tem <span className="font-bold italic">uma história.</span>
           </h1>
@@ -122,11 +205,16 @@ function Inicio({ onStart }: { onStart: () => void }) {
             Descubra em menos de 1 minuto os cuidados ideais para a sua curvatura.
           </p>
           <div className="mt-8 flex flex-wrap gap-2">
-            {["100% Personalizado", "IA Híbrida Especialista", "Explicabilidade Tricológica"].map((b) => (
-              <span key={b} className="rounded-full border border-primary-foreground/40 px-4 py-2 text-sm text-primary-foreground backdrop-blur-md">
-                {b}
-              </span>
-            ))}
+            {["100% Personalizado", "IA Híbrida Especialista", "Explicabilidade Tricológica"].map(
+              (b) => (
+                <span
+                  key={b}
+                  className="rounded-full border border-primary-foreground/40 px-4 py-2 text-sm text-primary-foreground backdrop-blur-md"
+                >
+                  {b}
+                </span>
+              ),
+            )}
           </div>
           <button
             onClick={onStart}
@@ -140,18 +228,34 @@ function Inicio({ onStart }: { onStart: () => void }) {
   );
 }
 
-function Opcao({ ativo, onClick, titulo, desc, icone }: { ativo: boolean; onClick: () => void; titulo: string; desc: string; icone?: React.ReactNode }) {
+function Opcao({
+  ativo,
+  onClick,
+  titulo,
+  desc,
+  icone,
+}: {
+  ativo: boolean;
+  onClick: () => void;
+  titulo: string;
+  desc: string;
+  icone?: React.ReactNode;
+}) {
   return (
     <button
       onClick={onClick}
       aria-pressed={ativo}
       className={`flex min-h-32 flex-col items-start gap-3 rounded-3xl border-2 p-6 text-left transition ${
-        ativo ? "border-primary bg-primary text-primary-foreground shadow-soft" : "border-transparent bg-card hover:border-sage-soft"
+        ativo
+          ? "border-primary bg-primary text-primary-foreground shadow-soft"
+          : "border-transparent bg-card hover:border-sage-soft"
       }`}
     >
       {icone}
       <span className="font-serif text-xl font-semibold">{titulo}</span>
-      <span className={`text-sm ${ativo ? "text-primary-foreground/85" : "text-muted-foreground"}`}>{desc}</span>
+      <span className={`text-sm ${ativo ? "text-primary-foreground/85" : "text-muted-foreground"}`}>
+        {desc}
+      </span>
     </button>
   );
 }
@@ -164,7 +268,15 @@ function Onda({ voltas }: { voltas: number }) {
         ? "M4 30 c 6 -16, 18 -16, 14 0 s 8 16, 14 0 s 8 -16, 14 0 s 8 16, 14 0"
         : "M4 30 l 5 -12 l 5 18 l 5 -18 l 5 18 l 5 -18 l 5 18 l 5 -18 l 5 18 l 5 -18 l 5 12";
   return (
-    <svg viewBox="0 0 68 50" className="h-10 w-16" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" aria-hidden>
+    <svg
+      viewBox="0 0 68 50"
+      className="h-10 w-16"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2.2"
+      strokeLinecap="round"
+      aria-hidden
+    >
       <path d={d} />
     </svg>
   );
@@ -172,7 +284,17 @@ function Onda({ voltas }: { voltas: number }) {
 
 const passos = ["Curvatura", "Porosidade", "Química", "Queixas"];
 
-function Anamnese({ form, setForm, onVoltar, onFinalizar }: { form: Form; setForm: (f: Form) => void; onVoltar: () => void; onFinalizar: () => void }) {
+function Anamnese({
+  form,
+  setForm,
+  onVoltar,
+  onFinalizar,
+}: {
+  form: Form;
+  setForm: (f: Form) => void;
+  onVoltar: () => void;
+  onFinalizar: () => void;
+}) {
   const [passo, setPasso] = useState(0);
   const pode = [form.curvatura, form.porosidade, form.quimica, true][passo] !== null;
 
@@ -182,11 +304,23 @@ function Anamnese({ form, setForm, onVoltar, onFinalizar }: { form: Form; setFor
         <Logo />
         <span className="text-sm text-muted-foreground">Passo {passo + 1} de 4</span>
       </header>
-      <div className="mt-8 grid grid-cols-4 gap-2" role="progressbar" aria-valuenow={passo + 1} aria-valuemin={1} aria-valuemax={4}>
+      <div
+        className="mt-8 grid grid-cols-4 gap-2"
+        role="progressbar"
+        aria-valuenow={passo + 1}
+        aria-valuemin={1}
+        aria-valuemax={4}
+      >
         {passos.map((p, i) => (
           <div key={p}>
-            <div className={`h-1.5 rounded-full transition-colors ${i <= passo ? "bg-primary" : "bg-secondary"}`} />
-            <p className={`mt-2 text-xs uppercase tracking-widest ${i === passo ? "text-foreground" : "text-muted-foreground"}`}>{p}</p>
+            <div
+              className={`h-1.5 rounded-full transition-colors ${i <= passo ? "bg-primary" : "bg-secondary"}`}
+            />
+            <p
+              className={`mt-2 text-xs uppercase tracking-widest ${i === passo ? "text-foreground" : "text-muted-foreground"}`}
+            >
+              {p}
+            </p>
           </div>
         ))}
       </div>
@@ -195,20 +329,46 @@ function Anamnese({ form, setForm, onVoltar, onFinalizar }: { form: Form; setFor
         {passo === 0 && <PassoCurvatura form={form} setForm={setForm} />}
         {passo === 1 && (
           <>
-            <Titulo t="Como seus fios absorvem água?" s="A porosidade indica o quanto as cutículas estão abertas." />
+            <Titulo
+              t="Como seus fios absorvem água?"
+              s="A porosidade indica o quanto as cutículas estão abertas."
+            />
             <div className="grid gap-4 md:grid-cols-3">
-              {[["Baixa", "Cutículas seladas, produto demora a penetrar."], ["Média", "Equilibrada, absorve e retém bem."], ["Alta", "Fios ásperos, secam rápido e perdem brilho."]].map(([t, d], i) => (
-                <Opcao key={t} ativo={form.porosidade === (i + 1)} onClick={() => setForm({ ...form, porosidade: i + 1 })} titulo={t!} desc={d!} />
+              {[
+                ["Baixa", "Cutículas seladas, produto demora a penetrar."],
+                ["Média", "Equilibrada, absorve e retém bem."],
+                ["Alta", "Fios ásperos, secam rápido e perdem brilho."],
+              ].map(([t, d], i) => (
+                <Opcao
+                  key={t}
+                  ativo={form.porosidade === i + 1}
+                  onClick={() => setForm({ ...form, porosidade: i + 1 })}
+                  titulo={t!}
+                  desc={d!}
+                />
               ))}
             </div>
           </>
         )}
         {passo === 2 && (
           <>
-            <Titulo t="Qual o histórico químico?" s="Isso nos ajuda a equilibrar nutrição e reconstrução." />
+            <Titulo
+              t="Qual o histórico químico?"
+              s="Isso nos ajuda a equilibrar nutrição e reconstrução."
+            />
             <div className="grid gap-4 md:grid-cols-3">
-              {[["100% Natural", "Sem química nos fios."], ["Transição Capilar", "Parte natural, parte com química."], ["Danificado", "Descoloração, relaxamento ou progressiva."]].map(([t, d], i) => (
-                <Opcao key={t} ativo={form.quimica === i} onClick={() => setForm({ ...form, quimica: i })} titulo={t!} desc={d!} />
+              {[
+                ["100% Natural", "Sem química nos fios."],
+                ["Transição Capilar", "Parte natural, parte com química."],
+                ["Danificado", "Descoloração, relaxamento ou progressiva."],
+              ].map(([t, d], i) => (
+                <Opcao
+                  key={t}
+                  ativo={form.quimica === i}
+                  onClick={() => setForm({ ...form, quimica: i })}
+                  titulo={t!}
+                  desc={d!}
+                />
               ))}
             </div>
           </>
@@ -217,16 +377,29 @@ function Anamnese({ form, setForm, onVoltar, onFinalizar }: { form: Form; setFor
           <>
             <Titulo t="O que mais te incomoda no dia a dia?" s="Escolha quantas quiser." />
             <div className="flex flex-wrap gap-3">
-              {([["frizz", "Frizz excessivo e falta de definição"], ["ressecamento", "Ressecamento e pontas secas"], ["couro", "Couro cabeludo sensível ou oleoso"], ["quebra", "Perda de massa / quebra"]] as const).map(([k, l]) => {
+              {(
+                [
+                  ["frizz", "Frizz excessivo e falta de definição"],
+                  ["ressecamento", "Ressecamento e pontas secas"],
+                  ["couro", "Couro cabeludo sensível ou oleoso"],
+                  ["quebra", "Perda de massa / quebra"],
+                ] as const
+              ).map(([k, l]) => {
                 const on = form.queixas.includes(k);
                 return (
                   <button
                     key={k}
                     aria-pressed={on}
-                    onClick={() => setForm({ ...form, queixas: on ? form.queixas.filter((x) => x !== k) : [...form.queixas, k] })}
+                    onClick={() =>
+                      setForm({
+                        ...form,
+                        queixas: on ? form.queixas.filter((x) => x !== k) : [...form.queixas, k],
+                      })
+                    }
                     className={`min-h-14 rounded-full border-2 px-6 text-base transition ${on ? "border-terracotta bg-terracotta text-accent-foreground" : "border-border bg-card hover:border-terracotta"}`}
                   >
-                    {on ? "✓ " : ""}{l}
+                    {on ? "✓ " : ""}
+                    {l}
                   </button>
                 );
               })}
@@ -236,7 +409,10 @@ function Anamnese({ form, setForm, onVoltar, onFinalizar }: { form: Form; setFor
       </div>
 
       <footer className="flex items-center justify-between gap-4 pb-4">
-        <button onClick={() => (passo === 0 ? onVoltar() : setPasso(passo - 1))} className="min-h-14 rounded-full px-8 text-base text-muted-foreground hover:text-foreground">
+        <button
+          onClick={() => (passo === 0 ? onVoltar() : setPasso(passo - 1))}
+          className="min-h-14 rounded-full px-8 text-base text-muted-foreground hover:text-foreground"
+        >
           ← Voltar
         </button>
         <button
@@ -292,22 +468,46 @@ function PassoCurvatura({ form, setForm }: { form: Form; setForm: (f: Form) => v
           className="relative flex aspect-square items-center justify-center overflow-hidden rounded-2xl border-2 border-dashed border-primary-foreground/50 bg-sage-soft"
           aria-label="Tirar ou enviar foto da mecha"
         >
-          {preview ? <img src={preview} alt="Foto da mecha enviada" className="h-full w-full object-cover" /> : <span className="px-4 text-center text-sm">📷 Tirar ou enviar foto</span>}
+          {preview ? (
+            <img src={preview} alt="Foto da mecha enviada" className="h-full w-full object-cover" />
+          ) : (
+            <span className="px-4 text-center text-sm">📷 Tirar ou enviar foto</span>
+          )}
           {analisando && <span className="absolute inset-0 animate-pulse bg-primary/60" />}
         </button>
-        <input ref={input} type="file" accept="image/*" capture="environment" className="hidden" onChange={(e) => onFile(e.target.files?.[0])} />
+        <input
+          ref={input}
+          type="file"
+          accept="image/*"
+          capture="environment"
+          className="hidden"
+          onChange={(e) => onFile(e.target.files?.[0])}
+        />
         <div className="flex flex-col justify-center">
-          <p className="text-xs uppercase tracking-[0.25em] text-primary-foreground/70">Visão computacional</p>
-          {!diag && !analisando && <p className="mt-2 font-serif text-2xl">Deixe a IA ler sua mecha em milissegundos.</p>}
+          <p className="text-xs uppercase tracking-[0.25em] text-primary-foreground/70">
+            Visão computacional
+          </p>
+          {!diag && !analisando && (
+            <p className="mt-2 font-serif text-2xl">Deixe a IA ler sua mecha em milissegundos.</p>
+          )}
           {analisando && <p className="mt-2 font-serif text-2xl">Analisando sua mecha…</p>}
           {diag && (
             <div className="mt-2 space-y-3">
               <p className="font-serif text-2xl">{diag.curvatura_label}</p>
               <div className="flex flex-wrap gap-2 text-sm">
-                <span className="rounded-full bg-primary-foreground/15 px-3 py-1">Confiança {Math.round(diag.confianca_curvatura * 100)}%</span>
-                <span className="rounded-full bg-primary-foreground/15 px-3 py-1">Frizz {diag.frizz_detectado ? "presente" : "baixo"}</span>
-                <span className="rounded-full bg-primary-foreground/15 px-3 py-1">Porosidade {["baixa", "média", "alta"][(diag.porosidade_aparente || 2) - 1] ?? "média"}</span>
-                <span className="rounded-full bg-primary-foreground/15 px-3 py-1">{diag.tempo_inferencia_ms.toFixed(1)} ms</span>
+                <span className="rounded-full bg-primary-foreground/15 px-3 py-1">
+                  Confiança {Math.round(diag.confianca_curvatura * 100)}%
+                </span>
+                <span className="rounded-full bg-primary-foreground/15 px-3 py-1">
+                  Frizz {diag.frizz_detectado ? "presente" : "baixo"}
+                </span>
+                <span className="rounded-full bg-primary-foreground/15 px-3 py-1">
+                  Porosidade{" "}
+                  {["baixa", "média", "alta"][(diag.porosidade_aparente || 2) - 1] ?? "média"}
+                </span>
+                <span className="rounded-full bg-primary-foreground/15 px-3 py-1">
+                  {diag.tempo_inferencia_ms.toFixed(1)} ms
+                </span>
               </div>
               <button
                 onClick={() =>
@@ -315,7 +515,10 @@ function PassoCurvatura({ form, setForm }: { form: Form; setForm: (f: Form) => v
                     ...form,
                     curvatura: diag.curvatura_detectada,
                     porosidade: diag.porosidade_aparente || 2,
-                    queixas: diag.frizz_detectado && !form.queixas.includes("frizz") ? [...form.queixas, "frizz"] : form.queixas,
+                    queixas:
+                      diag.frizz_detectado && !form.queixas.includes("frizz")
+                        ? [...form.queixas, "frizz"]
+                        : form.queixas,
                   })
                 }
                 className="min-h-12 rounded-full bg-primary-foreground px-6 font-semibold text-primary"
@@ -327,8 +530,19 @@ function PassoCurvatura({ form, setForm }: { form: Form; setForm: (f: Form) => v
         </div>
       </div>
       <div className="grid gap-4 md:grid-cols-3">
-        {[[2, "Ondulado", "Tipo 2 — ondas em S, leves e soltas."], [3, "Cacheado", "Tipo 3 — cachos definidos em espiral."], [4, "Crespo", "Tipo 4 — fios em zigue-zague, muito volume."]].map(([v, t, d]) => (
-          <Opcao key={v} ativo={form.curvatura === v} onClick={() => setForm({ ...form, curvatura: v as number })} titulo={t as string} desc={d as string} icone={<Onda voltas={v as number} />} />
+        {[
+          [2, "Ondulado", "Tipo 2 — ondas em S, leves e soltas."],
+          [3, "Cacheado", "Tipo 3 — cachos definidos em espiral."],
+          [4, "Crespo", "Tipo 4 — fios em zigue-zague, muito volume."],
+        ].map(([v, t, d]) => (
+          <Opcao
+            key={v}
+            ativo={form.curvatura === v}
+            onClick={() => setForm({ ...form, curvatura: v as number })}
+            titulo={t as string}
+            desc={d as string}
+            icone={<Onda voltas={v as number} />}
+          />
         ))}
       </div>
     </>
@@ -351,63 +565,120 @@ function Processando() {
     <section className="flex min-h-dvh flex-col items-center justify-center bg-primary px-6 text-primary-foreground">
       <div className="relative flex h-56 w-56 items-center justify-center">
         {[0, 0.8, 1.6].map((d) => (
-          <span key={d} className="absolute inset-0 rounded-full border-2 border-primary-foreground/60 animate-ripple" style={{ animationDelay: `${d}s` }} />
+          <span
+            key={d}
+            className="absolute inset-0 rounded-full border-2 border-primary-foreground/60 animate-ripple"
+            style={{ animationDelay: `${d}s` }}
+          />
         ))}
         <Logo light />
       </div>
-      <p key={i} className="mt-14 max-w-md animate-rise text-center font-serif text-2xl" aria-live="polite">
+      <p
+        key={i}
+        className="mt-14 max-w-md animate-rise text-center font-serif text-2xl"
+        aria-live="polite"
+      >
         {mensagens[i]}
       </p>
     </section>
   );
 }
 
-function Resultado({ r, perfil, onReiniciar }: { r: Recomendacao; perfil: Perfil; onReiniciar: () => void }) {
+function Resultado({
+  r,
+  perfil,
+  onReiniciar,
+}: {
+  r: Recomendacao;
+  perfil: Perfil;
+  onReiniciar: () => void;
+}) {
   return (
     <section className="mx-auto max-w-6xl px-6 py-10 md:px-10">
       <header className="flex items-center justify-between">
         <Logo />
-        <button onClick={onReiniciar} className="min-h-12 rounded-full border-2 border-primary px-6 font-semibold text-primary hover:bg-primary hover:text-primary-foreground">
+        <button
+          onClick={onReiniciar}
+          className="min-h-12 rounded-full border-2 border-primary px-6 font-semibold text-primary hover:bg-primary hover:text-primary-foreground"
+        >
           Realizar novo diagnóstico
         </button>
       </header>
       <div className="mt-12 animate-rise">
-        <p className="text-sm uppercase tracking-[0.3em] text-muted-foreground">Sua prescrição cosmética</p>
+        <p className="text-sm uppercase tracking-[0.3em] text-muted-foreground">
+          Sua prescrição cosmética
+        </p>
         <h1 className="mt-3 max-w-3xl text-4xl font-light md:text-5xl">
           <span className="font-bold italic">{r.persona}</span>
         </h1>
       </div>
       <div className="mt-10 grid gap-6 lg:grid-cols-3">
         {r.produtos.slice(0, 3).map((p, i) => (
-          <ProdutoCard key={p.nome} p={p} img={imagens[i % 3]!} perfil={perfil} delay={i * 120} />
+          <ProdutoCard
+            key={p.nome}
+            p={p}
+            img={getImagemProduto(p.nome)}
+            perfil={perfil}
+            delay={i * 120}
+          />
         ))}
       </div>
     </section>
   );
 }
 
-function ProdutoCard({ p, img, perfil, delay }: { p: Recomendacao["produtos"][number]; img: string; perfil: Perfil; delay: number }) {
+function ProdutoCard({
+  p,
+  img,
+  perfil,
+  delay,
+}: {
+  p: Recomendacao["produtos"][number];
+  img: string;
+  perfil: Perfil;
+  delay: number;
+}) {
   const [nota, setNota] = useState(0);
   const rawScore = Number(p.score);
-  const pct = (!isNaN(rawScore) && rawScore > 0)
-    ? Math.round(rawScore <= 1 ? rawScore * 100 : rawScore)
-    : Math.round(((Number(p.estrelas_estimadas) || 4.2) / 5) * 100);
+  const pct =
+    !isNaN(rawScore) && rawScore > 0
+      ? Math.round(rawScore <= 1 ? rawScore * 100 : rawScore)
+      : Math.round(((Number(p.estrelas_estimadas) || 4.2) / 5) * 100);
   return (
-    <article className="flex animate-rise flex-col overflow-hidden rounded-3xl bg-card shadow-soft" style={{ animationDelay: `${delay}ms` }}>
-      <div className="relative">
-        <img src={img} alt={p.nome} width={816} height={816} loading="lazy" className="aspect-[4/3] w-full object-cover" />
-        <span className="absolute left-4 top-4 rounded-full bg-card/90 px-4 py-1.5 text-sm font-semibold backdrop-blur">{pct}% compatível</span>
+    <article
+      className="flex animate-rise flex-col overflow-hidden rounded-3xl bg-card shadow-soft"
+      style={{ animationDelay: `${delay}ms` }}
+    >
+      <div className="relative flex aspect-[4/3] w-full items-center justify-center bg-stone-100/70 p-6 dark:bg-stone-900/60">
+        <img
+          src={img}
+          alt={p.nome}
+          width={400}
+          height={400}
+          loading="lazy"
+          className="h-full max-h-56 w-auto object-contain drop-shadow-md transition-transform duration-300 hover:scale-105"
+        />
+        <span className="absolute left-4 top-4 rounded-full bg-card/95 px-4 py-1.5 text-xs font-semibold tracking-wide text-foreground shadow-sm backdrop-blur">
+          {pct}% compatível
+        </span>
       </div>
       <div className="flex flex-1 flex-col p-6">
         <h3 className="text-2xl font-semibold">{p.nome}</h3>
-        <p className="mt-1 text-sm text-amber">{"★".repeat(Math.round(p.estrelas_estimadas))} <span className="text-muted-foreground">{p.estrelas_estimadas.toFixed(1)} estimado</span></p>
+        <p className="mt-1 text-sm text-amber">
+          {"★".repeat(Math.round(p.estrelas_estimadas))}{" "}
+          <span className="text-muted-foreground">{p.estrelas_estimadas.toFixed(1)} estimado</span>
+        </p>
         <div className="mt-4 rounded-2xl bg-secondary p-4">
-          <p className="text-xs font-semibold uppercase tracking-widest text-primary">Por que para você?</p>
+          <p className="text-xs font-semibold uppercase tracking-widest text-primary">
+            Por que para você?
+          </p>
           <p className="mt-2 text-sm leading-relaxed text-secondary-foreground">{p.motivo}</p>
         </div>
         <div className="mt-auto pt-6">
           {nota ? (
-            <p className="animate-rise font-serif text-lg text-primary">Obrigada! Sua avaliação nos ajuda a cuidar melhor 🌿</p>
+            <p className="animate-rise font-serif text-lg text-primary">
+              Obrigada! Sua avaliação nos ajuda a cuidar melhor 🌿
+            </p>
           ) : (
             <>
               <p className="text-sm text-muted-foreground">Já usou? Avalie:</p>

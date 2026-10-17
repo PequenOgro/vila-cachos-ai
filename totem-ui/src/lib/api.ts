@@ -37,13 +37,37 @@ export type DiagnosticoImagem = {
 };
 
 export type Produto = {
+  produto_id?: string;
   nome: string;
+  categoria?: string;
   score: number;
+  score_conteudo?: number;
+  score_feedback_bayesiano?: number;
+  avaliacoes_cluster?: number;
   motivo: string;
+  descricao?: string;
   estrelas_estimadas: number;
 };
 
-export type Recomendacao = { persona: string; produtos: Produto[] };
+export type PesosHibridos = {
+  peso_conteudo_regras: number;
+  peso_feedback_clientes: number;
+};
+
+export type Recomendacao = {
+  cluster_id?: number;
+  persona: string;
+  peso_conhecimento_vs_feedback?: PesosHibridos;
+  produtos: Produto[];
+};
+
+export type FeedbackResposta = {
+  status: string;
+  mensagem: string;
+  cluster_afetado: number;
+  total_avaliacoes_base: number;
+  media_global_atualizada: number;
+};
 
 export async function diagnosticarImagem(file: File): Promise<DiagnosticoImagem> {
   const fd = new FormData();
@@ -62,7 +86,10 @@ export async function diagnosticarImagem(file: File): Promise<DiagnosticoImagem>
   }
 }
 
-// Normaliza variações de formato do backend.
+/**
+ * Consulta o motor híbrido de recomendação da Vila Cachos.
+ * Entrega o Top K produtos combinando Matriz de Conhecimento Tricológico + Avaliações Bayesianas.
+ */
 export async function recomendar(perfil: Perfil): Promise<Recomendacao> {
   const targetUrl = `${API_URL}/recommend?top_k=3`;
   try {
@@ -78,12 +105,21 @@ export async function recomendar(perfil: Perfil): Promise<Recomendacao> {
     const d = await r.json();
     const lista = d.recomendacoes ?? d.produtos ?? d.recommendations ?? [];
     return {
+      cluster_id: d.cluster_id,
       persona:
         d.descricao_persona ?? d.persona ?? d.cluster_label ?? d.cluster ?? "Persona personalizada",
+      peso_conhecimento_vs_feedback: d.peso_conhecimento_vs_feedback,
       produtos: lista.map((p: any) => ({
+        produto_id: p.produto_id,
         nome: String(p.nome ?? p.produto ?? p.name ?? "Produto"),
+        categoria: p.categoria,
         score: Number(p.score_final ?? p.score ?? p.score_hibrido ?? 0.85),
+        score_conteudo: p.score_conteudo != null ? Number(p.score_conteudo) : undefined,
+        score_feedback_bayesiano:
+          p.score_feedback_bayesiano != null ? Number(p.score_feedback_bayesiano) : undefined,
+        avaliacoes_cluster: p.avaliacoes_cluster != null ? Number(p.avaliacoes_cluster) : undefined,
         motivo: String(p.motivo ?? p.explicacao ?? p.reason ?? ""),
+        descricao: p.descricao ? String(p.descricao) : undefined,
         estrelas_estimadas: Number(p.estrelas_estimadas ?? p.estrelas ?? 4.5),
       })),
     };
@@ -93,7 +129,15 @@ export async function recomendar(perfil: Perfil): Promise<Recomendacao> {
   }
 }
 
-export async function enviarFeedback(perfil: Perfil, produto_nome: string, nota: number) {
+/**
+ * Registra o feedback pós-atendimento da cliente.
+ * Atualiza os pesos do cluster no backend em tempo real e persiste no CSV histórico.
+ */
+export async function enviarFeedback(
+  perfil: Perfil,
+  produto_nome: string,
+  nota: number,
+): Promise<FeedbackResposta | null> {
   const targetUrl = `${API_URL}/feedback`;
   try {
     const perfilSanitizado = {
@@ -119,15 +163,17 @@ export async function enviarFeedback(perfil: Perfil, produto_nome: string, nota:
     if (!r.ok) {
       const errText = await r.text();
       console.warn(`[Vila Cachos API] Falha HTTP ${r.status} em ${targetUrl}:`, errText);
-      return;
+      return null;
     }
-    const resData = await r.json();
+    const resData: FeedbackResposta = await r.json();
     console.log(
       `[Vila Cachos API] Feedback de ${nota}★ registrado para '${produto_nome}':`,
       resData,
     );
+    return resData;
   } catch (err) {
     console.warn(`[Vila Cachos API] Falha ao enviar feedback para ${targetUrl}:`, err);
+    return null;
   }
 }
 

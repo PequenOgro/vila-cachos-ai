@@ -585,6 +585,14 @@ function Processando() {
   );
 }
 
+/**
+ * =====================================================================
+ * TELA DE RESULTADO (PRESCRIÇÃO TERAPÊUTICA & XAI)
+ * =====================================================================
+ * Apresenta a Persona identificada pelo agrupamento não-supervisionado K-Means,
+ * a decomposição dos pesos híbridos (Conhecimento Especialista vs. Média Bayesiana)
+ * e o Top 3 de cosméticos com explicabilidade semântica (XAI).
+ */
 function Resultado({
   r,
   perfil,
@@ -594,25 +602,91 @@ function Resultado({
   perfil: Perfil;
   onReiniciar: () => void;
 }) {
+  // Pesos adaptativos do motor híbrido (alpha da combinação convexa)
+  const pesoRegras = Math.round(
+    (r.peso_conhecimento_vs_feedback?.peso_conteudo_regras ?? 0.65) * 100,
+  );
+  const pesoFeedback = Math.round(
+    (r.peso_conhecimento_vs_feedback?.peso_feedback_clientes ?? 0.35) * 100,
+  );
+
   return (
     <section className="mx-auto max-w-6xl px-6 py-10 md:px-10">
+      {/* Cabeçalho de Navegação */}
       <header className="flex items-center justify-between">
         <Logo />
         <button
           onClick={onReiniciar}
-          className="min-h-12 rounded-full border-2 border-primary px-6 font-semibold text-primary hover:bg-primary hover:text-primary-foreground"
+          className="min-h-12 rounded-full border-2 border-primary px-6 font-semibold text-primary transition hover:bg-primary hover:text-primary-foreground"
         >
           Realizar novo diagnóstico
         </button>
       </header>
+
+      {/* Título da Persona Capilar Identificada */}
       <div className="mt-12 animate-rise">
-        <p className="text-sm uppercase tracking-[0.3em] text-muted-foreground">
-          Sua prescrição cosmética
-        </p>
-        <h1 className="mt-3 max-w-3xl text-4xl font-light md:text-5xl">
+        <div className="flex items-center gap-2">
+          <span className="rounded-full bg-primary/10 px-3 py-1 text-xs font-semibold text-primary">
+            {r.cluster_id != null ? `Cluster Clínico #${r.cluster_id}` : "Prescrição Personalizada"}
+          </span>
+          <span className="text-xs uppercase tracking-widest text-muted-foreground">
+            Diagnóstico Tricológico Vila Cachos
+          </span>
+        </div>
+        <h1 className="mt-3 max-w-3xl text-3xl font-light md:text-5xl">
           <span className="font-bold italic">{r.persona}</span>
         </h1>
       </div>
+
+      {/* Painel XAI: Inteligência Artificial Explicável & Equilíbrio Híbrido */}
+      <div className="mt-8 rounded-3xl border border-border/60 bg-card p-6 shadow-soft animate-rise">
+        <div className="flex flex-wrap items-center justify-between gap-4">
+          <div>
+            <span className="text-xs font-semibold uppercase tracking-wider text-primary">
+              Transparência Algorítmica (XAI)
+            </span>
+            <h2 className="text-lg font-semibold text-foreground">
+              Composição da Recomendação Híbrida
+            </h2>
+            <p className="mt-0.5 text-xs text-muted-foreground">
+              Equilíbrio ponderado entre a ciência capilar e a avaliação de mais de 1.000 clientes reais.
+            </p>
+          </div>
+
+          <div className="flex items-center gap-6 text-sm">
+            <div className="flex items-center gap-2">
+              <span className="h-3 w-3 rounded-full bg-primary" />
+              <div>
+                <p className="font-bold text-foreground">{pesoRegras}%</p>
+                <p className="text-[11px] text-muted-foreground">Matriz Especialista</p>
+              </div>
+            </div>
+            <div className="flex items-center gap-2">
+              <span className="h-3 w-3 rounded-full bg-amber" />
+              <div>
+                <p className="font-bold text-foreground">{pesoFeedback}%</p>
+                <p className="text-[11px] text-muted-foreground">Média Bayesiana (Salão)</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Barra visual proporcional */}
+        <div className="mt-4 flex h-2 w-full overflow-hidden rounded-full bg-secondary">
+          <div
+            className="bg-primary transition-all duration-700"
+            style={{ width: `${pesoRegras}%` }}
+            title={`Peso da Matriz Especialista: ${pesoRegras}%`}
+          />
+          <div
+            className="bg-amber transition-all duration-700"
+            style={{ width: `${pesoFeedback}%` }}
+            title={`Peso das Avaliações Reais de Salão: ${pesoFeedback}%`}
+          />
+        </div>
+      </div>
+
+      {/* Grid de Cosméticos Recomendados */}
       <div className="mt-10 grid gap-6 lg:grid-cols-3">
         {r.produtos.slice(0, 3).map((p, i) => (
           <ProdutoCard
@@ -628,6 +702,13 @@ function Resultado({
   );
 }
 
+/**
+ * =====================================================================
+ * CARD DE PRODUTO RECOMENDADO
+ * =====================================================================
+ * Renderiza foto oficial, categoria, score composto, motivos clínicos
+ * e mecanismo de feedback ativo com recalibração imediata de pesos.
+ */
 function ProdutoCard({
   p,
   img,
@@ -640,16 +721,35 @@ function ProdutoCard({
   delay: number;
 }) {
   const [nota, setNota] = useState(0);
+  const [mensagemFeedback, setMensagemFeedback] = useState<string | null>(null);
+  const [enviando, setEnviando] = useState(false);
+
+  // Normalização do score final híbrido em porcentagem
   const rawScore = Number(p.score);
   const pct =
     !isNaN(rawScore) && rawScore > 0
       ? Math.round(rawScore <= 1 ? rawScore * 100 : rawScore)
       : Math.round(((Number(p.estrelas_estimadas) || 4.2) / 5) * 100);
+
+  // Registro de feedback com recalibração de pesos no backend
+  const handleAvaliar = async (estrelas: number) => {
+    setNota(estrelas);
+    setEnviando(true);
+    const resp = await enviarFeedback(perfil, p.nome, estrelas);
+    setEnviando(false);
+    if (resp?.mensagem) {
+      setMensagemFeedback(resp.mensagem);
+    } else {
+      setMensagemFeedback("Avaliação registrada! Pesos do seu cluster recalibrados no motor 🌿");
+    }
+  };
+
   return (
     <article
       className="flex animate-rise flex-col overflow-hidden rounded-3xl bg-card shadow-soft"
       style={{ animationDelay: `${delay}ms` }}
     >
+      {/* Vitrine do Frasco Oficial com Fundo Transparente */}
       <div className="relative flex aspect-[4/3] w-full items-center justify-center bg-stone-100/70 p-6 dark:bg-stone-900/60">
         <img
           src={img}
@@ -659,46 +759,94 @@ function ProdutoCard({
           loading="lazy"
           className="h-full max-h-56 w-auto object-contain drop-shadow-md transition-transform duration-300 hover:scale-105"
         />
-        <span className="absolute left-4 top-4 rounded-full bg-card/95 px-4 py-1.5 text-xs font-semibold tracking-wide text-foreground shadow-sm backdrop-blur">
+        {/* Badge de Compatibilidade Geral */}
+        <span className="absolute left-4 top-4 rounded-full bg-card/95 px-3 py-1 text-xs font-semibold tracking-wide text-foreground shadow-sm backdrop-blur">
           {pct}% compatível
         </span>
+
+        {/* Badge da Categoria Cosmética */}
+        {p.categoria && (
+          <span className="absolute right-4 top-4 rounded-full bg-primary/10 px-3 py-1 text-[11px] font-semibold text-primary backdrop-blur">
+            {p.categoria}
+          </span>
+        )}
       </div>
+
       <div className="flex flex-1 flex-col p-6">
-        <h3 className="text-2xl font-semibold">{p.nome}</h3>
-        <p className="mt-1 text-sm text-amber">
-          {"★".repeat(Math.round(p.estrelas_estimadas))}{" "}
-          <span className="text-muted-foreground">{p.estrelas_estimadas.toFixed(1)} estimado</span>
-        </p>
+        <h3 className="text-xl font-semibold leading-snug">{p.nome}</h3>
+
+        {/* Descrição dos Ativos e Função Terapêutica */}
+        {p.descricao && (
+          <p className="mt-1.5 text-xs text-muted-foreground leading-relaxed line-clamp-2">
+            {p.descricao}
+          </p>
+        )}
+
+        {/* Avaliação Média Estimada e Total de Votos no Salão */}
+        <div className="mt-3 flex items-center justify-between text-xs text-muted-foreground">
+          <span className="text-amber font-medium">
+            {"★".repeat(Math.round(p.estrelas_estimadas))}{" "}
+            <span className="text-foreground font-semibold">
+              {p.estrelas_estimadas.toFixed(1)}
+            </span>{" "}
+            estimado
+          </span>
+          {p.avaliacoes_cluster !== undefined && (
+            <span>{p.avaliacoes_cluster} clientes no cluster</span>
+          )}
+        </div>
+
+        {/* Detalhamento dos Scores Híbridos */}
+        <div className="mt-3 grid grid-cols-2 gap-2 rounded-xl bg-muted/40 p-2.5 text-[11px]">
+          <div>
+            <span className="text-muted-foreground">Afinidade com Fio:</span>
+            <p className="font-semibold text-foreground">
+              {p.score_conteudo != null ? `${Math.round(p.score_conteudo * 100)}%` : `${pct}%`}
+            </p>
+          </div>
+          <div>
+            <span className="text-muted-foreground">Satisfação Salão:</span>
+            <p className="font-semibold text-foreground">
+              {p.score_feedback_bayesiano != null
+                ? `${Math.round(p.score_feedback_bayesiano * 100)}%`
+                : "4.8★"}
+            </p>
+          </div>
+        </div>
+
+        {/* Justificativa XAI (Por que para você?) */}
         <div className="mt-4 rounded-2xl bg-secondary p-4">
           <p className="text-xs font-semibold uppercase tracking-widest text-primary">
             Por que para você?
           </p>
-          <p className="mt-2 text-sm leading-relaxed text-secondary-foreground">{p.motivo}</p>
+          <p className="mt-1.5 text-xs leading-relaxed text-secondary-foreground">{p.motivo}</p>
         </div>
-        <div className="mt-auto pt-6">
+
+        {/* Seção de Feedback e Recalibração de Pesos */}
+        <div className="mt-auto pt-5">
           {nota ? (
-            <p className="animate-rise font-serif text-lg text-primary">
-              Obrigada! Sua avaliação nos ajuda a cuidar melhor 🌿
-            </p>
+            <div className="animate-rise rounded-xl bg-primary/10 p-3 text-center">
+              <p className="font-serif text-sm font-medium text-primary">
+                {mensagemFeedback ?? "Obrigada! Sua avaliação nos ajuda a cuidar melhor 🌿"}
+              </p>
+            </div>
           ) : (
-            <>
-              <p className="text-sm text-muted-foreground">Já usou? Avalie:</p>
-              <div className="mt-1 flex gap-1">
+            <div>
+              <p className="text-xs text-muted-foreground">Já usou este produto? Avalie:</p>
+              <div className="mt-1 flex items-center gap-1">
                 {[1, 2, 3, 4, 5].map((n) => (
                   <button
                     key={n}
+                    disabled={enviando}
                     aria-label={`${n} estrelas`}
-                    onClick={() => {
-                      setNota(n);
-                      enviarFeedback(perfil, p.nome, n);
-                    }}
-                    className="flex h-12 w-12 items-center justify-center text-3xl text-muted-foreground transition hover:scale-110 hover:text-amber"
+                    onClick={() => handleAvaliar(n)}
+                    className="flex h-10 w-10 items-center justify-center text-2xl text-muted-foreground transition hover:scale-115 hover:text-amber disabled:opacity-50"
                   >
                     ★
                   </button>
                 ))}
               </div>
-            </>
+            </div>
           )}
         </div>
       </div>

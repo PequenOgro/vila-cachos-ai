@@ -1,12 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 function sanitizeApiUrl(raw?: string): string {
   if (!raw) return "https://vila-cachos-ai.onrender.com";
-  // Remove colchetes [], aspas "", '', e espaços em branco
-  const cleaned = raw.replace(/[\[\]"'\s]/g, "").trim();
-  const match = cleaned.match(/https?:\/\/[^\s/?#]+(?::\d+)?/i);
-  if (match) return match[0].replace(/\/+$/, "");
-  if (cleaned.startsWith("http://") || cleaned.startsWith("https://")) {
-    return cleaned.replace(/\/+$/, "");
+  // Extrai estritamente protocolo + domínio válido (alfanumérico, traço e ponto) + porta opcional.
+  // Ignora formatações markdown como [url](url), parênteses, colchetes ou aspas acidentais.
+  const match = raw.match(/https?:\/\/[a-zA-Z0-9.-]+(?::[0-9]+)?/);
+  if (match) {
+    return match[0];
   }
   return "https://vila-cachos-ai.onrender.com";
 }

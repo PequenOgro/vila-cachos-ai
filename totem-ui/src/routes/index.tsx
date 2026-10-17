@@ -141,6 +141,7 @@ function Totem() {
     const porosidadeNormalizada = rawPorosidade >= 1 && rawPorosidade <= 3 ? rawPorosidade : 2;
     const rawCurvatura = Number(form.curvatura);
     const curvaturaNormalizada = rawCurvatura >= 2 && rawCurvatura <= 4 ? rawCurvatura : 3;
+    const q = form.queixas || [];
 
     const p: Perfil = {
       curvatura: curvaturaNormalizada,

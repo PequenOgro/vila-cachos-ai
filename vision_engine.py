@@ -57,13 +57,17 @@ class YoloHairClassifier:
         self.yolo_model = None
         self.modelo_nome = "YOLOv8-HairMorphology-Hybrid"
 
-        # Se não foi fornecido caminho, procura automaticamente por pesos ONNX ou PT locais
+        # Se não foi fornecido caminho, procura automaticamente por pesos ONNX ou PT locais (raiz ou assets/)
         if not self.model_path:
             candidatos = [
-                os.path.join(BASE_DIR, "yolov8n-cls.onnx"),
-                os.path.join(BASE_DIR, "best.onnx"),
+                os.path.join(BASE_DIR, "assets", "best.pt"),
+                os.path.join(BASE_DIR, "assets", "yolov8n-cls.pt"),
+                os.path.join(BASE_DIR, "assets", "best.onnx"),
+                os.path.join(BASE_DIR, "assets", "yolov8n-cls.onnx"),
                 os.path.join(BASE_DIR, "best.pt"),
-                os.path.join(BASE_DIR, "yolov8n-cls.pt")
+                os.path.join(BASE_DIR, "yolov8n-cls.pt"),
+                os.path.join(BASE_DIR, "best.onnx"),
+                os.path.join(BASE_DIR, "yolov8n-cls.onnx")
             ]
             for cand in candidatos:
                 if os.path.exists(cand):

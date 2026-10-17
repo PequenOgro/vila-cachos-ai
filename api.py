@@ -17,13 +17,21 @@ from slowapi.errors import RateLimitExceeded
 from pydantic import BaseModel, Field
 
 from catalog import CATALOGO_PRODUTOS, TAXONOMIA_QUEIXAS
+import sys
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+scripts_dir = os.path.join(BASE_DIR, "scripts")
+if scripts_dir not in sys.path:
+    sys.path.insert(0, scripts_dir)
 from generate_dataset import gerar_dataset_causal
 from recommender_engine import VilaCachosRecommender
 from vision_engine import classifier_instance
 
-# Caminho do banco de dados analítico (CSV) - resolução absoluta para nuvem/Render
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-CSV_DATASET_PATH = os.path.join(BASE_DIR, "dataset_historico_vila_cachos.csv")
+# Caminho do banco de dados analítico (CSV) - busca em data/ ou na raiz
+CSV_DATASET_PATH = os.path.join(BASE_DIR, "data", "dataset_historico_vila_cachos.csv")
+if not os.path.exists(CSV_DATASET_PATH):
+    fallback_path = os.path.join(BASE_DIR, "dataset_historico_vila_cachos.csv")
+    if os.path.exists(fallback_path):
+        CSV_DATASET_PATH = fallback_path
 
 # Instância global do motor
 motor: VilaCachosRecommender = None

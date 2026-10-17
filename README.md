@@ -28,25 +28,36 @@ O sistema resolve o problema de **Cold Start** em salões especializados em cabe
 
 ```
 vila-cachos-ai/
-├── api.py                            # API RESTful (FastAPI) com Rate Limiting (SlowAPI)
-├── recommender_engine.py             # Motor Híbrido (K-Means 8D + Knowledge-Based + Média Bayesiana)
-├── generate_dataset.py               # Gerador sintético causal de perfis capilares
-├── catalog.py                        # Catálogo de cosméticos e matriz de afinidade terapêutica
-├── plot_metrics.py                   # Script de geração de figuras científicas (Elbow, Silhouette, Bayes)
-├── dataset_historico_vila_cachos.csv  # Base de dados analítica persistente (1.000 perfis)
-├── requirements.txt                  # Dependências Python para deploy (Render)
-├── projeto_tcc_I.md                  # Projeto de Monografia (TCC I — Resolução nº 088/2017 IFMA)
-├── documentacao_tcc.md               # Documentação acadêmica expandida (Capítulos 1, 4 e 5)
-├── diario_homologacao.md             # Registro de UAT com o cliente (Vila Cachos)
-├── roteiro_homologacao.md            # Roteiro de testes enviado ao cliente
-├── fig_elbow_method.png              # Figura: Método do Cotovelo (k ótimo)
-├── fig_silhouette.png                # Figura: Coeficiente Silhouette por k
-├── fig_bayesian_feedback.png         # Figura: Convergência Bayesiana vs. Média Simples
-└── totem-ui/                         # Aplicação Front-end SPA (React + Vite + Tailwind CSS)
-    ├── src/App.jsx                   # Componente principal (wizard, dark mode, timeout)
-    ├── src/index.css                 # Estilos globais com suporte a dark mode
-    ├── .env                          # Variável de ambiente VITE_API_URL
-    └── package.json                  # Dependências do Front-end (Vercel)
+├── api.py                   # API RESTful (FastAPI) com Rate Limiting e Visão Híbrida
+├── recommender_engine.py    # Motor Híbrido (K-Means 8D + Knowledge-Based + Média Bayesiana)
+├── vision_engine.py         # Módulo de Visão Computacional (Morfologia + YOLO)
+├── catalog.py               # Catálogo de 15 cosméticos e matriz de afinidade
+├── requirements.txt         # Dependências do backend para produção (Render)
+│
+├── 🌐 totem-ui/             # Aplicação Front-end SPA (React + Vite + Tailwind CSS) [Vercel]
+│   ├── src/App.jsx          # Componente principal (Wizard, Dark/Light Mode, YOLO Vision AI)
+│   ├── src/index.css        # Design System (tokens de cores e micro-interações)
+│   └── package.json
+│
+├── 📁 data/                 # Base de Dados Analítica e Datasets
+│   └── dataset_historico_vila_cachos.csv # Base com 1.027 clientes
+│
+├── 🖼️ assets/               # Gráficos Científicos da Monografia e Pesos Neurais
+│   ├── fig_elbow_method.png
+│   ├── fig_silhouette.png
+│   ├── fig_bayesian_feedback.png
+│   └── yolov8n-cls.pt
+│
+├── 📚 docs/                 # Documentação de Engenharia e Monografia Oficial (IFMA)
+│   ├── monografia_ifma/     # Monografia TCC I (Resolução 088/2017 IFMA) e capítulos
+│   ├── homologacao_salao/   # Roteiro e Diário de UAT com os terapeutas
+│   ├── pdf_extraidos/       # PDFs de produtos e serviços originais
+│   └── modelagem_uml.md     # Especificações de Casos de Uso e Classes
+│
+├── 📊 diagramas/            # Diagramas de Sequência e Casos de Uso (Mermaid e PDF)
+├── 🛠️ scripts/              # Pipelines de treino, aumentação e scripts offline
+├── ☁️ colab/                # Notebooks Jupyter e servidor de GPU para Colab
+└── 🧪 tests/                # Testes de integração e suíte E2E (Playwright)
 ```
 
 ---

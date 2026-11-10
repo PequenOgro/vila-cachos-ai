@@ -136,12 +136,13 @@ class YoloHairClassifier:
         magnitude = np.sqrt(sobelx**2 + sobely**2)
         energia_curvatura = float(np.mean(magnitude))
 
-        # 4. Proporção de áreas planas (flat area ratio)
+        # 4. Proporção de áreas planas (flat area ratio) e brancos puros (documentos de texto)
         kernel = np.ones((5, 5), np.float32) / 25
         mean = cv2.filter2D(gray.astype(np.float32), -1, kernel)
         sq_mean = cv2.filter2D((gray.astype(np.float32)) ** 2, -1, kernel)
         var = np.maximum(0.0, sq_mean - mean ** 2)
         flat_ratio = float(np.sum(var < 15.0) / var.size)
+        white_ratio = float(np.sum(gray > 220) / gray.size)
 
         return {
             "frizz_metric": frizz_metric,
@@ -151,6 +152,7 @@ class YoloHairClassifier:
             "saturacao_media": saturacao_media,
             "skin_ratio": skin_ratio,
             "flat_ratio": flat_ratio,
+            "white_ratio": white_ratio,
             "unnatural_ratio": unnatural_ratio
         }
 
@@ -164,6 +166,9 @@ class YoloHairClassifier:
         frizz = metricas["frizz_metric"]
         skin_ratio = metricas.get("skin_ratio", 0.0)
         flat = metricas.get("flat_ratio", 0.0)
+        white_ratio = metricas.get("white_ratio", 0.0)
+        saturacao = metricas.get("saturacao_media", 0.0)
+        energia = metricas.get("energia_curvatura", 0.0)
         unnatural = metricas.get("unnatural_ratio", 0.0)
 
         # Caso 1: Superfície lisa sem microfibras ou cabelo ausente
@@ -181,6 +186,14 @@ class YoloHairClassifier:
         # Caso 4: Imagem predominantemente plana com traços esparsos (ex: paredes, papéis, objetos geométricos)
         if flat > 0.78 and densidade < 0.045:
             return False, "A imagem é predominantemente plana e não possui textura de mechas capilares suficientes."
+
+        # Caso 5: Documentos, recibos, folhas impressas (fundo predominantemente branco com texto preto desprovido de cor)
+        if saturacao < 12.0 and white_ratio > 0.50:
+            return False, "A imagem aparenta ser um documento, texto impresso ou papel, sem mechas capilares válidas."
+
+        # Caso 6: Grades ortogonais artificiais e padrões geométricos sem cor biológica
+        if saturacao < 8.0 and skin_ratio < 0.05 and energia > 55.0:
+            return False, "Padrão geométrico artificial detectado, sem mechas capilares biológicas."
 
         # Caso 5: Ruído digital caótico ou artefato de alta frequência sem coerência biológica
         energia = metricas.get("energia_curvatura", 0.0)

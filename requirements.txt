@@ -10,3 +10,4 @@ slowapi==0.1.10
 python-multipart>=0.0.9
 opencv-python-headless>=4.9.0
 Pillow>=10.0.0
+onnxruntime>=1.17.0

@@ -37,6 +37,12 @@ if os.path.exists(env_file):
         print(f"[!] Aviso ao carregar .env: {e}")
 
 try:
+    import onnxruntime as ort
+    ONNX_AVAILABLE = True
+except ImportError:
+    ONNX_AVAILABLE = False
+
+try:
     from ultralytics import YOLO
     ULTRALYTICS_AVAILABLE = True
 except ImportError:
@@ -46,7 +52,7 @@ except ImportError:
 class YoloHairClassifier:
     """
     Classificador de características capilares baseado na arquitetura YOLO
-    com análise morfológica de textura e gradientes em imagem.
+    (com suporte a ONNX Runtime nativo ou PyTorch) e análise morfológica de textura.
     """
 
     CONFIDENCE_THRESHOLD = 0.75
@@ -54,38 +60,63 @@ class YoloHairClassifier:
     def __init__(self, model_path: Optional[str] = None):
         """
         Inicializa o classificador capilar.
-        Se existir um arquivo de pesos customizado (ex: best.pt ou yolo11n.pt),
-        o modelo YOLO é instanciado. Caso contrário, opera com o extrator morfológico robusto.
+        Prioridade 1: ONNX Runtime (leve, ~25MB RAM, sem PyTorch, ideal para Render CPU).
+        Prioridade 2: PyTorch / Ultralytics (caso ONNX indisponível).
+        Prioridade 3: Extrator Morfológico robusto (fallback tolerante a falhas).
         """
         self.model_path = model_path or os.environ.get("YOLO_HAIR_MODEL_PATH", "")
+        self.onnx_session = None
         self.yolo_model = None
         self.modelo_nome = "YOLOv8-HairMorphology-Hybrid"
 
-        # Se não foi fornecido caminho, procura automaticamente por pesos ONNX ou PT locais (raiz ou assets/)
-        if not self.model_path:
-            candidatos = [
-                os.path.join(BASE_DIR, "assets", "best.pt"),
-                os.path.join(BASE_DIR, "assets", "yolov8n-cls.pt"),
-                os.path.join(BASE_DIR, "assets", "best.onnx"),
-                os.path.join(BASE_DIR, "assets", "yolov8n-cls.onnx"),
-                os.path.join(BASE_DIR, "best.pt"),
-                os.path.join(BASE_DIR, "yolov8n-cls.pt"),
-                os.path.join(BASE_DIR, "best.onnx"),
-                os.path.join(BASE_DIR, "yolov8n-cls.onnx")
-            ]
-            for cand in candidatos:
-                if os.path.exists(cand):
-                    self.model_path = cand
-                    break
+        candidatos_onnx = [
+            os.path.join(BASE_DIR, "assets", "best.onnx"),
+            os.path.join(BASE_DIR, "assets", "yolov8n-cls.onnx"),
+            os.path.join(BASE_DIR, "best.onnx"),
+            os.path.join(BASE_DIR, "yolov8n-cls.onnx"),
+        ]
+        candidatos_pt = [
+            os.path.join(BASE_DIR, "assets", "best.pt"),
+            os.path.join(BASE_DIR, "assets", "yolov8n-cls.pt"),
+            os.path.join(BASE_DIR, "best.pt"),
+            os.path.join(BASE_DIR, "yolov8n-cls.pt"),
+        ]
 
-        if ULTRALYTICS_AVAILABLE and self.model_path and os.path.exists(self.model_path):
-            try:
-                self.yolo_model = YOLO(self.model_path)
-                ext = "ONNX Runtime (FP16/FP32)" if self.model_path.endswith(".onnx") else "PyTorch"
-                self.modelo_nome = f"YOLOv8 [{ext}] ({os.path.basename(self.model_path)})"
-                print(f"[+] Modelo YOLO carregado com sucesso de: {self.model_path} ({ext})")
-            except Exception as e:
-                print(f"[!] Falha ao inicializar pesos YOLO de '{self.model_path}': {e}. Operando em modo híbrido.")
+        # 1. Tenta carregar via ONNX Runtime se disponível
+        if ONNX_AVAILABLE:
+            onnx_path = self.model_path if (self.model_path and self.model_path.endswith(".onnx")) else None
+            if not onnx_path:
+                for cand in candidatos_onnx:
+                    if os.path.exists(cand):
+                        onnx_path = cand
+                        break
+            if onnx_path and os.path.exists(onnx_path):
+                try:
+                    self.onnx_session = ort.InferenceSession(onnx_path, providers=["CPUExecutionProvider"])
+                    self.model_path = onnx_path
+                    self.modelo_nome = f"YOLOv8 [ONNX Runtime] ({os.path.basename(onnx_path)})"
+                    print(f"[+] Modelo YOLO carregado com sucesso via ONNX Runtime de: {onnx_path}")
+                except Exception as e:
+                    print(f"[!] Falha ao carregar ONNX de '{onnx_path}': {e}")
+
+        # 2. Se ONNX não carregou, tenta carregar via PyTorch / Ultralytics
+        if self.onnx_session is None and ULTRALYTICS_AVAILABLE:
+            pt_path = self.model_path if (self.model_path and self.model_path.endswith(".pt")) else None
+            if not pt_path:
+                for cand in candidatos_pt:
+                    if os.path.exists(cand):
+                        pt_path = cand
+                        break
+            if pt_path and os.path.exists(pt_path):
+                try:
+                    self.yolo_model = YOLO(pt_path)
+                    ext = "ONNX Runtime" if pt_path.endswith(".onnx") else "PyTorch"
+                    self.model_path = pt_path
+                    self.modelo_nome = f"YOLOv8 [{ext}] ({os.path.basename(pt_path)})"
+                    print(f"[+] Modelo YOLO carregado com sucesso de: {pt_path} ({ext})")
+                except Exception as e:
+                    print(f"[!] Falha ao inicializar pesos YOLO de '{pt_path}': {e}. Operando em modo híbrido.")
+
 
     def _extrair_metricas_morfologicas(self, img_np: np.ndarray) -> Dict[str, float]:
         """
@@ -136,7 +167,16 @@ class YoloHairClassifier:
         magnitude = np.sqrt(sobelx**2 + sobely**2)
         energia_curvatura = float(np.mean(magnitude))
 
-        # 4. Proporção de áreas planas (flat area ratio) e brancos puros (documentos de texto)
+        # 4. Proporção de gradientes puramente ortogonais (detecção de grades, tabelas, xadrez, códigos)
+        edge_mask = magnitude > 25
+        if np.sum(edge_mask) > 50:
+            angles = np.abs(np.arctan2(sobely[edge_mask], sobelx[edge_mask]))
+            ortho = (angles < 0.12) | (angles > (np.pi - 0.12)) | (np.abs(angles - np.pi/2) < 0.12)
+            ortho_ratio = float(np.sum(ortho) / len(angles))
+        else:
+            ortho_ratio = 0.0
+
+        # 5. Proporção de áreas planas (flat area ratio) e brancos puros (documentos de texto)
         kernel = np.ones((5, 5), np.float32) / 25
         mean = cv2.filter2D(gray.astype(np.float32), -1, kernel)
         sq_mean = cv2.filter2D((gray.astype(np.float32)) ** 2, -1, kernel)
@@ -153,6 +193,7 @@ class YoloHairClassifier:
             "skin_ratio": skin_ratio,
             "flat_ratio": flat_ratio,
             "white_ratio": white_ratio,
+            "ortho_ratio": ortho_ratio,
             "unnatural_ratio": unnatural_ratio
         }
 
@@ -170,6 +211,7 @@ class YoloHairClassifier:
         saturacao = metricas.get("saturacao_media", 0.0)
         energia = metricas.get("energia_curvatura", 0.0)
         unnatural = metricas.get("unnatural_ratio", 0.0)
+        ortho_ratio = metricas.get("ortho_ratio", 0.0)
 
         # Caso 1: Superfície lisa sem microfibras ou cabelo ausente
         if densidade < 0.020 or frizz < 18.0:
@@ -188,19 +230,58 @@ class YoloHairClassifier:
             return False, "A imagem é predominantemente plana e não possui textura de mechas capilares suficientes."
 
         # Caso 5: Documentos, recibos, folhas impressas (fundo predominantemente branco com texto preto desprovido de cor)
-        if saturacao < 12.0 and white_ratio > 0.50:
-            return False, "A imagem aparenta ser um documento, texto impresso ou papel, sem mechas capilares válidas."
+        if (saturacao < 15.0 and white_ratio > 0.50) or (white_ratio > 0.65 and saturacao < 30.0 and skin_ratio < 0.15):
+            return False, "A imagem aparenta ser um documento, texto impresso ou folha de papel, sem mechas capilares válidas."
 
-        # Caso 6: Grades ortogonais artificiais e padrões geométricos sem cor biológica
-        if saturacao < 8.0 and skin_ratio < 0.05 and energia > 55.0:
-            return False, "Padrão geométrico artificial detectado, sem mechas capilares biológicas."
+        # Caso 6: Grades ortogonais artificiais, xadrez, tabelas ou códigos de barra
+        if ortho_ratio > 0.36 and densidade > 0.030:
+            return False, "Padrão geométrico ortogonal detectado (grid, tabela ou código), sem mechas capilares biológicas."
 
-        # Caso 5: Ruído digital caótico ou artefato de alta frequência sem coerência biológica
-        energia = metricas.get("energia_curvatura", 0.0)
+        # Caso 7: Impressos, brochuras ou catálogos comerciais com fundo uniforme
+        if skin_ratio > 0.85 and densidade > 0.07:
+            return False, "Catálogo ou material impresso com texto detectado, sem mechas capilares reais."
+
+        # Caso 8: Ruído digital caótico ou artefato de alta frequência sem coerência biológica
         if frizz > 10000.0 or energia > 120.0 or densidade > 0.32:
             return False, "A imagem contém ruído digital ou textura artificial excessiva sem coerência com mechas capilares."
 
         return True, None
+
+
+    def _predict_onnx(self, img_pil: Image.Image) -> tuple[int, float, float, Dict[int, str]]:
+        """
+        Executa a inferência direta via ONNX Runtime com pré-processamento Ultralytics:
+        Resize menor dimensão para 224 mantendo proporção, CenterCrop(224, 224), normalização [0, 1].
+        """
+        w, h = img_pil.size
+        scale = 224.0 / min(w, h)
+        new_w, new_h = int(round(w * scale)), int(round(h * scale))
+        resized = img_pil.resize((new_w, new_h), Image.BILINEAR)
+
+        left = (new_w - 224) // 2
+        top = (new_h - 224) // 2
+        cropped = resized.crop((left, top, left + 224, top + 224))
+
+        arr = np.array(cropped).astype(np.float32) / 255.0
+        arr = np.transpose(arr, (2, 0, 1))
+        tensor = np.expand_dims(arr, axis=0)
+
+        input_name = self.onnx_session.get_inputs()[0].name
+        out = self.onnx_session.run(None, {input_name: tensor})[0][0]
+
+        exp_out = np.exp(out - np.max(out))
+        probs = exp_out / np.sum(exp_out)
+
+        top1_idx = int(np.argmax(probs))
+        top1_conf = float(probs[top1_idx])
+        p_careca = float(probs[0])
+        class_names = {
+            0: "careca_sem_cabelo",
+            1: "tipo_2_ondulado",
+            2: "tipo_3_cacheado",
+            3: "tipo_4_crespo"
+        }
+        return top1_idx, top1_conf, p_careca, class_names
 
     def predict_image_bytes(self, image_bytes: bytes, filename: str = "amostra.jpg") -> Dict[str, Any]:
         """
@@ -275,33 +356,16 @@ class YoloHairClassifier:
             }
 
         # 3. Classificação de Curvatura (Tipos 2, 3 e 4) + Rejeição Neural (Careca/Sem Cabelo)
-        # Se o modelo YOLO estiver carregado, executa a inferência neural
         yolo_curvatura = None
         yolo_conf = 0.0
         p_careca = 0.0
-        if self.yolo_model is not None:
+
+        if self.onnx_session is not None:
             try:
-                y_res = self.yolo_model(img_resized, verbose=False)[0]
-                top1_idx = int(y_res.probs.top1)
-                yolo_conf = float(y_res.probs.top1conf)
-                
-                # Mapeamento dinâmico baseado nos nomes reais das classes do modelo
-                class_names = getattr(self.yolo_model, "names", {})
+                top1_idx, yolo_conf, p_careca, class_names = self._predict_onnx(image)
                 detected_class = str(class_names.get(top1_idx, "")).lower()
-
-                # Coleta probabilidade específica da classe negativa (careca/sem cabelo)
-                probs_data = y_res.probs.data
-                for idx, name in class_names.items():
-                    if "careca" in str(name).lower() or "sem_cabelo" in str(name).lower():
-                        p_careca = float(probs_data[idx])
-                        break
-
                 p_cabelo_total = 1.0 - p_careca
 
-                # Rejeição imediata se:
-                # a) A classe top1 for careca/sem_cabelo
-                # b) Ou probabilidade da classe careca for relevante (>= 0.20)
-                # c) Ou probabilidade acumulada de cabelo for insuficiente (< 0.50)
                 if "careca" in detected_class or "sem_cabelo" in detected_class or p_careca >= 0.20 or p_cabelo_total < 0.50:
                     tempo_ms = round((time.time() - t0) * 1000, 2)
                     return {
@@ -327,8 +391,7 @@ class YoloHairClassifier:
                             "probabilidade_careca": round(p_careca, 4)
                         }
                     }
-                elif yolo_conf < 0.40 and densidade < 0.05:
-                    # Imagem sem padrão capilar definido nem pela rede nem pela morfologia
+                elif yolo_conf < 0.35 and densidade < 0.04:
                     tempo_ms = round((time.time() - t0) * 1000, 2)
                     return {
                         "cabelo_detectado": False,
@@ -359,7 +422,83 @@ class YoloHairClassifier:
                 elif "tipo_4" in detected_class or "crespo" in detected_class:
                     yolo_curvatura = 4
                 else:
-                    # Fallback posicional para modelos sem nomes explícitos
+                    yolo_curvatura = top1_idx + 1
+            except Exception as e:
+                print(f"[!] Erro na execução do classificador ONNX: {e}")
+
+        elif self.yolo_model is not None:
+            try:
+                y_res = self.yolo_model(img_resized, verbose=False)[0]
+                top1_idx = int(y_res.probs.top1)
+                yolo_conf = float(y_res.probs.top1conf)
+                
+                class_names = getattr(self.yolo_model, "names", {})
+                detected_class = str(class_names.get(top1_idx, "")).lower()
+
+                probs_data = y_res.probs.data
+                for idx, name in class_names.items():
+                    if "careca" in str(name).lower() or "sem_cabelo" in str(name).lower():
+                        p_careca = float(probs_data[idx])
+                        break
+
+                p_cabelo_total = 1.0 - p_careca
+
+                if "careca" in detected_class or "sem_cabelo" in detected_class or p_careca >= 0.20 or p_cabelo_total < 0.50:
+                    tempo_ms = round((time.time() - t0) * 1000, 2)
+                    return {
+                        "cabelo_detectado": False,
+                        "mensagem_alerta": "Não identificamos fios ou mechas de cabelo visíveis nesta foto (detectada ausência de cabelo ou superfície calva). Por favor, posicione a câmera focando uma mecha do cabelo ou selecione sua curvatura manualmente.",
+                        "curvatura_detectada": None,
+                        "curvatura_label": "Nenhum cabelo detectado",
+                        "confianca_curvatura": 0.0,
+                        "frizz_detectado": None,
+                        "confianca_frizz": 0.0,
+                        "porosidade_aparente": None,
+                        "confianca_porosidade": 0.0,
+                        "sugestao_perfil": None,
+                        "requer_confirmacao_humana": True,
+                        "tempo_inferencia_ms": tempo_ms,
+                        "modelo_utilizado": self.modelo_nome,
+                        "detalhes_morfologicos": {
+                            "densidade_bordas": round(densidade, 4),
+                            "indice_frizz": round(frizz_val, 2),
+                            "energia_curvatura": round(energia, 2),
+                            "proporcao_cor_artificial": round(metricas.get("unnatural_ratio", 0.0), 3),
+                            "proporcao_pele": round(metricas.get("skin_ratio", 0.0), 3),
+                            "probabilidade_careca": round(p_careca, 4)
+                        }
+                    }
+                elif yolo_conf < 0.40 and densidade < 0.05:
+                    tempo_ms = round((time.time() - t0) * 1000, 2)
+                    return {
+                        "cabelo_detectado": False,
+                        "mensagem_alerta": "Não foi possível reconhecer o padrão capilar com segurança nesta foto (imagem ambígua ou sem foco em mecha). Envie uma foto aproximada dos fios ou selecione abaixo.",
+                        "curvatura_detectada": None,
+                        "curvatura_label": "Padrão capilar não reconhecido",
+                        "confianca_curvatura": round(yolo_conf, 3),
+                        "frizz_detectado": None,
+                        "confianca_frizz": 0.0,
+                        "porosidade_aparente": None,
+                        "confianca_porosidade": 0.0,
+                        "sugestao_perfil": None,
+                        "requer_confirmacao_humana": True,
+                        "tempo_inferencia_ms": tempo_ms,
+                        "modelo_utilizado": self.modelo_nome,
+                        "detalhes_morfologicos": {
+                            "densidade_bordas": round(densidade, 4),
+                            "indice_frizz": round(frizz_val, 2),
+                            "energia_curvatura": round(energia, 2),
+                            "proporcao_cor_artificial": round(metricas.get("unnatural_ratio", 0.0), 3),
+                            "proporcao_pele": round(metricas.get("skin_ratio", 0.0), 3)
+                        }
+                    }
+                elif "tipo_2" in detected_class or "ondulado" in detected_class:
+                    yolo_curvatura = 2
+                elif "tipo_3" in detected_class or "cacheado" in detected_class:
+                    yolo_curvatura = 3
+                elif "tipo_4" in detected_class or "crespo" in detected_class:
+                    yolo_curvatura = 4
+                else:
                     yolo_curvatura = top1_idx + 2
             except Exception as e:
                 print(f"[!] Erro na execução do classificador YOLO: {e}")
@@ -377,7 +516,7 @@ class YoloHairClassifier:
             confianca_curvatura = yolo_conf
         else:
             # Fallback morfológico estrito: se o modelo neural não estiver disponível, exige assinatura de mecha
-            if densidade < 0.035 or frizz_val < 30.0:
+            if densidade < 0.035 or frizz_val < 30.0 or metricas.get("ortho_ratio", 0.0) > 0.33:
                 tempo_ms = round((time.time() - t0) * 1000, 2)
                 return {
                     "cabelo_detectado": False,
@@ -400,6 +539,7 @@ class YoloHairClassifier:
                         "proporcao_cor_artificial": round(metricas.get("unnatural_ratio", 0.0), 3)
                     }
                 }
+
             if densidade > 0.12 or energia > 45.0:
                 curvatura = 4
                 curvatura_label = labels_map[4]

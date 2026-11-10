@@ -78,3 +78,20 @@ Uma tarefa só pode ser marcada como finalizada e comunicada ao usuário quando 
 
 * **`verification-before-completion`**: Evidência antes de afirmação. Nunca diga que "o código funciona" sem ter executado o teste e inspecionado a saída.
 * **`systematic-debugging`**: Em caso de falha, investigue a causa raiz através dos logs antes de modificar arquivos aleatoriamente.
+
+---
+
+## 5. Diretrizes de Consumo de Memória e Ambientes Restritos (Render 512MB RAM)
+
+* **Consciência de Cota em Nuvem**: O backend opera sob o teto estrito de **512 MB de RAM** no plano gratuito do Render.
+* **Testes de Carga Responsáveis**:
+  - NUNCA disparar rajadas descontroladas de requisições concorrentes (ex: 3.000 reqs simultâneas) diretamente contra instâncias gratuitas em nuvem sem taxa limite (*throttling*).
+  - Testes de estresse volumétricos devem rodar prioritariamente em ambiente local (`127.0.0.1`) ou com concorrência escalonada (ex: ramp-up gradual de 5 a 20 req/s com medição de memória).
+* **Higiene de Memória no Backend**:
+  - Todas as rotas que manipulam imagens (OpenCV/Pillow/YOLO) devem forçar o fechamento de buffers, redimensionamento prévio (max 640x640) e coleta de lixo periódica (`gc.collect()`).
+  - No Uvicorn de produção, utilizar configuração de concorrência limitada (`--limit-concurrency 50`) para prevenir sobrecarga de sockets em RAM.
+* **Segregação de Arquivos Acadêmicos vs. Código de Produção**:
+  - Todos os arquivos, relatórios, slides, modelos de monografia e entregas de disciplinas da faculdade (IFMA) devem residir exclusivamente na árvore `faculdade_ifma/`.
+  - A raiz do repositório deve permanecer estritamente reservada aos módulos funcionais de software (`api.py`, `routers/`, `schemas/`, `repositories/`, `totem-ui/`, etc.).
+  - Antes de qualquer remoção de arquivo, apresentar a lista detalhada para consentimento explícito do usuário (*Zero Data Loss*).
+

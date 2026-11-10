@@ -28,12 +28,17 @@ export type Perfil = {
 };
 
 export type DiagnosticoImagem = {
-  curvatura_detectada: number;
+  cabelo_detectado?: boolean;
+  mensagem_alerta?: string | null;
+  curvatura_detectada?: number | null;
   curvatura_label: string;
   confianca_curvatura: number;
-  frizz_detectado: number;
-  porosidade_aparente: number;
+  frizz_detectado?: number | null;
+  confianca_frizz?: number;
+  porosidade_aparente?: number | null;
+  confianca_porosidade?: number;
   tempo_inferencia_ms: number;
+  modelo_utilizado?: string;
 };
 
 export type Produto = {

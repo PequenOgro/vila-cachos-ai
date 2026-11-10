@@ -43,6 +43,8 @@ htmlcov/
 # Heavy Datasets & Media
 dataset_cachos/
 dataset_cachos.zip
+dataset_cachos_4classes/
+data/midias_instagram_vila_cachos/
 insta viila cheio/
 *.mp4
 print_antes_cabelo.jpg
@@ -58,6 +60,7 @@ totem-ui/.wrangler/
 
 # Temporary & Training Runs
 runs/
+scratch/
 .playwright-mcp/
 
 # IDE & OS

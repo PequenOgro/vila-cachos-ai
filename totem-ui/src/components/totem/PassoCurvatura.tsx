@@ -21,35 +21,36 @@ export function PassoCurvatura({ form, setForm }: PassoCurvaturaProps) {
   const [preview, setPreview] = useState<string | null>(null);
   const [analisando, setAnalisando] = useState(false);
   const [diag, setDiag] = useState<DiagnosticoImagem | null>(null);
+  const [erroRede, setErroRede] = useState<string | null>(null);
 
   /**
    * Envia o arquivo de imagem para /diagnostico/imagem.
-   * Em caso de falha de conexão, aplica fallback inteligente.
+   * Se a IA identificar que não há cabelo, exibe aviso amigável sem inventar diagnósticos falsos.
    */
   const onFile = async (f?: File) => {
     if (!f) return;
     setPreview(URL.createObjectURL(f));
     setDiag(null);
+    setErroRede(null);
     setAnalisando(true);
 
-    const d = await diagnosticarImagem(f).catch(() => ({
-      curvatura_detectada: 3,
-      curvatura_label: "Cacheado (Tipo 3: 3A/3B/3C)",
-      confianca_curvatura: 0.92,
-      frizz_detectado: 1,
-      porosidade_aparente: 2,
-      tempo_inferencia_ms: 28.5,
-    }));
-
-    setDiag(d);
-    setAnalisando(false);
+    try {
+      const d = await diagnosticarImagem(f);
+      setDiag(d);
+    } catch {
+      setErroRede(
+        "Não foi possível conectar ao servidor de visão computacional. Você pode tirar outra foto ou selecionar sua curvatura manualmente nos botões abaixo.",
+      );
+    } finally {
+      setAnalisando(false);
+    }
   };
 
   /**
-   * Aplica a sugestão da IA no formulário respeitando a soberania da cliente.
+   * Aplica a sugestão da IA no formulário apenas se cabelo válido foi detectado.
    */
   const aplicarDiagnosticoIA = () => {
-    if (!diag) return;
+    if (!diag || diag.cabelo_detectado === false || !diag.curvatura_detectada) return;
     setForm({
       ...form,
       curvatura: diag.curvatura_detectada,
@@ -94,7 +95,7 @@ export function PassoCurvatura({ form, setForm }: PassoCurvaturaProps) {
             Visão computacional
           </p>
 
-          {!diag && !analisando && (
+          {!diag && !analisando && !erroRede && (
             <p className="mt-2 font-serif text-2xl font-light">
               Deixe a IA ler sua mecha em milissegundos.
             </p>
@@ -104,7 +105,39 @@ export function PassoCurvatura({ form, setForm }: PassoCurvaturaProps) {
             <p className="mt-2 font-serif text-2xl font-light">Analisando sua mecha com IA…</p>
           )}
 
-          {diag && (
+          {/* Cenário: Erro de Conexão com a API */}
+          {erroRede && !analisando && (
+            <div className="mt-2 space-y-2 rounded-2xl border border-amber-300/40 bg-amber-500/20 p-4 text-amber-50">
+              <p className="text-sm font-semibold">⚠️ Conexão offline com o modelo</p>
+              <p className="text-xs text-amber-100/90 leading-relaxed">{erroRede}</p>
+            </div>
+          )}
+
+          {/* Cenário: Foto Sem Cabelo / Anúncio / Careca */}
+          {diag && diag.cabelo_detectado === false && (
+            <div className="mt-2 space-y-3 rounded-2xl border border-amber-300/40 bg-amber-500/20 p-4 text-amber-50">
+              <div className="flex items-center gap-2">
+                <span className="text-xl">⚠️</span>
+                <p className="font-serif text-lg font-semibold">Nenhum cabelo detectado na foto</p>
+              </div>
+              <p className="text-xs text-amber-100/90 leading-relaxed">
+                {diag.mensagem_alerta ||
+                  "Não identificamos fios ou mechas de cabelo na foto enviada. Envie uma foto aproximada dos fios ou selecione sua curvatura abaixo."}
+              </p>
+              <div className="pt-1">
+                <button
+                  type="button"
+                  onClick={() => inputRef.current?.click()}
+                  className="text-xs font-semibold underline underline-offset-4 hover:opacity-80 transition"
+                >
+                  📷 Tirar outra foto da mecha
+                </button>
+              </div>
+            </div>
+          )}
+
+          {/* Cenário: Mechas e Cachos Detectados com Sucesso */}
+          {diag && diag.cabelo_detectado !== false && diag.curvatura_detectada && (
             <div className="mt-2 space-y-3">
               <p className="font-serif text-2xl">{diag.curvatura_label}</p>
               <div className="flex flex-wrap gap-2 text-sm">
@@ -123,6 +156,7 @@ export function PassoCurvatura({ form, setForm }: PassoCurvaturaProps) {
                 </span>
               </div>
               <button
+                type="button"
                 onClick={aplicarDiagnosticoIA}
                 className="min-h-12 rounded-full bg-primary-foreground px-6 font-semibold text-primary transition hover:bg-primary-foreground/90 active:scale-95"
               >

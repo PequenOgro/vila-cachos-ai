@@ -19,8 +19,13 @@ import zipfile
 import numpy as np
 from PIL import Image, ImageEnhance
 
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-INSTA_DIR = os.path.join(BASE_DIR, "insta viila cheio")
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+INSTA_DIR = os.path.join(BASE_DIR, "data", "midias_instagram_vila_cachos")
+if not os.path.exists(INSTA_DIR):
+    # Fallback para caminho legado caso exista
+    legacy_dir = os.path.join(BASE_DIR, "insta viila cheio")
+    if os.path.exists(legacy_dir):
+        INSTA_DIR = legacy_dir
 DATASET_DIR = os.path.join(BASE_DIR, "dataset_cachos")
 TRAIN_DIR = os.path.join(DATASET_DIR, "train")
 VAL_DIR = os.path.join(DATASET_DIR, "val")

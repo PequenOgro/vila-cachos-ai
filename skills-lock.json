@@ -13,6 +13,12 @@
       "skillPath": "clean-code/SKILL.md",
       "computedHash": "af6b8adde1281493c8a55d5505efc739a2a5ed851ca467b7b6d35c2d2b2f9cea"
     },
+    "code_review": {
+      "source": "krishnakanthb13/antigravity_global_skills",
+      "sourceType": "github",
+      "skillPath": "code_review/SKILL.md",
+      "computedHash": "9af478507c9f8b2c3881594119b21ea5429168ae1775afe6b48a6692af68f7a1"
+    },
     "diagnosing-superpowers": {
       "source": "obra/superpowers",
       "sourceType": "github",
@@ -24,6 +30,12 @@
       "sourceType": "github",
       "skillPath": "skills/dispatching-parallel-agents/SKILL.md",
       "computedHash": "b011107f17188e0b2898bb1856b5bac8b49537cc86e737c82126558a235bd62a"
+    },
+    "document_api": {
+      "source": "krishnakanthb13/antigravity_global_skills",
+      "sourceType": "github",
+      "skillPath": "document_api/SKILL.md",
+      "computedHash": "99deaf17d7e746b9ae523682da563a6e87f325172d2bf9b102d5bd7d2ccbf285"
     },
     "executing-plans": {
       "source": "obra/superpowers",
@@ -49,6 +61,18 @@
       "skillPath": "skills/frontend-design/SKILL.md",
       "computedHash": "106acf230014cbb43ca34e6410371321b56ca742f9ee0442e8ec05bf02eb0384"
     },
+    "k6-load-testing": {
+      "source": "sickn33/agentic-awesome-skills",
+      "sourceType": "github",
+      "skillPath": "skills/k6-load-testing/SKILL.md",
+      "computedHash": "ff3a032ee0559a2c8f638e4682efd7fc23da61237e9ade466116f015e1e7dce0"
+    },
+    "optimize_codebase": {
+      "source": "krishnakanthb13/antigravity_global_skills",
+      "sourceType": "github",
+      "skillPath": "optimize_codebase/SKILL.md",
+      "computedHash": "2d1a7e5657ea6a22c8535fb9e8083e646b6ad59182b85e1119b3be3ec0cde0f7"
+    },
     "playwright-best-practices": {
       "source": "currents-dev/playwright-best-practices-skill",
       "sourceType": "github",
@@ -61,6 +85,12 @@
       "skillPath": "skills/receiving-code-review/SKILL.md",
       "computedHash": "59361179fc9225173e0c145ffd9bafbf9fdbf8b43ce3dc308497a0b4f83a6063"
     },
+    "recsys-pipeline-architect": {
+      "source": "sickn33/agentic-awesome-skills",
+      "sourceType": "github",
+      "skillPath": "skills/recsys-pipeline-architect/SKILL.md",
+      "computedHash": "3d34f5a7741ca884f167a5a891bd9bcdee6cd2d5633380748a91ba2a56666098"
+    },
     "refactoring-patterns": {
       "source": "wondelai/skills",
       "sourceType": "github",
@@ -72,6 +102,30 @@
       "sourceType": "github",
       "skillPath": "skills/requesting-code-review/SKILL.md",
       "computedHash": "2abaeac1de432c76abda0ca7ba618901d2e94f8817b3650f9c523acea2d224f5"
+    },
+    "scaffold_tests": {
+      "source": "krishnakanthb13/antigravity_global_skills",
+      "sourceType": "github",
+      "skillPath": "scaffold_tests/SKILL.md",
+      "computedHash": "d94d2d622bccc965f2f1bb029389915f3ecac4049b26071bcf63a1484c13653d"
+    },
+    "security_audit": {
+      "source": "krishnakanthb13/antigravity_global_skills",
+      "sourceType": "github",
+      "skillPath": "security_audit/SKILL.md",
+      "computedHash": "f7ae272ee2210fd7d55bd3aa8e3e26943e65da42c602abcf62a3f7deadb2a5d7"
+    },
+    "senior-architect": {
+      "source": "sickn33/agentic-awesome-skills",
+      "sourceType": "github",
+      "skillPath": "skills/senior-architect/SKILL.md",
+      "computedHash": "202a9526b05a33d4ea90fbc68c1e5ad201176b3eedc912a4054c50d23c51f68c"
+    },
+    "software_architecture": {
+      "source": "krishnakanthb13/antigravity_global_skills",
+      "sourceType": "github",
+      "skillPath": "software_architecture/SKILL.md",
+      "computedHash": "cc4499d87bbab763863d437d9bca9ebb4add4997ef2f0fdc388e1fade7e5ecd1"
     },
     "subagent-driven-development": {
       "source": "obra/superpowers",
@@ -90,6 +144,12 @@
       "sourceType": "github",
       "skillPath": "skills/test-driven-development/SKILL.md",
       "computedHash": "3cfe4ebb6fa7288f668d87880d279c8e48f7a92b63415e296857060f5ce22e05"
+    },
+    "ui_ux_pro_max": {
+      "source": "krishnakanthb13/antigravity_global_skills",
+      "sourceType": "github",
+      "skillPath": "ui_ux_pro_max/SKILL.md",
+      "computedHash": "5fb1d153654d6c6a669fc4061356cd842a218faedb8367990ae752fa92ac8eb9"
     },
     "using-git-worktrees": {
       "source": "obra/superpowers",

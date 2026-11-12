@@ -39,6 +39,13 @@ export type DiagnosticoImagem = {
   confianca_porosidade?: number;
   tempo_inferencia_ms: number;
   modelo_utilizado?: string;
+  detalhes_morfologicos?: {
+    densidade_bordas?: number;
+    indice_frizz?: number;
+    energia_curvatura?: number;
+    proporcao_cor_artificial?: number;
+    proporcao_pele?: number;
+  };
 };
 
 export type Produto = {
@@ -84,7 +91,35 @@ export async function diagnosticarImagem(file: File): Promise<DiagnosticoImagem>
       console.warn(`[Vila Cachos API] Falha HTTP ${r.status} em ${targetUrl}`);
       throw new Error(`HTTP ${r.status}`);
     }
-    return await r.json();
+    const data: DiagnosticoImagem = await r.json();
+
+    // Defesa em Profundidade / Sanitização de Outliers e Falsos Positivos:
+    // 1. Backend explicitamente sinalizou ausência de cabelo
+    // 2. Ou backend legado omitiu o campo e métricas morfológicas comprovam
+    //    ausência de mechas capilares (densidade < 0.025 ou frizz < 15.0)
+    const densidade = data.detalhes_morfologicos?.densidade_bordas ?? 0;
+    const frizz = data.detalhes_morfologicos?.indice_frizz ?? 0;
+    const semCabelo =
+      data.cabelo_detectado === false ||
+      (data.cabelo_detectado === undefined && (densidade < 0.025 || frizz < 15.0));
+
+    if (semCabelo) {
+      return {
+        ...data,
+        cabelo_detectado: false,
+        curvatura_detectada: null,
+        curvatura_label: "Nenhum cabelo detectado",
+        confianca_curvatura: 0,
+        mensagem_alerta:
+          data.mensagem_alerta ||
+          "Não identificamos fios ou mechas de cabelo na foto enviada. Envie uma foto aproximada dos fios ou selecione sua curvatura abaixo.",
+      };
+    }
+
+    return {
+      ...data,
+      cabelo_detectado: true,
+    };
   } catch (err) {
     console.error(`[Vila Cachos API] Erro ao chamar ${targetUrl}:`, err);
     throw err;

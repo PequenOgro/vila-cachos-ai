@@ -50,7 +50,7 @@ export function PassoCurvatura({ form, setForm }: PassoCurvaturaProps) {
    * Aplica a sugestão da IA no formulário apenas se cabelo válido foi detectado.
    */
   const aplicarDiagnosticoIA = () => {
-    if (!diag || diag.cabelo_detectado === false || !diag.curvatura_detectada) return;
+    if (!diag || diag.cabelo_detectado !== true || !diag.curvatura_detectada) return;
     setForm({
       ...form,
       curvatura: diag.curvatura_detectada,
@@ -114,7 +114,7 @@ export function PassoCurvatura({ form, setForm }: PassoCurvaturaProps) {
           )}
 
           {/* Cenário: Foto Sem Cabelo / Anúncio / Careca */}
-          {diag && diag.cabelo_detectado === false && (
+          {diag && (diag.cabelo_detectado === false || !diag.curvatura_detectada) && (
             <div className="mt-2 space-y-3 rounded-2xl border border-amber-300/40 bg-amber-500/20 p-4 text-amber-50">
               <div className="flex items-center gap-2">
                 <span className="text-xl">⚠️</span>
@@ -137,7 +137,7 @@ export function PassoCurvatura({ form, setForm }: PassoCurvaturaProps) {
           )}
 
           {/* Cenário: Mechas e Cachos Detectados com Sucesso */}
-          {diag && diag.cabelo_detectado !== false && diag.curvatura_detectada && (
+          {diag && diag.cabelo_detectado === true && diag.curvatura_detectada && (
             <div className="mt-2 space-y-3">
               <p className="font-serif text-2xl">{diag.curvatura_label}</p>
               <div className="flex flex-wrap gap-2 text-sm">

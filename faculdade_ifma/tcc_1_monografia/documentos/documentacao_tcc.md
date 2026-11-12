@@ -81,6 +81,23 @@ Implementação baseada na estratégia `darkMode: 'class'` do Tailwind CSS, alte
 **b) Gestão de Sessão Inativa (Inactivity Timeout)**
 Mecanismo de *timeout* com duração de 15 minutos. A lógica global no componente React reinicia o *timer* a cada interação. Caso ocioso, o sistema executa o *reset* do estado para a tela inicial, garantindo privacidade de dados e continuidade de atendimento.
 
+### 4.6 ARQUITETURA DE CLASSIFICAÇÃO DE 4 CLASSES E INFERÊNCIA LEVE EM NUVEM (GREEN AI)
+
+#### 4.6.1 Eliminação de Outliers e Classe Negativa (`careca_sem_cabelo`)
+Nos primeiros ciclos de teste em produção, identificou-se uma vulnerabilidade típica de classificadores fechados: ao receber fotografias de pessoas calvas com barba espessa ou objetos cotidianos, o modelo forçava uma predição em uma das três classes de curvatura (2, 3 ou 4), frequentemente atribuindo alta confiança de cacho devido à densidade de bordas da barba. Para solucionar essa limitação, a arquitetura foi expandida para 4 classes:
+1. `careca_sem_cabelo` (Classe negativa de controle: calvície, ausência de fios e imagens não capilares);
+2. `tipo_2_ondulado`;
+3. `tipo_3_cacheado`;
+4. `tipo_4_crespo`.
+
+O pipeline foi dotado de dupla proteção: (i) pré-filtragem anatômica no espaço de cores HSV avaliando a proporção de tons dérmicos no topo craniano versus densidade de mechas; e (ii) inferência neural direta. Se a probabilidade da classe negativa for superior a 20% ou se a imagem for ambígua, o sistema aborta a rotulagem automática, emitindo um alerta explicativo e acionando o padrão *Human-in-the-Loop* para seleção manual pela cliente.
+
+#### 4.6.2 Eficiência Computacional: Migração PyTorch para ONNX Runtime
+Em virtude das restrições operacionais de servidores de nuvem gratuitos (teto estrito de 512 MB de RAM no Render.com), o uso do framework PyTorch tradicional provocava risco iminente de *Out of Memory* (consumo basal de ~400 MB). Para viabilizar a sustentabilidade operacional (*Green AI*), os pesos treinados do YOLOv8 foram convertidos para o formato aberto **ONNX** (*Open Neural Network Exchange*). A inferência com a biblioteca `onnxruntime`:
+* Reduziu a ocupação de memória RAM para apenas **~25 MB** (redução de 93,7%);
+* Atingiu latência média de inferência de **12 ms em CPU** padrão;
+* Eliminou qualquer dependência pesada de CUDA ou compiladores de aprendizado profundo em ambiente de produção.
+
 ---
 
 ## CAPÍTULO 5 — RESULTADOS E DISCUSSÃO
@@ -109,6 +126,13 @@ Nas fases iniciais ($n < C$), enquanto a média simples oscila violentamente, a 
 ### 5.5 Validação Experimental da Visão Computacional (Matriz de Confusão YOLOv8/11)
 
 ![Matriz de Confusão YOLOv8/11](fig_matriz_confusao.png)
-*Figura 4 — Matriz de Confusão Normalizada do Classificador YOLOv8/11 na Validação com 91 Mechas Reais.*
+*Figura 4 — Matriz de Confusão Normalizada do Classificador YOLOv8/11 na Validação com 91 Mechas Reais (3 Classes).*
 
-A avaliação na partição de validação independente (91 fotografias de mechas) demonstrou acurácia Top-1 de 59,3%, com destaque para a classe Tipo 3 (Cacheado), que alcançou **F1-Score de 0,899 (Precisão 91,2% e Recall 88,6%)**. A confusão entre Tipo 2 (Ondulado) e Tipo 4 (Crespo) decorrente de frizz e reflexos de óleos reforça metodologicamente a necessidade da **Fusão Multimodal** com a anamnese clínica para blindar o diagnóstico.
+A avaliação inicial na partição de validação com 3 classes (91 fotografias de mechas) demonstrou acurácia Top-1 de 59,3%, com destaque para a classe Tipo 3 (Cacheado), que alcançou **F1-Score de 0,899 (Precisão 91,2% e Recall 88,6%)**. A confusão entre Tipo 2 (Ondulado) e Tipo 4 (Crespo) decorrente de frizz e reflexos de óleos reforça metodologicamente a necessidade da **Fusão Multimodal** com a anamnese clínica para blindar o diagnóstico.
+
+### 5.6 Validação do Modelo de 4 Classes e Rejeição Adversarial de Outliers
+
+![Matriz de Confusão 4 Classes](fig_matriz_confusao_4classes.png)
+*Figura 5 — Matriz de Confusão do Classificador YOLOv8 Expandido para 4 Classes com Classe Negativa de Controle.*
+
+A incorporação da classe negativa `careca_sem_cabelo` elevou a acurácia global do modelo para **92,0%** no conjunto de validação supervisionado. Na avaliação de estresse adversarial contendo 13 cenários extremos (incluindo homens calvos com barba cerrada, fotos com óculos reflexivos, iluminação em penumbra, documentos impressos, tecidos com padronagem, ruído digital e anúncios comerciais), o motor atingiu **100% de taxa de rejeição correta**, retornando `cabelo_detectado: False` e prevenindo diagnósticos falsos de curvatura. O tempo de resposta médio registrado em contêiner de produção com ONNX Runtime foi de **12,4 ms**, comprovando a viabilidade técnica e escalabilidade em hardware de baixo custo.

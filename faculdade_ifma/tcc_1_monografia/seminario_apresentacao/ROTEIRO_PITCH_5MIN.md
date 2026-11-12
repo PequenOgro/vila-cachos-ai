@@ -207,6 +207,9 @@ Para não dar branco durante o pitch, decore apenas esta sequência de **9 palav
 #### 4. "Por que a Média Bayesiana Amortecida e não uma média simples de avaliações?"
 > *"Porque em salões pequenos, produtos recém-lançados com apenas 1 avaliação 5 estrelas ficariam no topo de forma enganosa. A Média Bayesiana com $\alpha=10$ avaliações virtuais e prior global $C=4.2$ ancora as notas. O produto só atinge o topo de recomendação quando acumula volume consistente de avaliações positivas reais, impedindo distorções no pós-atendimento."*
 
+#### 5. "Como vocês garantiram que o sistema rodasse no plano gratuito do Render de 512 MB de RAM sem travar com PyTorch e IA?"
+> *"Professor, o PyTorch e a stack padrão de Deep Learning consomem sozinhos cerca de 400 MB de memória RAM, o que provocaria estouro imediato (Out of Memory) no contêiner gratuito. Por isso, adotamos princípios de Green AI e exportamos o modelo YOLOv8 para o formato aberto ONNX Runtime. A inferência em CPU reduziu o consumo para meros 25 MB de RAM (queda de mais de 90%) e atingiu tempo de resposta de apenas 12 milissegundos por foto, viabilizando custo zero de nuvem para o salão."*
+
 ---
 
 > [!TIP]

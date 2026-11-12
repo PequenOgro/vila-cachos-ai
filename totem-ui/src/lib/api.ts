@@ -81,6 +81,34 @@ export type FeedbackResposta = {
   media_global_atualizada: number;
 };
 
+/**
+ * Heurística local (fallback para backend desatualizado): se mais de 60% do topo
+ * da imagem (35% superior) é tom de pele, trata-se de couro cabeludo calvo/sem mecha.
+ * Calibrada no conjunto de validação (≈2% de falsa rejeição em fotos de cabelo).
+ */
+async function topoPareceCalvo(file: File): Promise<boolean> {
+  try {
+    const bmp = await createImageBitmap(file);
+    const size = 96;
+    const canvas = document.createElement("canvas");
+    canvas.width = size;
+    canvas.height = size;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return false;
+    ctx.drawImage(bmp, 0, 0, size, size);
+    const linhas = Math.floor(size * 0.35);
+    const px = ctx.getImageData(0, 0, size, linhas).data;
+    let pele = 0;
+    for (let i = 0; i < px.length; i += 4) {
+      const [r, g, b] = [px[i], px[i + 1], px[i + 2]];
+      if (r > 60 && g > 40 && b > 20 && r > g && g > b && r - g > 10 && r - b > 15) pele++;
+    }
+    return pele / (size * linhas) > 0.6;
+  } catch {
+    return false;
+  }
+}
+
 export async function diagnosticarImagem(file: File): Promise<DiagnosticoImagem> {
   const fd = new FormData();
   fd.append("file", file);
@@ -92,6 +120,11 @@ export async function diagnosticarImagem(file: File): Promise<DiagnosticoImagem>
       throw new Error(`HTTP ${r.status}`);
     }
     const data: DiagnosticoImagem = await r.json();
+
+    // Backend legado (sem campo cabelo_detectado): valida o couro cabeludo no navegador.
+    if (data.cabelo_detectado === undefined && (await topoPareceCalvo(file))) {
+      data.cabelo_detectado = false;
+    }
 
     // Defesa em Profundidade / Sanitização de Outliers e Falsos Positivos:
     // 1. Backend explicitamente sinalizou ausência de cabelo

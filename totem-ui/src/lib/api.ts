@@ -62,8 +62,10 @@ export type Produto = {
 };
 
 export type PesosHibridos = {
-  peso_conteudo_regras: number;
-  peso_feedback_clientes: number;
+  peso_regras_conteudo?: number;
+  peso_feedback_historico?: number;
+  peso_conteudo_regras?: number;
+  peso_feedback_clientes?: number;
 };
 
 export type Recomendacao = {

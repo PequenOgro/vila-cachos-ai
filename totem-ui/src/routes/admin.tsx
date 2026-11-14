@@ -695,13 +695,19 @@ export function AdminPage() {
                               <div className="text-xs text-stone-600">
                                 <strong>Pesos:</strong> Regras Conteúdo{" "}
                                 {(
-                                  simResultado.peso_conhecimento_vs_feedback.peso_conteudo_regras *
-                                  100
+                                  (simResultado.peso_conhecimento_vs_feedback
+                                    .peso_regras_conteudo ??
+                                    simResultado.peso_conhecimento_vs_feedback
+                                      .peso_conteudo_regras ??
+                                    0.4) * 100
                                 ).toFixed(0)}
                                 % &bull; Feedback Histórico{" "}
                                 {(
-                                  simResultado.peso_conhecimento_vs_feedback
-                                    .peso_feedback_clientes * 100
+                                  (simResultado.peso_conhecimento_vs_feedback
+                                    .peso_feedback_historico ??
+                                    simResultado.peso_conhecimento_vs_feedback
+                                      .peso_feedback_clientes ??
+                                    0.6) * 100
                                 ).toFixed(0)}
                                 %
                               </div>

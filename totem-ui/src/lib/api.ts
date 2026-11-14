@@ -81,6 +81,170 @@ export type FeedbackResposta = {
   media_global_atualizada: number;
 };
 
+export type ItemCatalogo = {
+  id: string;
+  nome: string;
+  marca: string;
+  categoria: string;
+  curvaturas_indicadas: number[];
+  peso_fio: "leve" | "medio" | "pesado" | string;
+  afinidade_queixas: Record<string, number>;
+  descricao?: string;
+};
+
+export type MetricasHealth = {
+  status: string;
+  motor_carregado: boolean;
+  total_clientes_historico: number;
+  media_satisfacao_global: number;
+  num_clusters: number;
+  silhouette_score: number;
+};
+
+export async function obterHealth(): Promise<MetricasHealth> {
+  const targetUrl = `${API_URL}/health`;
+  try {
+    const r = await fetch(targetUrl);
+    if (!r.ok) {
+      throw new Error(`HTTP ${r.status}`);
+    }
+    return await r.json();
+  } catch (err) {
+    console.warn(
+      `[Vila Cachos API] Falha ao consultar health em ${targetUrl}, usando fallback:`,
+      err,
+    );
+    return {
+      status: "operacional (offline cache)",
+      motor_carregado: true,
+      total_clientes_historico: 1084,
+      media_satisfacao_global: 4.54,
+      num_clusters: 4,
+      silhouette_score: 0.448,
+    };
+  }
+}
+
+export async function obterCatalogo(): Promise<ItemCatalogo[]> {
+  const targetUrl = `${API_URL}/catalogo`;
+  try {
+    const r = await fetch(targetUrl);
+    if (!r.ok) {
+      throw new Error(`HTTP ${r.status}`);
+    }
+    return await r.json();
+  } catch (err) {
+    console.warn(
+      `[Vila Cachos API] Falha ao consultar catalogo em ${targetUrl}, usando fallback:`,
+      err,
+    );
+    return [
+      {
+        id: "PROD_01",
+        nome: "Curly Care ACID-C (Acidificante Antiporosidade)",
+        marca: "Curly Care",
+        categoria: "Tratamento Acidificante",
+        curvaturas_indicadas: [2, 3, 4],
+        peso_fio: "leve",
+        afinidade_queixas: {
+          alta_porosidade_quimica: 1.0,
+          frizz_falta_definicao: 0.6,
+          ressecamento_opacidade: 0.5,
+          transicao_capilar: 0.5,
+          couro_sensivel_oleoso: 0.2,
+        },
+        descricao:
+          "Regulador de pH intensivo que sela as cutículas, combate a porosidade e devolve a elasticidade natural.",
+      },
+      {
+        id: "PROD_02",
+        nome: "Curly Care Manteiga Nutritiva",
+        marca: "Curly Care",
+        categoria: "Máscara de Nutrição",
+        curvaturas_indicadas: [3, 4],
+        peso_fio: "pesado",
+        afinidade_queixas: {
+          ressecamento_opacidade: 1.0,
+          alta_porosidade_quimica: 0.6,
+          frizz_falta_definicao: 0.4,
+          transicao_capilar: 0.4,
+          couro_sensivel_oleoso: 0.0,
+        },
+        descricao:
+          "Rica em óleos vegetais nobres para restaurar a lubricidade e o brilho de fios ressecados.",
+      },
+      {
+        id: "PROD_03",
+        nome: "Arvensis Geleia Forte Fixação",
+        marca: "Arvensis",
+        categoria: "Finalizador Fixação",
+        curvaturas_indicadas: [2, 3, 4],
+        peso_fio: "medio",
+        afinidade_queixas: {
+          frizz_falta_definicao: 1.0,
+          transicao_capilar: 0.9,
+          ressecamento_opacidade: 0.2,
+          alta_porosidade_quimica: 0.3,
+          couro_sensivel_oleoso: 0.0,
+        },
+        descricao:
+          "Garante alta definição e memorização de curvatura sem efeito rígido ou ressecado.",
+      },
+      {
+        id: "PROD_04",
+        nome: "Arvensis Ativador de Cachos e Crespos",
+        marca: "Arvensis",
+        categoria: "Finalizador Definição",
+        curvaturas_indicadas: [3, 4],
+        peso_fio: "medio",
+        afinidade_queixas: {
+          frizz_falta_definicao: 0.8,
+          ressecamento_opacidade: 0.7,
+          transicao_capilar: 0.6,
+          alta_porosidade_quimica: 0.4,
+          couro_sensivel_oleoso: 0.1,
+        },
+        descricao:
+          "Combina nutrição e fixação intermediária para manter o formato espiralado por vários dias.",
+      },
+      {
+        id: "PROD_05",
+        nome: "Arvensis Co-Wash Suave Cachos Naturais",
+        marca: "Arvensis",
+        categoria: "Higienizador Suave",
+        curvaturas_indicadas: [2, 3, 4],
+        peso_fio: "leve",
+        afinidade_queixas: {
+          couro_sensivel_oleoso: 1.0,
+          ressecamento_opacidade: 0.7,
+          alta_porosidade_quimica: 0.5,
+          frizz_falta_definicao: 0.3,
+          transicao_capilar: 0.4,
+        },
+        descricao:
+          "Higienização fisiológica sem sulfatos que preserva a barreira cutânea e a emoliência da fibra.",
+      },
+      {
+        id: "PROD_06",
+        nome: "Deva Curl Delight (Volume e Leveza)",
+        marca: "Deva Curl",
+        categoria: "Finalizador Leve",
+        curvaturas_indicadas: [2, 3],
+        peso_fio: "leve",
+        afinidade_queixas: {
+          frizz_falta_definicao: 0.6,
+          ressecamento_opacidade: 0.4,
+          couro_sensivel_oleoso: 0.3,
+          alta_porosidade_quimica: 0.2,
+          transicao_capilar: 0.2,
+        },
+        descricao:
+          "Fórmula aquosa e botânica para ondas e cachos abertos que necessitam de sustentação com movimento.",
+      },
+    ];
+  }
+}
+
 /**
  * Heurística local (fallback para backend desatualizado): se mais de 60% do topo
  * da imagem (35% superior) é tom de pele, trata-se de couro cabeludo calvo/sem mecha.

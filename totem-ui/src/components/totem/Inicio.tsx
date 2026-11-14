@@ -1,6 +1,4 @@
 import React from "react";
-import { Link } from "@tanstack/react-router";
-import { Settings } from "lucide-react";
 import hero from "@/assets/hero.jpg";
 import { Logo } from "./Logo";
 
@@ -40,19 +38,9 @@ export function Inicio({ onStart }: InicioProps) {
       <div className="relative flex min-h-dvh flex-col justify-between p-8 md:p-14">
         <header className="flex items-start justify-between">
           <Logo light />
-          <div className="flex flex-col items-end gap-2">
-            <p className="max-w-[14rem] text-right text-sm tracking-wide text-primary-foreground/80">
-              Totem Inteligente de Diagnóstico Capilar
-            </p>
-            <Link
-              to="/admin"
-              className="inline-flex items-center gap-1.5 rounded-full border border-primary-foreground/30 bg-black/25 px-3 py-1 text-xs font-medium text-primary-foreground/90 backdrop-blur-md transition hover:bg-black/40 hover:text-white"
-              title="Acessar painel de administração e telemetria"
-            >
-              <Settings className="h-3 w-3" />
-              <span>Painel do Gestor</span>
-            </Link>
-          </div>
+          <p className="max-w-[14rem] text-right text-sm tracking-wide text-primary-foreground/80">
+            Totem Inteligente de Diagnóstico Capilar
+          </p>
         </header>
 
         <div className="max-w-2xl animate-rise pb-6">

@@ -1,0 +1,21 @@
+name: Render Keep-Alive Ping
+
+on:
+  schedule:
+    # Executa a cada 10 minutos (Render hiberna aos 15 minutos de inatividade)
+    - cron: "*/10 * * * *"
+  workflow_dispatch: # Permite disparo manual pelo painel do GitHub Actions
+
+jobs:
+  ping-render:
+    name: Ping Vila Cachos API
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping Root Endpoint
+        run: |
+          echo "Disparando ping para a API no Render..."
+          curl -s -o /dev/null -w "HTTP Status: %{http_code} | Tempo: %{time_total}s\n" https://vila-cachos-ai.onrender.com/
+      - name: Ping Health Endpoint
+        run: |
+          echo "Disparando ping para o Health Check..."
+          curl -s -o /dev/null -w "Health Status: %{http_code} | Tempo: %{time_total}s\n" https://vila-cachos-ai.onrender.com/health

@@ -46,6 +46,36 @@ function isH3SwallowedErrorBody(body: string): boolean {
 
 export default {
   async fetch(request: Request, env: unknown, ctx: unknown) {
+    // Interceptador de Keep-Alive para Vercel Cron Jobs e webhooks externos
+    try {
+      const url = new URL(request.url);
+      if (url.pathname === "/api/keep-alive") {
+        const t0 = Date.now();
+        const renderResp = await fetch("https://vila-cachos-ai.onrender.com/", {
+          cache: "no-store",
+          headers: { "User-Agent": "Vercel-KeepAlive/1.0" },
+        });
+        const elapsed = Date.now() - t0;
+        const text = await renderResp.text();
+
+        return new Response(
+          JSON.stringify({
+            status: "ok",
+            render_status: renderResp.status,
+            latency_ms: elapsed,
+            timestamp: new Date().toISOString(),
+            render_response: text,
+          }),
+          {
+            status: 200,
+            headers: { "content-type": "application/json" },
+          },
+        );
+      }
+    } catch (e) {
+      console.warn("[Vercel Keep-Alive] Erro ao disparar ping para o Render:", e);
+    }
+
     try {
       const handler = await getServerEntry();
       const response = await handler.fetch(request, env, ctx);

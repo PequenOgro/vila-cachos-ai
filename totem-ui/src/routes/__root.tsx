@@ -12,6 +12,7 @@ import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
+import { API_URL } from "../lib/api";
 
 function NotFoundComponent() {
   return (
@@ -119,6 +120,18 @@ function RootShell({ children }: { children: ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+
+  useEffect(() => {
+    // Keep-Alive & Pre-aquecimento Preemptivo do Render:
+    // Dispara no instante em que o usuario abre o totem na Vercel e mantem o backend aquecido
+    const pingBackend = () => {
+      fetch(`${API_URL}/`, { method: "GET", cache: "no-store" }).catch(() => {});
+    };
+
+    pingBackend();
+    const interval = setInterval(pingBackend, 60_000);
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <QueryClientProvider client={queryClient}>

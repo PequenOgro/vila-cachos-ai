@@ -62,6 +62,7 @@ totem-ui/.wrangler/
 runs/
 scratch/
 .playwright-mcp/
+*.png
 
 # IDE & OS
 .vscode/

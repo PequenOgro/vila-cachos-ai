@@ -40,28 +40,30 @@ export function SimuladorTab() {
   return (
     <section className="space-y-6">
       <div>
-        <h1 className="text-xl sm:text-2xl font-bold tracking-tight text-stone-900">
+        <h1 className="text-xl sm:text-2xl font-serif font-bold tracking-tight text-stone-100">
           Simulador &amp; Auditoria Tricológica em Tempo Real
         </h1>
-        <p className="mt-1 text-xs sm:text-sm text-stone-600">
+        <p className="mt-1 text-xs sm:text-sm text-stone-400">
           Audite o motor de IA híbrido inspecionando os pesos da combinação convexa e a
           explicabilidade (XAI)
         </p>
       </div>
 
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-12">
-        {/* Painel de Parâmetros do Fio (4 colunas) */}
-        <div className="space-y-5 rounded-2xl border border-stone-200/90 bg-white p-5 shadow-xs lg:col-span-5">
-          <div className="flex items-center gap-2 border-b border-stone-100 pb-3">
-            <FlaskConical className="h-4 w-4 text-emerald-700" />
-            <h2 className="text-sm font-bold uppercase tracking-wider text-stone-800">
+        {/* Painel de Parâmetros do Fio (5 colunas) */}
+        <div className="space-y-5 rounded-2xl border border-stone-800/90 bg-[#131d18]/90 p-5 shadow-xl shadow-black/30 lg:col-span-5">
+          <div className="flex items-center gap-2 border-b border-stone-800 pb-3">
+            <FlaskConical className="h-4 w-4 text-emerald-400" />
+            <h2 className="text-sm font-bold uppercase tracking-wider text-stone-300">
               Parâmetros do Fio &amp; Anamnese
             </h2>
           </div>
 
           {/* Curvatura */}
           <div>
-            <label className="text-xs font-bold text-stone-700">Curvatura Capilar (Walker)</label>
+            <label className="text-xs font-semibold text-stone-300">
+              Curvatura Capilar (Walker)
+            </label>
             <div className="mt-2 grid grid-cols-3 gap-2">
               {[
                 { val: 2, label: "2 • Ondulado" },
@@ -72,10 +74,10 @@ export function SimuladorTab() {
                   key={c.val}
                   type="button"
                   onClick={() => setCurvatura(c.val)}
-                  className={`rounded-xl border py-2.5 text-xs font-bold transition shadow-2xs ${
+                  className={`rounded-xl border py-2.5 text-xs font-bold transition shadow-xs ${
                     curvatura === c.val
-                      ? "border-emerald-600 bg-emerald-50 text-emerald-800"
-                      : "border-stone-200 bg-white text-stone-700 hover:bg-stone-50"
+                      ? "border-emerald-600 bg-emerald-950 text-emerald-200"
+                      : "border-stone-800 bg-stone-900/90 text-stone-400 hover:text-stone-200 hover:bg-stone-800"
                   }`}
                 >
                   {c.label}
@@ -86,7 +88,7 @@ export function SimuladorTab() {
 
           {/* Porosidade */}
           <div>
-            <label className="text-xs font-bold text-stone-700">Grau de Porosidade</label>
+            <label className="text-xs font-semibold text-stone-300">Grau de Porosidade</label>
             <div className="mt-2 grid grid-cols-3 gap-2">
               {[
                 { val: 1, label: "Baixa" },
@@ -97,10 +99,10 @@ export function SimuladorTab() {
                   key={p.val}
                   type="button"
                   onClick={() => setPorosidade(p.val)}
-                  className={`rounded-xl border py-2.5 text-xs font-bold transition shadow-2xs ${
+                  className={`rounded-xl border py-2.5 text-xs font-bold transition shadow-xs ${
                     porosidade === p.val
-                      ? "border-emerald-600 bg-emerald-50 text-emerald-800"
-                      : "border-stone-200 bg-white text-stone-700 hover:bg-stone-50"
+                      ? "border-emerald-600 bg-emerald-950 text-emerald-200"
+                      : "border-stone-800 bg-stone-900/90 text-stone-400 hover:text-stone-200 hover:bg-stone-800"
                   }`}
                 >
                   {p.label}
@@ -111,7 +113,7 @@ export function SimuladorTab() {
 
           {/* Histórico Químico */}
           <div>
-            <label className="text-xs font-bold text-stone-700">Histórico Químico</label>
+            <label className="text-xs font-semibold text-stone-300">Histórico Químico</label>
             <div className="mt-2 grid grid-cols-3 gap-2">
               {[
                 { val: 0, label: "100% Natural" },
@@ -122,10 +124,10 @@ export function SimuladorTab() {
                   key={q.val}
                   type="button"
                   onClick={() => setQuimica(q.val)}
-                  className={`rounded-xl border py-2.5 text-xs font-bold transition shadow-2xs ${
+                  className={`rounded-xl border py-2.5 text-xs font-bold transition shadow-xs ${
                     quimica === q.val
-                      ? "border-emerald-600 bg-emerald-50 text-emerald-800"
-                      : "border-stone-200 bg-white text-stone-700 hover:bg-stone-50"
+                      ? "border-emerald-600 bg-emerald-950 text-emerald-200"
+                      : "border-stone-800 bg-stone-900/90 text-stone-400 hover:text-stone-200 hover:bg-stone-800"
                   }`}
                 >
                   {q.label}
@@ -136,7 +138,7 @@ export function SimuladorTab() {
 
           {/* Queixas Capilares */}
           <div>
-            <label className="text-xs font-bold text-stone-700">Queixas Relatadas</label>
+            <label className="text-xs font-semibold text-stone-300">Queixas Relatadas</label>
             <div className="mt-2 space-y-2">
               {[
                 { id: "frizz", label: "Frizz & Falta de Definição" },
@@ -145,15 +147,15 @@ export function SimuladorTab() {
               ].map((q) => (
                 <label
                   key={q.id}
-                  className="flex cursor-pointer items-center gap-2.5 rounded-xl border border-stone-200 p-2.5 text-xs font-medium transition hover:bg-stone-50"
+                  className="flex cursor-pointer items-center gap-2.5 rounded-xl border border-stone-800 bg-stone-900/80 p-2.5 text-xs font-medium text-stone-300 transition hover:bg-stone-800/80 hover:border-emerald-800/60"
                 >
                   <input
                     type="checkbox"
                     checked={queixas.includes(q.id)}
                     onChange={() => toggleQueixa(q.id)}
-                    className="rounded border-stone-300 text-emerald-600 focus:ring-emerald-500 h-4 w-4"
+                    className="rounded border-stone-700 bg-stone-800 text-emerald-500 focus:ring-emerald-500 h-4 w-4"
                   />
-                  <span className="text-stone-800">{q.label}</span>
+                  <span>{q.label}</span>
                 </label>
               ))}
             </div>
@@ -163,12 +165,12 @@ export function SimuladorTab() {
           <button
             onClick={dispararSimulacao}
             disabled={simulando}
-            className="flex w-full items-center justify-center gap-2 rounded-xl bg-emerald-700 py-3 text-sm font-bold text-white shadow-xs transition hover:bg-emerald-800 active:scale-98 disabled:opacity-50"
+            className="flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 py-3 text-sm font-bold text-white shadow-lg shadow-emerald-950/50 transition hover:from-emerald-500 hover:to-teal-500 active:scale-98 disabled:opacity-50"
           >
             {simulando ? (
-              <RefreshCw className="h-4 w-4 animate-spin" />
+              <RefreshCw className="h-4 w-4 animate-spin text-white" />
             ) : (
-              <Sparkles className="h-4 w-4" />
+              <Sparkles className="h-4 w-4 text-white" />
             )}
             <span>{simulando ? "Calculando..." : "Disparar Recomendação"}</span>
           </button>
@@ -179,14 +181,15 @@ export function SimuladorTab() {
           {resultado ? (
             <div className="space-y-4">
               {/* Header da Persona Atribuída */}
-              <div className="rounded-2xl border border-stone-200 bg-white p-5 shadow-xs">
-                <div className="flex flex-wrap items-center justify-between gap-2 border-b border-stone-100 pb-3">
-                  <span className="rounded-full bg-emerald-100/90 px-3 py-1 text-xs font-bold text-emerald-900">
+              <div className="rounded-2xl border border-emerald-900/80 bg-[#131d18]/90 p-5 shadow-xl shadow-black/30">
+                <div className="flex flex-wrap items-center justify-between gap-2 border-b border-stone-800 pb-3">
+                  <span className="rounded-full bg-emerald-950 border border-emerald-700/80 px-3 py-1 text-xs font-bold text-emerald-300">
                     Cluster Clínico #{resultado.cluster_id ?? 0}
                   </span>
                   {resultado.peso_conhecimento_vs_feedback && (
-                    <div className="text-xs text-stone-600 font-medium">
-                      <strong>Equilíbrio Híbrido:</strong> Matriz Especialista{" "}
+                    <div className="text-xs text-stone-400 font-medium">
+                      <strong className="text-stone-300">Equilíbrio Híbrido:</strong> Matriz
+                      Especialista{" "}
                       {(
                         (resultado.peso_conhecimento_vs_feedback.peso_regras_conteudo ??
                           resultado.peso_conhecimento_vs_feedback.peso_conteudo_regras ??
@@ -202,23 +205,25 @@ export function SimuladorTab() {
                     </div>
                   )}
                 </div>
-                <h3 className="mt-3 text-lg font-bold text-stone-900">{resultado.persona}</h3>
+                <h3 className="mt-3 font-serif text-lg font-bold text-stone-100">
+                  {resultado.persona}
+                </h3>
               </div>
 
               {/* Top 3 Cosméticos Prescritos */}
               <div className="space-y-3">
-                <h4 className="text-xs font-bold uppercase tracking-wider text-stone-500">
+                <h4 className="text-xs font-bold uppercase tracking-wider text-stone-400">
                   Top 3 Cosméticos Prescritos com Justificativa XAI:
                 </h4>
 
                 {resultado.produtos.map((p, idx) => (
                   <div
                     key={p.nome}
-                    className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 rounded-2xl border border-stone-200/90 bg-white p-4 shadow-xs transition hover:border-emerald-300"
+                    className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 rounded-2xl border border-stone-800/90 bg-[#131d18]/90 p-4 shadow-xl shadow-black/30 transition hover:border-emerald-700/70"
                   >
                     <div className="flex items-start gap-3">
-                      <div className="relative flex h-16 w-16 shrink-0 items-center justify-center rounded-xl border border-stone-100 bg-stone-50 p-1.5 shadow-inner">
-                        <span className="absolute -top-1.5 -left-1.5 flex h-5 w-5 items-center justify-center rounded-full bg-emerald-700 text-[10px] font-bold text-white shadow-xs">
+                      <div className="relative flex h-16 w-16 shrink-0 items-center justify-center rounded-xl border border-stone-800 bg-[#0d1411] p-1.5 shadow-inner">
+                        <span className="absolute -top-1.5 -left-1.5 flex h-5 w-5 items-center justify-center rounded-full bg-emerald-600 text-[10px] font-bold text-white shadow-xs">
                           {idx + 1}
                         </span>
                         <img
@@ -231,25 +236,26 @@ export function SimuladorTab() {
                       </div>
 
                       <div className="min-w-0">
-                        <h5 className="font-bold text-stone-900 text-sm">{p.nome}</h5>
+                        <h5 className="font-serif font-bold text-stone-100 text-sm">{p.nome}</h5>
                         {p.categoria && (
-                          <span className="rounded-full bg-stone-100 px-2 py-0.2 text-[10px] font-semibold text-stone-600">
+                          <span className="rounded-full bg-emerald-950/80 border border-emerald-800/60 px-2 py-0.5 text-[10px] font-semibold text-emerald-300">
                             {p.categoria}
                           </span>
                         )}
-                        <p className="mt-2 text-xs text-stone-600 bg-stone-50 rounded-lg p-2 border border-stone-100 leading-relaxed">
-                          <strong>Justificativa XAI:</strong> {p.motivo}
+                        <p className="mt-2 text-xs text-stone-300 bg-[#0d1411] rounded-lg p-2.5 border border-stone-800/80 leading-relaxed">
+                          <strong className="text-emerald-400">Justificativa XAI:</strong>{" "}
+                          {p.motivo}
                         </p>
                       </div>
                     </div>
 
-                    <div className="flex sm:flex-col items-center sm:items-end justify-between border-t sm:border-t-0 pt-2 sm:pt-0 border-stone-100">
-                      <span className="text-sm font-bold text-emerald-800">
+                    <div className="flex sm:flex-col items-center sm:items-end justify-between border-t sm:border-t-0 pt-2 sm:pt-0 border-stone-800">
+                      <span className="text-sm font-bold text-emerald-400">
                         Score: {p.score.toFixed(3)}
                       </span>
-                      <div className="flex items-center gap-1 text-xs font-bold text-amber-600">
+                      <div className="flex items-center gap-1 text-xs font-bold text-amber-400">
                         <span>{p.estrelas_estimadas.toFixed(1)}</span>
-                        <Star className="h-3.5 w-3.5 fill-amber-400 text-amber-500" />
+                        <Star className="h-3.5 w-3.5 fill-amber-400 text-amber-400" />
                       </div>
                     </div>
                   </div>
@@ -257,9 +263,11 @@ export function SimuladorTab() {
               </div>
             </div>
           ) : (
-            <div className="flex min-h-[360px] flex-col items-center justify-center rounded-2xl border-2 border-dashed border-stone-200 bg-white p-8 text-center">
-              <FlaskConical className="h-10 w-10 text-stone-300" />
-              <h4 className="mt-3 text-sm font-bold text-stone-800">Nenhuma auditoria disparada</h4>
+            <div className="flex min-h-[360px] flex-col items-center justify-center rounded-2xl border-2 border-dashed border-stone-800 bg-[#131d18]/50 p-8 text-center">
+              <FlaskConical className="h-10 w-10 text-stone-600" />
+              <h4 className="mt-3 font-serif text-sm font-bold text-stone-200">
+                Nenhuma auditoria disparada
+              </h4>
               <p className="mt-1 max-w-sm text-xs text-stone-500 leading-relaxed">
                 Configure os parâmetros do fio ao lado e clique em &quot;Disparar Recomendação&quot;
                 para auditar a prescrição em tempo de execução.

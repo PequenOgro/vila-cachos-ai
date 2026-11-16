@@ -65,7 +65,7 @@ export function AdminPage() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-stone-50/70 font-sans text-stone-900 antialiased selection:bg-emerald-100 selection:text-emerald-900">
+    <div className="min-h-screen bg-[#0b120f] font-sans text-stone-100 antialiased selection:bg-emerald-900 selection:text-emerald-100 bg-[radial-gradient(ellipse_80%_60%_at_50%_-15%,rgba(16,185,129,0.12),rgba(0,0,0,0))]">
       {/* Topbar Superior */}
       <AdminHeader
         statusTexto={metricas?.status}

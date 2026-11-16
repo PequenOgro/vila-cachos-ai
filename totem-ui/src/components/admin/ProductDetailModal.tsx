@@ -1,5 +1,5 @@
-import React from "react";
-import { X, Sparkles, Droplets, CheckCircle, Scale } from "lucide-react";
+import React, { useEffect } from "react";
+import { X, Droplets, Scale } from "lucide-react";
 import { type ItemCatalogo } from "@/lib/api";
 import { getImagemProduto } from "@/components/totem/product-images";
 
@@ -9,17 +9,39 @@ interface ProductDetailModalProps {
 }
 
 export function ProductDetailModal({ produto, onClose }: ProductDetailModalProps) {
+  // Fecha com a tecla ESC e trava o scroll da página de fundo enquanto o modal estiver aberto
+  useEffect(() => {
+    if (!produto) return;
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        onClose();
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    const originalOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+      document.body.style.overflow = originalOverflow;
+    };
+  }, [produto, onClose]);
+
   if (!produto) return null;
 
   return (
     <div
       role="dialog"
       aria-modal="true"
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4 backdrop-blur-md animate-fadeIn"
+      aria-labelledby="modal-produto-titulo"
       onClick={onClose}
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-black/85 backdrop-blur-md transition-opacity cursor-pointer animate-fadeIn"
     >
+      {/* Caixa de conteúdo do Modal */}
       <div
-        className="relative max-h-[90vh] w-full max-w-xl overflow-y-auto rounded-3xl bg-[#131d18] border border-stone-700/80 p-6 shadow-2xl transition-all sm:p-8 text-stone-100"
+        className="relative max-h-[90vh] w-full max-w-xl overflow-y-auto rounded-3xl bg-[#131d18] border border-stone-700/80 p-6 shadow-2xl transition-all sm:p-8 text-stone-100 cursor-default animate-scaleUp"
         onClick={(e) => e.stopPropagation()}
       >
         <button
@@ -50,7 +72,10 @@ export function ProductDetailModal({ produto, onClose }: ProductDetailModalProps
                 {produto.categoria}
               </span>
             </div>
-            <h3 className="mt-2 font-serif text-lg font-bold text-stone-100 leading-snug">
+            <h3
+              id="modal-produto-titulo"
+              className="mt-2 font-serif text-lg font-bold text-stone-100 leading-snug"
+            >
               {produto.nome}
             </h3>
             <p className="text-xs font-semibold text-amber-400">{produto.marca}</p>

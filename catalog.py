@@ -1,7 +1,8 @@
 """
 catalog.py
 Catálogo de Produtos e Matriz Terapêutica da Vila Cachos.
-Define os produtos reais do salão, suas funções cosméticas e afinidades com as queixas capilares.
+Define os produtos reais do salão oficial Vila Cachos (2024),
+suas funções cosméticas e afinidades com as queixas capilares.
 """
 
 from typing import Dict, List, Any
@@ -15,7 +16,7 @@ TAXONOMIA_QUEIXAS = [
     "couro_sensivel_oleoso"       # Exige higienização suave (co-wash/sem sulfato)
 ]
 
-# Catálogo fundamentado nos produtos reais utilizados na Vila Cachos (Arvensis, Curly Care, Deva Curl)
+# Catálogo fundamentado 100% no Catálogo Oficial de Produtos Vila Cachos 2024
 CATALOGO_PRODUTOS: List[Dict[str, Any]] = [
     {
         "id": "PROD_01",
@@ -23,10 +24,10 @@ CATALOGO_PRODUTOS: List[Dict[str, Any]] = [
         "marca": "Curly Care",
         "categoria": "Tratamento Acidificante",
         "curvaturas_indicadas": [2, 3, 4],
-        "peso_fio": "leve",  # Não pesa em nenhum tipo de cabelo
+        "peso_fio": "leve",
         "afinidade_queixas": {
             "ressecamento_opacidade": 0.5,
-            "alta_porosidade_quimica": 1.0,  # Solução primária para cutículas abertas e dano
+            "alta_porosidade_quimica": 1.0,  # Solução primária máxima para porosidade e cutículas abertas
             "frizz_falta_definicao": 0.6,
             "transicao_capilar": 0.5,
             "couro_sensivel_oleoso": 0.2
@@ -38,10 +39,10 @@ CATALOGO_PRODUTOS: List[Dict[str, Any]] = [
         "nome": "Curly Care Manteiga Nutritiva",
         "marca": "Curly Care",
         "categoria": "Máscara de Nutrição",
-        "curvaturas_indicadas": [3, 4],  # Ideal para 3 e 4; pode pesar em ondulado 2 fino
+        "curvaturas_indicadas": [3, 4],
         "peso_fio": "pesado",
         "afinidade_queixas": {
-            "ressecamento_opacidade": 1.0,  # Solução de ouro para repor lipídios
+            "ressecamento_opacidade": 1.0,
             "alta_porosidade_quimica": 0.6,
             "frizz_falta_definicao": 0.4,
             "transicao_capilar": 0.4,
@@ -59,8 +60,8 @@ CATALOGO_PRODUTOS: List[Dict[str, Any]] = [
         "afinidade_queixas": {
             "ressecamento_opacidade": 0.2,
             "alta_porosidade_quimica": 0.3,
-            "frizz_falta_definicao": 1.0,  # Solução primária para memória de cachos
-            "transicao_capilar": 0.9,      # Fundamental para segurar texturas diferentes
+            "frizz_falta_definicao": 1.0,
+            "transicao_capilar": 0.9,
             "couro_sensivel_oleoso": 0.1
         },
         "descricao": "Proporciona alta fixação com efeito memória, blindando o fio contra umidade e eliminando o frizz."
@@ -93,7 +94,7 @@ CATALOGO_PRODUTOS: List[Dict[str, Any]] = [
             "alta_porosidade_quimica": 0.4,
             "frizz_falta_definicao": 0.2,
             "transicao_capilar": 0.3,
-            "couro_sensivel_oleoso": 1.0  # Limpeza sem agredir a barreira lipídica
+            "couro_sensivel_oleoso": 1.0
         },
         "descricao": "Higienização 100% livre de sulfatos e tensoativos agressivos para couros sensíveis ou ressecados."
     },
@@ -112,13 +113,351 @@ CATALOGO_PRODUTOS: List[Dict[str, Any]] = [
             "couro_sensivel_oleoso": 0.4
         },
         "descricao": "Fórmula ultraleve para onduladas e cacheadas que buscam movimento e volume sem pesar os fios."
+    },
+    {
+        "id": "PROD_07",
+        "nome": "Arvensis Shampoo Cachos Naturais",
+        "marca": "Arvensis",
+        "categoria": "Shampoo Suave",
+        "curvaturas_indicadas": [2, 3, 4],
+        "peso_fio": "leve",
+        "afinidade_queixas": {
+            "ressecamento_opacidade": 0.4,
+            "alta_porosidade_quimica": 0.3,
+            "frizz_falta_definicao": 0.3,
+            "transicao_capilar": 0.4,
+            "couro_sensivel_oleoso": 0.9
+        },
+        "descricao": "Desenvolvido com fórmula livre de sulfato e sal para limpeza delicada com óleo de coco e colágeno vegetal."
+    },
+    {
+        "id": "PROD_08",
+        "nome": "Arvensis Condicionador Cachos Naturais",
+        "marca": "Arvensis",
+        "categoria": "Condicionador",
+        "curvaturas_indicadas": [2, 3, 4],
+        "peso_fio": "leve",
+        "afinidade_queixas": {
+            "ressecamento_opacidade": 0.6,
+            "alta_porosidade_quimica": 0.4,
+            "frizz_falta_definicao": 0.5,
+            "transicao_capilar": 0.4,
+            "couro_sensivel_oleoso": 0.2
+        },
+        "descricao": "Confere desembaraço instantâneo, nutrição avançada e controle de frizz com filtro solar."
+    },
+    {
+        "id": "PROD_09",
+        "nome": "Arvensis Ativador de Cacheados e Ondulados",
+        "marca": "Arvensis",
+        "categoria": "Finalizador Definição",
+        "curvaturas_indicadas": [2, 3],
+        "peso_fio": "leve",
+        "afinidade_queixas": {
+            "ressecamento_opacidade": 0.6,
+            "alta_porosidade_quimica": 0.4,
+            "frizz_falta_definicao": 0.8,
+            "transicao_capilar": 0.6,
+            "couro_sensivel_oleoso": 0.1
+        },
+        "descricao": "Ativa a curvatura de ondas e cachos abertos com textura leve, colágeno vegetal e resistência aos fios."
+    },
+    {
+        "id": "PROD_10",
+        "nome": "Arvensis Máscara de Crespo e Crespíssimo",
+        "marca": "Arvensis",
+        "categoria": "Máscara de Nutrição",
+        "curvaturas_indicadas": [4],
+        "peso_fio": "pesado",
+        "afinidade_queixas": {
+            "ressecamento_opacidade": 1.0,
+            "alta_porosidade_quimica": 0.7,
+            "frizz_falta_definicao": 0.6,
+            "transicao_capilar": 0.7,
+            "couro_sensivel_oleoso": 0.1
+        },
+        "descricao": "Ação intensiva de nutrição avançada e reparação profunda com óleo de coco e vitamina E para cabelos crespos."
+    },
+    {
+        "id": "PROD_11",
+        "nome": "Arvensis Geleia Suave Fixação",
+        "marca": "Arvensis",
+        "categoria": "Finalizador Fixação Leve",
+        "curvaturas_indicadas": [2, 3],
+        "peso_fio": "leve",
+        "afinidade_queixas": {
+            "ressecamento_opacidade": 0.3,
+            "alta_porosidade_quimica": 0.2,
+            "frizz_falta_definicao": 0.7,
+            "transicao_capilar": 0.6,
+            "couro_sensivel_oleoso": 0.1
+        },
+        "descricao": "Modelagem com balanço natural e efeito memória leve, sem deixar os fios rígidos."
+    },
+    {
+        "id": "PROD_12",
+        "nome": "Kah-Noa Shampoo Gentleman",
+        "marca": "Kah-Noa",
+        "categoria": "Shampoo Hidratante",
+        "curvaturas_indicadas": [2, 3, 4],
+        "peso_fio": "leve",
+        "afinidade_queixas": {
+            "ressecamento_opacidade": 0.7,
+            "alta_porosidade_quimica": 0.4,
+            "frizz_falta_definicao": 0.3,
+            "transicao_capilar": 0.5,
+            "couro_sensivel_oleoso": 0.9
+        },
+        "descricao": "Fórmula gourmet brasileira com babosa, óleo de girassol e camomila para limpeza suave e hidratante."
+    },
+    {
+        "id": "PROD_13",
+        "nome": "Kah-Noa Keep Me Softly (Condicionador Limpante)",
+        "marca": "Kah-Noa",
+        "categoria": "Higienizador Condicionante",
+        "curvaturas_indicadas": [2, 3, 4],
+        "peso_fio": "leve",
+        "afinidade_queixas": {
+            "ressecamento_opacidade": 0.8,
+            "alta_porosidade_quimica": 0.5,
+            "frizz_falta_definicao": 0.3,
+            "transicao_capilar": 0.6,
+            "couro_sensivel_oleoso": 1.0
+        },
+        "descricao": "Fórmula gourmet co-wash rica em aloe vera e manteiga de karité para limpeza suave de couros ressecados."
+    },
+    {
+        "id": "PROD_14",
+        "nome": "Kah-Noa Geleia Mister Jelly",
+        "marca": "Kah-Noa",
+        "categoria": "Finalizador Fixação",
+        "curvaturas_indicadas": [2, 3, 4],
+        "peso_fio": "medio",
+        "afinidade_queixas": {
+            "ressecamento_opacidade": 0.4,
+            "alta_porosidade_quimica": 0.4,
+            "frizz_falta_definicao": 0.9,
+            "transicao_capilar": 0.8,
+            "couro_sensivel_oleoso": 0.1
+        },
+        "descricao": "Geleia estilizadora feita de extratos vegetais puros, 100% livre de silicones insolúveis e petrolatos."
+    },
+    {
+        "id": "PROD_15",
+        "nome": "Kah-Noa Leave-in Super Light",
+        "marca": "Kah-Noa",
+        "categoria": "Finalizador Leve",
+        "curvaturas_indicadas": [2, 3],
+        "peso_fio": "leve",
+        "afinidade_queixas": {
+            "ressecamento_opacidade": 0.6,
+            "alta_porosidade_quimica": 0.4,
+            "frizz_falta_definicao": 0.7,
+            "transicao_capilar": 0.6,
+            "couro_sensivel_oleoso": 0.1
+        },
+        "descricao": "Leave-in fluido de alta penetração que desliza nos fios e preserva o volume natural com movimento."
+    },
+    {
+        "id": "PROD_16",
+        "nome": "Curly Care SPUME! Shampoo Hidratante",
+        "marca": "Curly Care",
+        "categoria": "Shampoo Suave",
+        "curvaturas_indicadas": [2, 3, 4],
+        "peso_fio": "leve",
+        "afinidade_queixas": {
+            "ressecamento_opacidade": 0.7,
+            "alta_porosidade_quimica": 0.4,
+            "frizz_falta_definicao": 0.4,
+            "transicao_capilar": 0.5,
+            "couro_sensivel_oleoso": 0.8
+        },
+        "descricao": "Livre de sulfatos agressivos, higieniza profundamente com babosa sem agredir a oleosidade natural protetora."
+    },
+    {
+        "id": "PROD_17",
+        "nome": "Curly Care NO SPUME! Co-Wash Nutritivo",
+        "marca": "Curly Care",
+        "categoria": "Higienizador Condicionante",
+        "curvaturas_indicadas": [3, 4],
+        "peso_fio": "medio",
+        "afinidade_queixas": {
+            "ressecamento_opacidade": 0.9,
+            "alta_porosidade_quimica": 0.6,
+            "frizz_falta_definicao": 0.4,
+            "transicao_capilar": 0.6,
+            "couro_sensivel_oleoso": 0.9
+        },
+        "descricao": "Higienização com alta reposição lipídica de óleos de avelã e abacate para fios com alta porosidade."
+    },
+    {
+        "id": "PROD_18",
+        "nome": "Curly Care HIGH CONDITION Condicionador",
+        "marca": "Curly Care",
+        "categoria": "Condicionador",
+        "curvaturas_indicadas": [2, 3, 4],
+        "peso_fio": "medio",
+        "afinidade_queixas": {
+            "ressecamento_opacidade": 0.8,
+            "alta_porosidade_quimica": 0.7,
+            "frizz_falta_definicao": 0.7,
+            "transicao_capilar": 0.5,
+            "couro_sensivel_oleoso": 0.2
+        },
+        "descricao": "Sensorial de desmaio imediato dos fios, conferindo emoliência máxima e alinhamento de cutículas."
+    },
+    {
+        "id": "PROD_19",
+        "nome": "Curly Care Máscara Inteligente MARSHMALLOW",
+        "marca": "Curly Care",
+        "categoria": "Máscara Multifuncional",
+        "curvaturas_indicadas": [2, 3, 4],
+        "peso_fio": "medio",
+        "afinidade_queixas": {
+            "ressecamento_opacidade": 0.9,
+            "alta_porosidade_quimica": 0.8,
+            "frizz_falta_definicao": 0.6,
+            "transicao_capilar": 0.7,
+            "couro_sensivel_oleoso": 0.1
+        },
+        "descricao": "Máscara inteligente botânica enriquecida com semente de uva, karité, coco e proteína de arroz."
+    },
+    {
+        "id": "PROD_20",
+        "nome": "Curly Care Creme BE FREE (Hidratação e Definição)",
+        "marca": "Curly Care",
+        "categoria": "Finalizador Definição",
+        "curvaturas_indicadas": [3, 4],
+        "peso_fio": "pesado",
+        "afinidade_queixas": {
+            "ressecamento_opacidade": 0.9,
+            "alta_porosidade_quimica": 0.6,
+            "frizz_falta_definicao": 0.8,
+            "transicao_capilar": 0.7,
+            "couro_sensivel_oleoso": 0.1
+        },
+        "descricao": "Creme de pentear superemoliente que diminui o frizz e controla o volume de cachos mais encorpados."
+    },
+    {
+        "id": "PROD_21",
+        "nome": "Curly Care Gelatina FIX U",
+        "marca": "Curly Care",
+        "categoria": "Finalizador Fixação",
+        "curvaturas_indicadas": [2, 3, 4],
+        "peso_fio": "medio",
+        "afinidade_queixas": {
+            "ressecamento_opacidade": 0.4,
+            "alta_porosidade_quimica": 0.5,
+            "frizz_falta_definicao": 1.0,
+            "transicao_capilar": 0.9,
+            "couro_sensivel_oleoso": 0.1
+        },
+        "descricao": "Fixação de alto impacto sem resíduos ou falsa caspa, combinando pantenol e proteína vegetal."
+    },
+    {
+        "id": "PROD_22",
+        "nome": "Deva Curl Shampoo No-Poo Original",
+        "marca": "Deva Curl",
+        "categoria": "Shampoo Suave",
+        "curvaturas_indicadas": [2, 3, 4],
+        "peso_fio": "leve",
+        "afinidade_queixas": {
+            "ressecamento_opacidade": 0.6,
+            "alta_porosidade_quimica": 0.4,
+            "frizz_falta_definicao": 0.5,
+            "transicao_capilar": 0.4,
+            "couro_sensivel_oleoso": 0.9
+        },
+        "descricao": "Higienizador zero espuma com rosa turca e menta, mantendo a saúde do couro cabeludo e prevenindo o frizz."
+    },
+    {
+        "id": "PROD_23",
+        "nome": "Deva Curl Condicionador One Condition Original",
+        "marca": "Deva Curl",
+        "categoria": "Condicionador",
+        "curvaturas_indicadas": [2, 3, 4],
+        "peso_fio": "medio",
+        "afinidade_queixas": {
+            "ressecamento_opacidade": 0.8,
+            "alta_porosidade_quimica": 0.6,
+            "frizz_falta_definicao": 0.6,
+            "transicao_capilar": 0.5,
+            "couro_sensivel_oleoso": 0.2
+        },
+        "descricao": "Hidratação balanceada tradicional com infusão botânica para devolver a vitalidade e maciez dos caracóis."
+    },
+    {
+        "id": "PROD_24",
+        "nome": "Deva Curl Shampoo No-Poo Decadence",
+        "marca": "Deva Curl",
+        "categoria": "Shampoo Nutritivo",
+        "curvaturas_indicadas": [3, 4],
+        "peso_fio": "medio",
+        "afinidade_queixas": {
+            "ressecamento_opacidade": 1.0,
+            "alta_porosidade_quimica": 0.7,
+            "frizz_falta_definicao": 0.6,
+            "transicao_capilar": 0.7,
+            "couro_sensivel_oleoso": 0.8
+        },
+        "descricao": "Fórmula ultra-hidratante com leite de chufa e quinoa para nutrição extrema de cachos ressecados e crespos."
+    },
+    {
+        "id": "PROD_25",
+        "nome": "Deva Curl Ativador Supercream",
+        "marca": "Deva Curl",
+        "categoria": "Finalizador Definição",
+        "curvaturas_indicadas": [3, 4],
+        "peso_fio": "medio",
+        "afinidade_queixas": {
+            "ressecamento_opacidade": 0.9,
+            "alta_porosidade_quimica": 0.6,
+            "frizz_falta_definicao": 0.9,
+            "transicao_capilar": 0.7,
+            "couro_sensivel_oleoso": 0.1
+        },
+        "descricao": "Creme de modelagem com óleo de coco e proteína de trigo que retém a umidade e blinda contra o ressecamento."
+    },
+    {
+        "id": "PROD_26",
+        "nome": "Deva Curl Máscara Heaven in Hair",
+        "marca": "Deva Curl",
+        "categoria": "Máscara de Nutrição",
+        "curvaturas_indicadas": [2, 3, 4],
+        "peso_fio": "pesado",
+        "afinidade_queixas": {
+            "ressecamento_opacidade": 1.0,
+            "alta_porosidade_quimica": 0.8,
+            "frizz_falta_definicao": 0.6,
+            "transicao_capilar": 0.7,
+            "couro_sensivel_oleoso": 0.1
+        },
+        "descricao": "Tratamento profundo com manteigas de cupuaçu, murumuru e cacau para restabelecer a hidratação e força."
+    },
+    {
+        "id": "PROD_27",
+        "nome": "Deva Curl Gel Finalizador Angéll",
+        "marca": "Deva Curl",
+        "categoria": "Finalizador Fixação",
+        "curvaturas_indicadas": [2, 3, 4],
+        "peso_fio": "leve",
+        "afinidade_queixas": {
+            "ressecamento_opacidade": 0.4,
+            "alta_porosidade_quimica": 0.5,
+            "frizz_falta_definicao": 1.0,
+            "transicao_capilar": 0.8,
+            "couro_sensivel_oleoso": 0.1
+        },
+        "descricao": "Gel condicionante vencedor do Best of Beauty Allure, elimina o frizz mantendo os cachos leves e definidos."
     }
 ]
 
 def obter_catalogo() -> List[Dict[str, Any]]:
+    """Retorna a coleção completa de cosméticos e tratamentos."""
     return CATALOGO_PRODUTOS
 
 def obter_produto_por_nome(nome: str) -> Dict[str, Any]:
+    """Localiza um produto pelo nome exato no catálogo."""
     for p in CATALOGO_PRODUTOS:
         if p["nome"] == nome:
             return p

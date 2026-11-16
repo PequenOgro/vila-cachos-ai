@@ -70,5 +70,13 @@ export function getImagemProduto(nome: string): string {
   if (n.includes("one condition")) return devaOneConditionOriginal;
   if (n.includes("no-poo") || n.includes("no poo")) return devaNoPooOriginal;
 
+  if (n.includes("condicionador") && n.includes("arvensis")) return arvensisShampoo;
+  if (n.includes("máscara") && n.includes("arvensis")) return arvensisAtivador;
+  if (n.includes("gentleman")) return curlySpume;
+  if (n.includes("keep me softly")) return curlyNoSpume;
+  if (n.includes("mister jelly")) return curlyFixU;
+  if (n.includes("super light")) return curlyBeFree;
+  if (n.includes("touca")) return acidC;
+
   return acidC;
 }

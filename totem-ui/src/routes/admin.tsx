@@ -18,6 +18,7 @@ import {
   SlidersHorizontal,
 } from "lucide-react";
 import { Logo } from "@/components/totem/Logo";
+import { getImagemProduto } from "@/components/totem/product-images";
 import {
   obterHealth,
   obterCatalogo,
@@ -53,6 +54,7 @@ export function AdminPage() {
   const [recarregando, setRecarregando] = useState(false);
   const [buscaCatalogo, setBuscaCatalogo] = useState("");
   const [filtroCurvatura, setFiltroCurvatura] = useState<number | null>(null);
+  const [filtroMarca, setFiltroMarca] = useState<string | null>(null);
 
   // Estados do Simulador
   const [simCurvatura, setSimCurvatura] = useState<number>(3);
@@ -80,6 +82,11 @@ export function AdminPage() {
     carregarDados();
   }, []);
 
+  const marcasDisponiveis = useMemo(() => {
+    const s = new Set(catalogo.map((i) => i.marca).filter(Boolean));
+    return Array.from(s).sort();
+  }, [catalogo]);
+
   const catalogoFiltrado = useMemo(() => {
     return catalogo.filter((item) => {
       const matchBusca =
@@ -88,9 +95,11 @@ export function AdminPage() {
         item.categoria.toLowerCase().includes(buscaCatalogo.toLowerCase());
       const matchCurv =
         filtroCurvatura === null || item.curvaturas_indicadas.includes(filtroCurvatura);
-      return matchBusca && matchCurv;
+      const matchMarca =
+        filtroMarca === null || item.marca.toLowerCase() === filtroMarca.toLowerCase();
+      return matchBusca && matchCurv && matchMarca;
     });
-  }, [catalogo, buscaCatalogo, filtroCurvatura]);
+  }, [catalogo, buscaCatalogo, filtroCurvatura, filtroMarca]);
 
   const executarSimulacao = async () => {
     setSimulando(true);
@@ -403,43 +412,96 @@ export function AdminPage() {
                 </div>
 
                 {/* Barra de Busca e Filtros */}
-                <div className="flex flex-col gap-3 rounded-xl border border-stone-200 bg-white p-4 shadow-xs sm:flex-row sm:items-center sm:justify-between">
-                  <div className="relative flex-1">
-                    <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-stone-400" />
-                    <input
-                      type="text"
-                      placeholder="Buscar por produto, marca ou categoria..."
-                      value={buscaCatalogo}
-                      onChange={(e) => setBuscaCatalogo(e.target.value)}
-                      className="w-full rounded-lg border border-stone-300 py-2 pl-9 pr-3 text-sm focus:border-emerald-500 focus:outline-none"
-                    />
+                <div className="flex flex-col gap-3 rounded-xl border border-stone-200 bg-white p-4 shadow-xs">
+                  <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                    <div className="relative flex-1">
+                      <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-stone-400" />
+                      <input
+                        type="text"
+                        placeholder="Buscar por produto, marca ou categoria..."
+                        value={buscaCatalogo}
+                        onChange={(e) => setBuscaCatalogo(e.target.value)}
+                        className="w-full rounded-lg border border-stone-300 py-2 pl-9 pr-3 text-sm focus:border-emerald-500 focus:outline-none"
+                      />
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <SlidersHorizontal className="h-4 w-4 text-stone-500" />
+                      <span className="text-xs font-medium text-stone-600">Curvatura:</span>
+                      <button
+                        onClick={() => setFiltroCurvatura(null)}
+                        className={`rounded-md px-2.5 py-1 text-xs font-medium transition ${
+                          filtroCurvatura === null
+                            ? "bg-stone-900 text-white"
+                            : "bg-stone-100 text-stone-600 hover:bg-stone-200"
+                        }`}
+                      >
+                        Todas
+                      </button>
+                      {[2, 3, 4].map((c) => (
+                        <button
+                          key={c}
+                          onClick={() => setFiltroCurvatura(filtroCurvatura === c ? null : c)}
+                          className={`rounded-md px-2.5 py-1 text-xs font-medium transition ${
+                            filtroCurvatura === c
+                              ? "bg-emerald-700 text-white"
+                              : "bg-stone-100 text-stone-600 hover:bg-stone-200"
+                          }`}
+                        >
+                          Tipo {c}
+                        </button>
+                      ))}
+                    </div>
                   </div>
-                  <div className="flex items-center gap-2">
-                    <SlidersHorizontal className="h-4 w-4 text-stone-500" />
-                    <span className="text-xs font-medium text-stone-600">Curvatura:</span>
+
+                  {/* Filtro por Marca */}
+                  <div className="flex flex-wrap items-center gap-1.5 border-t border-stone-100 pt-3">
+                    <span className="mr-1 text-xs font-medium text-stone-500">Filtrar Marca:</span>
                     <button
-                      onClick={() => setFiltroCurvatura(null)}
+                      onClick={() => setFiltroMarca(null)}
                       className={`rounded-md px-2.5 py-1 text-xs font-medium transition ${
-                        filtroCurvatura === null
+                        filtroMarca === null
                           ? "bg-stone-900 text-white"
                           : "bg-stone-100 text-stone-600 hover:bg-stone-200"
                       }`}
                     >
-                      Todas
+                      Todas ({catalogo.length})
                     </button>
-                    {[2, 3, 4].map((c) => (
+                    {marcasDisponiveis.map((marca) => {
+                      const qtd = catalogo.filter((i) => i.marca === marca).length;
+                      return (
+                        <button
+                          key={marca}
+                          onClick={() => setFiltroMarca(filtroMarca === marca ? null : marca)}
+                          className={`rounded-md px-2.5 py-1 text-xs font-medium transition ${
+                            filtroMarca === marca
+                              ? "bg-emerald-700 text-white"
+                              : "bg-stone-100 text-stone-600 hover:bg-stone-200"
+                          }`}
+                        >
+                          {marca} ({qtd})
+                        </button>
+                      );
+                    })}
+                  </div>
+
+                  {/* Contador de Produtos */}
+                  <div className="flex items-center justify-between text-xs text-stone-500">
+                    <span>
+                      Exibindo <strong>{catalogoFiltrado.length}</strong> de{" "}
+                      <strong>{catalogo.length}</strong> cosméticos catalogados
+                    </span>
+                    {(filtroCurvatura !== null || filtroMarca !== null || buscaCatalogo) && (
                       <button
-                        key={c}
-                        onClick={() => setFiltroCurvatura(filtroCurvatura === c ? null : c)}
-                        className={`rounded-md px-2.5 py-1 text-xs font-medium transition ${
-                          filtroCurvatura === c
-                            ? "bg-emerald-700 text-white"
-                            : "bg-stone-100 text-stone-600 hover:bg-stone-200"
-                        }`}
+                        onClick={() => {
+                          setFiltroCurvatura(null);
+                          setFiltroMarca(null);
+                          setBuscaCatalogo("");
+                        }}
+                        className="text-xs font-medium text-emerald-700 hover:underline"
                       >
-                        Tipo {c}
+                        Limpar filtros
                       </button>
-                    ))}
+                    )}
                   </div>
                 </div>
 
@@ -451,20 +513,35 @@ export function AdminPage() {
                       className="flex flex-col justify-between rounded-xl border border-stone-200 bg-white p-5 shadow-xs transition hover:border-emerald-300 hover:shadow-sm"
                     >
                       <div>
-                        <div className="flex items-start justify-between gap-2">
-                          <span className="rounded bg-stone-100 px-2 py-0.5 text-[11px] font-mono font-semibold text-stone-600">
-                            {prod.id}
-                          </span>
-                          <span className="rounded-full bg-emerald-50 px-2.5 py-0.5 text-xs font-semibold text-emerald-800">
-                            {prod.categoria}
-                          </span>
+                        <div className="flex items-start gap-3">
+                          <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-lg border border-stone-100 bg-stone-50 p-1.5">
+                            <img
+                              src={getImagemProduto(prod.nome)}
+                              alt={prod.nome}
+                              className="max-h-full max-w-full object-contain"
+                              loading="lazy"
+                            />
+                          </div>
+                          <div className="min-w-0 flex-1">
+                            <div className="flex items-start justify-between gap-1">
+                              <span className="rounded bg-stone-100 px-1.5 py-0.5 text-[10px] font-mono font-semibold text-stone-600">
+                                {prod.id}
+                              </span>
+                              <span className="rounded-full bg-emerald-50 px-2 py-0.5 text-[10px] font-semibold text-emerald-800 line-clamp-1">
+                                {prod.categoria}
+                              </span>
+                            </div>
+                            <h3 className="mt-1 text-sm font-bold leading-snug text-stone-900 line-clamp-2">
+                              {prod.nome}
+                            </h3>
+                            <p className="mt-0.5 text-xs font-medium text-stone-500">
+                              {prod.marca}
+                            </p>
+                          </div>
                         </div>
 
-                        <h3 className="mt-3 text-base font-bold text-stone-900">{prod.nome}</h3>
-                        <p className="text-xs font-medium text-stone-500">{prod.marca}</p>
-
                         {prod.descricao && (
-                          <p className="mt-2 text-xs text-stone-600 line-clamp-2">
+                          <p className="mt-3 text-xs text-stone-600 line-clamp-2">
                             {prod.descricao}
                           </p>
                         )}

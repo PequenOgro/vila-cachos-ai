@@ -9,6 +9,7 @@ import {
 } from "@/lib/api";
 import { AdminHeader } from "@/components/admin/AdminHeader";
 import { AdminNavigation, type AbaAdmin } from "@/components/admin/AdminNavigation";
+import { DashboardGeralTab } from "@/components/admin/DashboardGeralTab";
 import { TelemetriaTab } from "@/components/admin/TelemetriaTab";
 import { CatalogoTab } from "@/components/admin/CatalogoTab";
 import { SimuladorTab } from "@/components/admin/SimuladorTab";
@@ -28,7 +29,7 @@ export const Route = createFileRoute("/admin")({
 });
 
 export function AdminPage() {
-  const [abaAtiva, setAbaAtiva] = useState<AbaAdmin>("catalogo");
+  const [abaAtiva, setAbaAtiva] = useState<AbaAdmin>("dashboard");
   // Inicialização instantânea (0ms de espera) com catálogo canônico de 27 cosméticos
   const [catalogo, setCatalogo] = useState<ItemCatalogo[]>(CATALOGO_OFICIAL_27);
   const [metricas, setMetricas] = useState<MetricasHealth | null>({
@@ -83,6 +84,14 @@ export function AdminPage() {
 
       {/* Área Central de Conteúdo */}
       <main className="mx-auto max-w-7xl px-4 py-6 sm:px-6 sm:py-8">
+        {abaAtiva === "dashboard" && (
+          <DashboardGeralTab
+            metricas={metricas}
+            catalogo={catalogo}
+            isOnline={isOnline}
+            onNavegar={setAbaAtiva}
+          />
+        )}
         {abaAtiva === "telemetria" && <TelemetriaTab metricas={metricas} />}
         {abaAtiva === "catalogo" && <CatalogoTab catalogo={catalogo} />}
         {abaAtiva === "simulador" && <SimuladorTab />}

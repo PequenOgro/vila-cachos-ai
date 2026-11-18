@@ -1,7 +1,7 @@
 import React from "react";
-import { Activity, Database, FlaskConical } from "lucide-react";
+import { Activity, Database, FlaskConical, LayoutDashboard } from "lucide-react";
 
-export type AbaAdmin = "telemetria" | "catalogo" | "simulador";
+export type AbaAdmin = "dashboard" | "telemetria" | "catalogo" | "simulador";
 
 interface AdminNavigationProps {
   abaAtiva: AbaAdmin;
@@ -12,22 +12,28 @@ interface AdminNavigationProps {
 export function AdminNavigation({ abaAtiva, setAbaAtiva, totalProdutos }: AdminNavigationProps) {
   const abas: { id: AbaAdmin; label: string; icon: React.ReactNode; badge?: string | number }[] = [
     {
+      id: "dashboard",
+      label: "1. Visão Geral (Dashboard)",
+      icon: <LayoutDashboard className="h-4 w-4" />,
+      badge: "Macro",
+    },
+    {
       id: "telemetria",
-      label: "1. Telemetria & RNF-12",
+      label: "2. Telemetria & RNF-12",
       icon: <Activity className="h-4 w-4" />,
       badge: "K=4",
     },
     {
       id: "catalogo",
-      label: "2. Catálogo & Matriz de Cosméticos",
+      label: "3. Catálogo & Fórmulas",
       icon: <Database className="h-4 w-4" />,
       badge: totalProdutos,
     },
     {
       id: "simulador",
-      label: "3. Simulador de Recomendação",
+      label: "4. Simulador Clínico (XAI)",
       icon: <FlaskConical className="h-4 w-4" />,
-      badge: "XAI",
+      badge: "Auditoria",
     },
   ];
 

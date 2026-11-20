@@ -1,18 +1,28 @@
 import { createFileRoute } from "@tanstack/react-router";
-import React, { useEffect, useState } from "react";
-import {
-  obterHealth,
-  obterCatalogo,
-  CATALOGO_OFICIAL_27,
-  type ItemCatalogo,
-  type MetricasHealth,
-} from "@/lib/api";
+import React, { Suspense, lazy, useEffect, useState } from "react";
+import { obterHealth, obterCatalogo, type ItemCatalogo, type MetricasHealth } from "@/lib/api";
+import { CATALOGO_OFICIAL_27 } from "@/lib/catalogo-oficial";
 import { AdminHeader } from "@/components/admin/AdminHeader";
 import { AdminNavigation, type AbaAdmin } from "@/components/admin/AdminNavigation";
 import { DashboardGeralTab } from "@/components/admin/DashboardGeralTab";
-import { TelemetriaTab } from "@/components/admin/TelemetriaTab";
-import { CatalogoTab } from "@/components/admin/CatalogoTab";
-import { SimuladorTab } from "@/components/admin/SimuladorTab";
+
+const TelemetriaTab = lazy(() =>
+  import("@/components/admin/TelemetriaTab").then((m) => ({ default: m.TelemetriaTab })),
+);
+const CatalogoTab = lazy(() =>
+  import("@/components/admin/CatalogoTab").then((m) => ({ default: m.CatalogoTab })),
+);
+const SimuladorTab = lazy(() =>
+  import("@/components/admin/SimuladorTab").then((m) => ({ default: m.SimuladorTab })),
+);
+
+function AdminTabFallback() {
+  return (
+    <div className="rounded-2xl border border-stone-800/90 bg-[#131d18]/90 p-12 text-center text-stone-300">
+      Carregando módulo analítico...
+    </div>
+  );
+}
 
 export const Route = createFileRoute("/admin")({
   head: () => ({
@@ -28,7 +38,7 @@ export const Route = createFileRoute("/admin")({
   component: AdminPage,
 });
 
-export function AdminPage() {
+function AdminPage() {
   const [abaAtiva, setAbaAtiva] = useState<AbaAdmin>("dashboard");
   // Inicialização instantânea (0ms de espera) com catálogo canônico de 27 cosméticos
   const [catalogo, setCatalogo] = useState<ItemCatalogo[]>(CATALOGO_OFICIAL_27);
@@ -92,9 +102,13 @@ export function AdminPage() {
             onNavegar={setAbaAtiva}
           />
         )}
-        {abaAtiva === "telemetria" && <TelemetriaTab metricas={metricas} />}
-        {abaAtiva === "catalogo" && <CatalogoTab catalogo={catalogo} />}
-        {abaAtiva === "simulador" && <SimuladorTab />}
+        {abaAtiva !== "dashboard" && (
+          <Suspense fallback={<AdminTabFallback />}>
+            {abaAtiva === "telemetria" && <TelemetriaTab metricas={metricas} />}
+            {abaAtiva === "catalogo" && <CatalogoTab catalogo={catalogo} />}
+            {abaAtiva === "simulador" && <SimuladorTab />}
+          </Suspense>
+        )}
       </main>
     </div>
   );

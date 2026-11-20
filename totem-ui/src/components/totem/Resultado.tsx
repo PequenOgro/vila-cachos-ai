@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState } from "react";
+import { MessageCircle, QrCode } from "lucide-react";
 import { type Perfil, type Recomendacao } from "@/lib/api";
 import { Logo } from "./Logo";
 import { ProdutoCard } from "./ProdutoCard";
@@ -20,8 +21,11 @@ interface ResultadoProps {
  * Apresenta a Persona identificada pelo agrupamento não-supervisionado K-Means,
  * a decomposição dos pesos híbridos (Conhecimento Especialista vs. Média Bayesiana)
  * e o Top 3 de cosméticos com explicabilidade semântica (XAI).
+ * Implementa compartilhamento via WhatsApp e QR Code (UC-05).
  */
 export function Resultado({ r, perfil, onReiniciar }: ResultadoProps) {
+  const [mostrarQRCode, setMostrarQRCode] = useState(false);
+
   // Pesos adaptativos do motor híbrido (alpha da combinação convexa)
   const pesoRegras = Math.round(
     (r.peso_conhecimento_vs_feedback?.peso_conteudo_regras ?? 0.65) * 100,
@@ -29,6 +33,22 @@ export function Resultado({ r, perfil, onReiniciar }: ResultadoProps) {
   const pesoFeedback = Math.round(
     (r.peso_conhecimento_vs_feedback?.peso_feedback_clientes ?? 0.35) * 100,
   );
+
+  // Mensagem e link formatados para compartilhamento no WhatsApp / QR Code (UC-05)
+  const textoWhatsApp = encodeURIComponent(
+    `🌿 *Meu Diagnóstico Capilar na Vila Cachos*\n\n` +
+      `✨ *Diagnóstico:* ${r.persona}\n\n` +
+      `🧴 *Top 3 Cosméticos Prescritos:*\n` +
+      r.produtos
+        .slice(0, 3)
+        .map(
+          (p, idx) =>
+            `${idx + 1}. *${p.nome}* (${p.categoria || "Tratamento"})\n   👉 Motivo: ${p.motivo}`,
+        )
+        .join("\n\n") +
+      `\n\nPrescrição gerada pelo Totem Inteligente Vila Cachos AI 🍃`,
+  );
+  const linkWhatsApp = `https://api.whatsapp.com/send?text=${textoWhatsApp}`;
 
   return (
     <section className="mx-auto max-w-6xl px-6 py-10 md:px-10">
@@ -119,6 +139,51 @@ export function Resultado({ r, perfil, onReiniciar }: ResultadoProps) {
           />
         ))}
       </div>
+
+      {/* Ações de Fidelização e Compartilhamento: WhatsApp & QR Code (UC-05) */}
+      <div className="mt-12 flex flex-col items-center justify-between gap-4 rounded-3xl border border-primary/20 bg-primary/5 p-6 sm:flex-row">
+        <div>
+          <h3 className="font-serif text-lg font-bold text-foreground">
+            Deseja levar seu cronograma capilar no celular?
+          </h3>
+          <p className="mt-0.5 text-xs text-muted-foreground">
+            Escaneie o QR Code no totem ou envie os 3 cosméticos recomendados diretamente para o seu
+            WhatsApp.
+          </p>
+        </div>
+        <div className="flex flex-wrap items-center gap-3">
+          <button
+            onClick={() => setMostrarQRCode(!mostrarQRCode)}
+            className="flex items-center gap-2 rounded-full border border-primary/40 bg-card px-4 py-2.5 text-xs font-semibold text-foreground transition hover:bg-primary/10 cursor-pointer"
+          >
+            <QrCode className="h-4 w-4 text-primary" />
+            <span>{mostrarQRCode ? "Ocultar QR Code" : "Exibir QR Code"}</span>
+          </button>
+          <a
+            href={linkWhatsApp}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-2 rounded-full bg-emerald-700 px-5 py-2.5 text-xs font-semibold text-white shadow-sm transition hover:bg-emerald-600"
+          >
+            <MessageCircle className="h-4 w-4" />
+            <span>Enviar no WhatsApp</span>
+          </a>
+        </div>
+      </div>
+
+      {/* Modal/Box de QR Code na tela do Totem */}
+      {mostrarQRCode && (
+        <div className="mt-4 flex flex-col items-center justify-center rounded-2xl border border-border bg-card p-6 text-center animate-rise">
+          <p className="text-xs font-medium text-muted-foreground mb-3">
+            Aponte a câmera do seu smartphone para abrir sua prescrição tricológica:
+          </p>
+          <img
+            src={`https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=${encodeURIComponent(linkWhatsApp)}`}
+            alt="QR Code da Recomendação Capilar"
+            className="h-44 w-44 rounded-xl border border-border/80 p-2 shadow-inner"
+          />
+        </div>
+      )}
     </section>
   );
 }

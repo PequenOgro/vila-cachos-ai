@@ -57,6 +57,8 @@ export function ProductDetailModal({ produto, onClose }: ProductDetailModalProps
             <img
               src={getImagemProduto(produto.nome)}
               alt={produto.nome}
+              width={112}
+              height={112}
               className="max-h-full max-w-full object-contain"
               loading="lazy"
               decoding="async"

@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from "react";
+import React, { Suspense, lazy, useState, useMemo } from "react";
 import {
   Sparkles,
   Users,
@@ -18,10 +18,13 @@ import {
   Sparkle,
   Compass,
 } from "lucide-react";
-import { type ItemCatalogo, type MetricasHealth, API_URL } from "@/lib/api";
+import { type ItemCatalogo, type MetricasHealth } from "@/lib/api";
 import { getImagemProduto } from "@/components/totem/product-images";
 import { type AbaAdmin } from "./AdminNavigation";
-import { ProductDetailModal } from "./ProductDetailModal";
+
+const ProductDetailModal = lazy(() =>
+  import("./ProductDetailModal").then((m) => ({ default: m.ProductDetailModal })),
+);
 
 interface DashboardGeralTabProps {
   metricas: MetricasHealth | null;
@@ -128,7 +131,11 @@ export function DashboardGeralTab({
   return (
     <div className="space-y-8 animate-fadeIn">
       {/* Modal de Detalhes de Produto */}
-      <ProductDetailModal produto={produtoModal} onClose={() => setProdutoModal(null)} />
+      {produtoModal && (
+        <Suspense fallback={<div className="fixed inset-0 z-50 bg-black/75 backdrop-blur-sm" />}>
+          <ProductDetailModal produto={produtoModal} onClose={() => setProdutoModal(null)} />
+        </Suspense>
+      )}
 
       {/* 1. HERO DO CENTRO DE COMANDO & BOAS-VINDAS */}
       <div className="relative overflow-hidden rounded-3xl border border-emerald-900/60 bg-gradient-to-br from-[#12221b] via-[#101b16] to-[#0c1410] p-6 sm:p-8 shadow-2xl shadow-black/40">
@@ -534,6 +541,8 @@ export function DashboardGeralTab({
                     <img
                       src={getImagemProduto(prod.nome)}
                       alt={prod.nome}
+                      width={64}
+                      height={64}
                       className="max-h-full max-w-full object-contain"
                       loading="lazy"
                       decoding="async"

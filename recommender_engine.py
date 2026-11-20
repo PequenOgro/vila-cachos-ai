@@ -11,9 +11,11 @@ Arquitetura:
 4. Explicabilidade (XAI) do motivo de cada recomendação.
 """
 
+import gc
+import threading
 import numpy as np
 import pandas as pd
-from typing import Dict, List, Any, Tuple
+from typing import Dict, List, Any, Tuple, Optional
 from sklearn.cluster import KMeans
 from sklearn.preprocessing import StandardScaler
 from sklearn.metrics import silhouette_score
@@ -43,46 +45,59 @@ class VilaCachosRecommender:
         self.persona_descriptions: Dict[int, str] = {}
         self.media_global_salao: float = 3.5
         self.confianca_bayesiana_C: float = 5.0  # Peso a priori da média global
-        
-    def fit(self, df_historico: pd.DataFrame) -> "VilaCachosRecommender":
+        self._lock = threading.RLock()
+        self._cached_cluster_metrics: Optional[Dict[str, float]] = None
+
+    def fit(self, df_historico: pd.DataFrame, copy: bool = True) -> "VilaCachosRecommender":
         """
         Treina o scaler e o modelo de clusterização com o histórico de clientes normalizado.
         """
-        self.df_historico = df_historico.copy()
-        
-        # 1. Normalização das 8 variáveis
-        X = self.df_historico[self.feature_cols]
-        X_scaled = self.scaler.fit_transform(X)
-        
-        # 2. Treinamento do KMeans
-        self.df_historico['cluster'] = self.kmeans.fit_predict(X_scaled)
-        self.is_fitted = True
-        
-        # 3. Calcula a média global de satisfação do salão
-        if 'nota_satisfacao' in self.df_historico.columns:
-            self.media_global_salao = float(self.df_historico['nota_satisfacao'].mean())
-            
-        # 4. Gera a interpretação semântica de cada Persona (Cluster)
-        self._mapear_personas()
-        
-        return self
+        with self._lock:
+            self._cached_cluster_metrics = None
+            self.df_historico = df_historico.copy() if copy else df_historico
+
+            # 1. Normalização das 8 variáveis
+            X = self.df_historico[self.feature_cols]
+            X_scaled = self.scaler.fit_transform(X)
+
+            # 2. Treinamento do KMeans
+            self.df_historico['cluster'] = self.kmeans.fit_predict(X_scaled)
+            self.is_fitted = True
+
+            # 3. Calcula a média global de satisfação do salão
+            if 'nota_satisfacao' in self.df_historico.columns:
+                self.media_global_salao = float(self.df_historico['nota_satisfacao'].mean())
+
+            # 4. Gera a interpretação semântica de cada Persona (Cluster)
+            self._mapear_personas()
+
+            del X, X_scaled
+            gc.collect()
+            return self
 
     def avaliar_qualidade_clusters(self) -> Dict[str, float]:
         """
         Calcula métricas formais de validação do agrupamento (exigência acadêmica de TCC).
         """
-        if not self.is_fitted:
-            raise ValueError("O modelo precisa ser treinado antes de calcular métricas.")
-            
-        X_scaled = self.scaler.transform(self.df_historico[self.feature_cols])
-        sil_score = silhouette_score(X_scaled, self.df_historico['cluster'])
-        inertia = float(self.kmeans.inertia_)
-        
-        return {
-            "silhouette_score": round(float(sil_score), 4),
-            "inercia_intra_cluster": round(inertia, 2),
-            "num_clusters": self.n_clusters
-        }
+        with self._lock:
+            if not self.is_fitted:
+                raise ValueError("O modelo precisa ser treinado antes de calcular métricas.")
+
+            if self._cached_cluster_metrics is not None:
+                return dict(self._cached_cluster_metrics)
+
+            X_scaled = self.scaler.transform(self.df_historico[self.feature_cols])
+            sil_score = silhouette_score(X_scaled, self.df_historico['cluster'])
+            inertia = float(self.kmeans.inertia_)
+            del X_scaled
+            gc.collect()
+
+            self._cached_cluster_metrics = {
+                "silhouette_score": round(float(sil_score), 4),
+                "inercia_intra_cluster": round(inertia, 2),
+                "num_clusters": self.n_clusters
+            }
+            return dict(self._cached_cluster_metrics)
 
     def _mapear_personas(self):
         """
@@ -123,11 +138,13 @@ class VilaCachosRecommender:
         """
         Recebe o perfil de uma cliente e retorna o ID do seu cluster (persona).
         """
-        vetor = [perfil_cliente[col] for col in self.feature_cols]
-        vetor_df = pd.DataFrame([vetor], columns=self.feature_cols)
-        vetor_scaled = self.scaler.transform(vetor_df)
-        cluster_id = int(self.kmeans.predict(vetor_scaled)[0])
-        return cluster_id
+        with self._lock:
+            vetor = [perfil_cliente[col] for col in self.feature_cols]
+            vetor_df = pd.DataFrame([vetor], columns=self.feature_cols)
+            vetor_scaled = self.scaler.transform(vetor_df)
+            cluster_id = int(self.kmeans.predict(vetor_scaled)[0])
+            del vetor_df, vetor_scaled
+            return cluster_id
 
     def _calcular_score_conteudo(self, perfil_cliente: Dict[str, Any], produto: Dict[str, Any]) -> Tuple[float, str]:
         """
@@ -185,76 +202,81 @@ class VilaCachosRecommender:
         """
         Gera a lista ordenada de recomendações híbridas com justificativa semântica.
         """
-        if not self.is_fitted:
-            raise ValueError("O modelo precisa ser ajustado com fit() antes de recomendar.")
+        with self._lock:
+            if not self.is_fitted:
+                raise ValueError("O modelo precisa ser ajustado com fit() antes de recomendar.")
+                
+            cluster_cliente = self.prever_cluster(perfil_cliente)
+            descricao_persona = self.persona_descriptions.get(cluster_cliente, f"Cluster {cluster_cliente}")
             
-        cluster_cliente = self.prever_cluster(perfil_cliente)
-        descricao_persona = self.persona_descriptions.get(cluster_cliente, f"Cluster {cluster_cliente}")
-        
-        # Determina o peso adaptativo alpha entre Conteúdo e Feedback
-        # Se o cluster tiver poucas avaliações, prioriza conhecimento especialista (alpha baixo)
-        total_avaliacoes_cluster = len(self.df_historico[self.df_historico['cluster'] == cluster_cliente])
-        alpha_feedback = min(0.60, total_avaliacoes_cluster / 100.0)
-        peso_conteudo = 1.0 - alpha_feedback
-        
-        candidatos = []
-        for produto in CATALOGO_PRODUTOS:
-            nome_p = produto["nome"]
-            score_conteudo, motivo_dor = self._calcular_score_conteudo(perfil_cliente, produto)
-            score_bayesiano, qtd_avaliacoes = self._calcular_score_bayesiano(cluster_cliente, nome_p)
+            # Determina o peso adaptativo alpha entre Conteúdo e Feedback
+            # Se o cluster tiver poucas avaliações, prioriza conhecimento especialista (alpha baixo)
+            total_avaliacoes_cluster = len(self.df_historico[self.df_historico['cluster'] == cluster_cliente])
+            alpha_feedback = min(0.60, total_avaliacoes_cluster / 100.0)
+            peso_conteudo = 1.0 - alpha_feedback
             
-            # Combinação Convexa Híbrida
-            score_final = (peso_conteudo * score_conteudo) + (alpha_feedback * score_bayesiano)
+            candidatos = []
+            for produto in CATALOGO_PRODUTOS:
+                nome_p = produto["nome"]
+                score_conteudo, motivo_dor = self._calcular_score_conteudo(perfil_cliente, produto)
+                score_bayesiano, qtd_avaliacoes = self._calcular_score_bayesiano(cluster_cliente, nome_p)
+                
+                # Combinação Convexa Híbrida
+                score_final = (peso_conteudo * score_conteudo) + (alpha_feedback * score_bayesiano)
+                
+                # Converte o score final para uma estimativa amigável de estrelas (1 a 5)
+                estrelas_estimadas = 1.0 + (score_final * 4.0)
+                
+                candidatos.append({
+                    "produto_id": produto["id"],
+                    "nome": nome_p,
+                    "categoria": produto["categoria"],
+                    "score_final": round(score_final, 3),
+                    "estrelas_estimadas": round(estrelas_estimadas, 2),
+                    "score_conteudo": round(score_conteudo, 3),
+                    "score_feedback_bayesiano": round(score_bayesiano, 3),
+                    "avaliacoes_cluster": qtd_avaliacoes,
+                    "motivo": motivo_dor,
+                    "descricao": produto["descricao"]
+                })
+                
+            # Ordena pelo Score Final decrescente
+            candidatos.sort(key=lambda x: x["score_final"], reverse=True)
+            top_recomendados = candidatos[:top_k]
             
-            # Converte o score final para uma estimativa amigável de estrelas (1 a 5)
-            estrelas_estimadas = 1.0 + (score_final * 4.0)
-            
-            candidatos.append({
-                "produto_id": produto["id"],
-                "nome": nome_p,
-                "categoria": produto["categoria"],
-                "score_final": round(score_final, 3),
-                "estrelas_estimadas": round(estrelas_estimadas, 2),
-                "score_conteudo": round(score_conteudo, 3),
-                "score_feedback_bayesiano": round(score_bayesiano, 3),
-                "avaliacoes_cluster": qtd_avaliacoes,
-                "motivo": motivo_dor,
-                "descricao": produto["descricao"]
-            })
-            
-        # Ordena pelo Score Final decrescente
-        candidatos.sort(key=lambda x: x["score_final"], reverse=True)
-        top_recomendados = candidatos[:top_k]
-        
-        return {
-            "cluster_id": cluster_cliente,
-            "descricao_persona": descricao_persona,
-            "peso_conhecimento_vs_feedback": {
-                "peso_regras_conteudo": round(peso_conteudo, 2),
-                "peso_feedback_historico": round(alpha_feedback, 2)
-            },
-            "recomendacoes": top_recomendados
-        }
+            return {
+                "cluster_id": cluster_cliente,
+                "descricao_persona": descricao_persona,
+                "peso_conhecimento_vs_feedback": {
+                    "peso_regras_conteudo": round(peso_conteudo, 2),
+                    "peso_feedback_historico": round(alpha_feedback, 2)
+                },
+                "recomendacoes": top_recomendados
+            }
 
     def registrar_feedback(self, perfil_cliente: Dict[str, Any], nome_produto: str, nota: int) -> None:
         """
         Feedback Loop: Registra a avaliação da cliente pós-atendimento e atualiza o histórico dinamicamente.
         """
-        cluster_cliente = self.prever_cluster(perfil_cliente)
-        novo_registro = {
-            "cliente_id": f"FEEDBACK_{len(self.df_historico)+1:04d}",
-            "curvatura": perfil_cliente["curvatura"],
-            "porosidade": perfil_cliente["porosidade"],
-            "dano_quimico": perfil_cliente["dano_quimico"],
-            "ressecamento_opacidade": perfil_cliente.get("ressecamento_opacidade", 0),
-            "alta_porosidade_quimica": perfil_cliente.get("alta_porosidade_quimica", 0),
-            "frizz_falta_definicao": perfil_cliente.get("frizz_falta_definicao", 0),
-            "transicao_capilar": perfil_cliente.get("transicao_capilar", 0),
-            "couro_sensivel_oleoso": perfil_cliente.get("couro_sensivel_oleoso", 0),
-            "produto_usado": nome_produto,
-            "nota_satisfacao": int(nota),
-            "cluster": cluster_cliente
-        }
-        self.df_historico = pd.concat([self.df_historico, pd.DataFrame([novo_registro])], ignore_index=True)
-        # Recalcula a média global
-        self.media_global_salao = float(self.df_historico['nota_satisfacao'].mean())
+        with self._lock:
+            cluster_cliente = self.prever_cluster(perfil_cliente)
+            novo_registro = {
+                "cliente_id": f"FEEDBACK_{len(self.df_historico)+1:04d}",
+                "curvatura": perfil_cliente["curvatura"],
+                "porosidade": perfil_cliente["porosidade"],
+                "dano_quimico": perfil_cliente["dano_quimico"],
+                "ressecamento_opacidade": perfil_cliente.get("ressecamento_opacidade", 0),
+                "alta_porosidade_quimica": perfil_cliente.get("alta_porosidade_quimica", 0),
+                "frizz_falta_definicao": perfil_cliente.get("frizz_falta_definicao", 0),
+                "transicao_capilar": perfil_cliente.get("transicao_capilar", 0),
+                "couro_sensivel_oleoso": perfil_cliente.get("couro_sensivel_oleoso", 0),
+                "produto_usado": nome_produto,
+                "nota_satisfacao": int(nota),
+                "cluster": cluster_cliente
+            }
+            df_novo = pd.DataFrame([novo_registro])
+            self.df_historico = pd.concat([self.df_historico, df_novo], ignore_index=True)
+            del df_novo
+            self._cached_cluster_metrics = None
+            # Recalcula a média global
+            self.media_global_salao = float(self.df_historico['nota_satisfacao'].mean())

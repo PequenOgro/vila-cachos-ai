@@ -4,6 +4,7 @@ Rotas de status raiz e verificação de integridade operacional do motor.
 """
 
 from fastapi import APIRouter, Request, HTTPException, status
+from dependencies import ensure_motor_and_repo
 from schemas.health import HealthResponse
 
 router = APIRouter(tags=["Monitoramento"])
@@ -26,6 +27,9 @@ def check_health(request: Request):
     """Verifica se a API e o motor de recomendação estão operacionais e retorna métricas do modelo."""
     motor = getattr(request.app.state, "motor", None)
     repo = getattr(request.app.state, "repo", None)
+
+    if motor is None:
+        repo, motor = ensure_motor_and_repo(request.app)
 
     if motor is None or not getattr(motor, "is_fitted", False):
         raise HTTPException(

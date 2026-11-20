@@ -87,7 +87,7 @@ class CsvFeedbackRepository(FeedbackRepository):
                 os.makedirs(data_dir, exist_ok=True)
                 self.csv_path = caminho_preferencial
 
-        self._lock = threading.Lock()
+        self._lock = threading.RLock()
         self._df_cache: Optional[pd.DataFrame] = None
         self._carregar_ou_inicializar()
 
@@ -144,14 +144,17 @@ class CsvFeedbackRepository(FeedbackRepository):
 
             os.makedirs(os.path.dirname(os.path.abspath(self.csv_path)), exist_ok=True)
             self._df_cache.to_csv(self.csv_path, index=False, encoding="utf-8")
+        del df_novo
 
     def obter_total_avaliacoes(self) -> int:
-        if self._df_cache is None:
-            return 0
-        return len(self._df_cache)
+        with self._lock:
+            if self._df_cache is None:
+                return 0
+            return len(self._df_cache)
 
     def obter_media_global(self) -> float:
-        if self._df_cache is None or "nota_satisfacao" not in self._df_cache.columns or self._df_cache.empty:
-            return 3.5
-        media = float(self._df_cache["nota_satisfacao"].mean())
-        return round(media, 4)
+        with self._lock:
+            if self._df_cache is None or "nota_satisfacao" not in self._df_cache.columns or self._df_cache.empty:
+                return 3.5
+            media = float(self._df_cache["nota_satisfacao"].mean())
+            return round(media, 4)

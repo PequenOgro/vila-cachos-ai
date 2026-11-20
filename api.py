@@ -11,15 +11,18 @@ Estrutura Refatorada (Clean Architecture):
 
 import os
 from contextlib import asynccontextmanager
+from typing import TYPE_CHECKING, Optional
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from slowapi.errors import RateLimitExceeded
 from slowapi import _rate_limit_exceeded_handler
 
 from dependencies import limiter
-from repositories.feedback_repository import CsvFeedbackRepository, FeedbackRepository
-from recommender_engine import VilaCachosRecommender
 from routers import health_router, catalog_router, recommendation_router, vision_router
+
+if TYPE_CHECKING:
+    from repositories.feedback_repository import FeedbackRepository
+    from recommender_engine import VilaCachosRecommender
 
 # Re-exportações para preservar compatibilidade estrita
 from schemas import (
@@ -34,27 +37,29 @@ from schemas import (
 )
 
 # Instâncias globais de compatibilidade
-repo: FeedbackRepository = None
-motor: VilaCachosRecommender = None
+repo: Optional["FeedbackRepository"] = None
+motor: Optional["VilaCachosRecommender"] = None
 
 
-def carregar_e_treinar_motor(repositorio: FeedbackRepository) -> VilaCachosRecommender:
+def carregar_e_treinar_motor(repositorio: "FeedbackRepository") -> "VilaCachosRecommender":
     """Inicializa ou carrega a base histórica do repositório e treina o motor."""
+    from recommender_engine import VilaCachosRecommender
+
     df_historico = repositorio.obter_historico()
     rec_motor = VilaCachosRecommender(n_clusters=4, random_state=42)
-    rec_motor.fit(df_historico)
+    rec_motor.fit(df_historico, copy=False)
     print(f"[+] Motor treinado com sucesso! {len(df_historico)} clientes no histórico.")
+    del df_historico
     return rec_motor
 
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    """Gerencia a inicialização e encerramento dos recursos da API."""
-    global repo, motor
-    repo = CsvFeedbackRepository()
-    motor = carregar_e_treinar_motor(repo)
-    app.state.repo = repo
-    app.state.motor = motor
+    """Gerencia a inicialização leve da API (lazy loading para repo e motor)."""
+    if not hasattr(app.state, "repo"):
+        app.state.repo = None
+    if not hasattr(app.state, "motor"):
+        app.state.motor = None
     yield
 
 
@@ -119,4 +124,4 @@ app.include_router(vision_router)
 if __name__ == "__main__":
     import uvicorn
     port = int(os.environ.get("PORT", 8000))
-    uvicorn.run("api:app", host="0.0.0.0", port=port, reload=False)
+    uvicorn.run("api:app", host="0.0.0.0", port=port, reload=False, limit_concurrency=50)

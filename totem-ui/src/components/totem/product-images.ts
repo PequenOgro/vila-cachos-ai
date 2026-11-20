@@ -7,31 +7,31 @@
  * e fallback resiliente caso o nome retornado pela API varie ligeiramente.
  */
 
-import acidC from "@/assets/produtos/curly-care-acid-c.png";
-import manteigaNutritiva from "@/assets/produtos/curly-care-manteiga-nutritiva.png";
-import arvensisGeleia from "@/assets/produtos/arvensis-geleia-forte.png";
-import arvensisAtivador from "@/assets/produtos/arvensis-ativador-cachos.png";
-import arvensisCowash from "@/assets/produtos/arvensis-cowash.png";
-import devaDelight from "@/assets/produtos/deva-curl-delight.png";
-import curlyMarshmallow from "@/assets/produtos/curly-care-marshmallow.png";
-import curlyPudding from "@/assets/produtos/curly-care-pudding.png";
-import curlyFixU from "@/assets/produtos/curly-care-fix-u.png";
-import curlyMousse from "@/assets/produtos/curly-care-mousse.png";
-import curlyBeStrong from "@/assets/produtos/curly-care-be-strong.png";
-import curlyBeFree from "@/assets/produtos/curly-care-be-free.png";
-import curlySpume from "@/assets/produtos/curly-care-spume.png";
-import curlyHighCondition from "@/assets/produtos/curly-care-high-condition.png";
-import curlyNoSpume from "@/assets/produtos/curly-care-no-spume.png";
-import curlyAtivador from "@/assets/produtos/curly-care-ativador.png";
-import devaAngell from "@/assets/produtos/deva-curl-angell.png";
-import devaHeaven from "@/assets/produtos/deva-curl-heaven-in-hair.png";
-import devaStyling from "@/assets/produtos/deva-curl-styling-cream.png";
-import devaLowPooOriginal from "@/assets/produtos/deva-curl-low-poo-original.png";
-import devaOneConditionOriginal from "@/assets/produtos/deva-curl-one-condition-original.png";
-import devaNoPooOriginal from "@/assets/produtos/deva-curl-no-poo-original.png";
-import devaOneConditionDecadence from "@/assets/produtos/deva-curl-one-condition-decadence.png";
-import devaNoPooDecadence from "@/assets/produtos/deva-curl-no-poo-decadence.png";
-import arvensisShampoo from "@/assets/produtos/arvensis-shampoo.png";
+import acidC from "@/assets/produtos/curly-care-acid-c.webp";
+import manteigaNutritiva from "@/assets/produtos/curly-care-manteiga-nutritiva.webp";
+import arvensisGeleia from "@/assets/produtos/arvensis-geleia-forte.webp";
+import arvensisAtivador from "@/assets/produtos/arvensis-ativador-cachos.webp";
+import arvensisCowash from "@/assets/produtos/arvensis-cowash.webp";
+import devaDelight from "@/assets/produtos/deva-curl-delight.webp";
+import curlyMarshmallow from "@/assets/produtos/curly-care-marshmallow.webp";
+import curlyPudding from "@/assets/produtos/curly-care-pudding.webp";
+import curlyFixU from "@/assets/produtos/curly-care-fix-u.webp";
+import curlyMousse from "@/assets/produtos/curly-care-mousse.webp";
+import curlyBeStrong from "@/assets/produtos/curly-care-be-strong.webp";
+import curlyBeFree from "@/assets/produtos/curly-care-be-free.webp";
+import curlySpume from "@/assets/produtos/curly-care-spume.webp";
+import curlyHighCondition from "@/assets/produtos/curly-care-high-condition.webp";
+import curlyNoSpume from "@/assets/produtos/curly-care-no-spume.webp";
+import curlyAtivador from "@/assets/produtos/curly-care-ativador.webp";
+import devaAngell from "@/assets/produtos/deva-curl-angell.webp";
+import devaHeaven from "@/assets/produtos/deva-curl-heaven-in-hair.webp";
+import devaStyling from "@/assets/produtos/deva-curl-styling-cream.webp";
+import devaLowPooOriginal from "@/assets/produtos/deva-curl-low-poo-original.webp";
+import devaOneConditionOriginal from "@/assets/produtos/deva-curl-one-condition-original.webp";
+import devaNoPooOriginal from "@/assets/produtos/deva-curl-no-poo-original.webp";
+import devaOneConditionDecadence from "@/assets/produtos/deva-curl-one-condition-decadence.webp";
+import devaNoPooDecadence from "@/assets/produtos/deva-curl-no-poo-decadence.webp";
+import arvensisShampoo from "@/assets/produtos/arvensis-shampoo.webp";
 
 /**
  * Retorna o asset visual oficial correspondente ao nome do cosmético.
@@ -45,15 +45,16 @@ export function getImagemProduto(nome: string): string {
   if (n.includes("acid-c") || n.includes("acidificante")) return acidC;
   if (n.includes("manteiga") || n.includes("nutritiva")) return manteigaNutritiva;
   if (n.includes("marshmallow")) return curlyMarshmallow;
-  if (n.includes("pudding") || n.includes("gelatina")) return curlyPudding;
   if (n.includes("fix u") || n.includes("fix-u")) return curlyFixU;
+  if (n.includes("pudding") || n.includes("gelatina")) return curlyPudding;
   if (n.includes("mousse")) return curlyMousse;
   if (n.includes("be strong")) return curlyBeStrong;
   if (n.includes("be free")) return curlyBeFree;
+  if (n.includes("no spume") || n.includes("no-spume")) return curlyNoSpume;
   if (n.includes("spume!") || n.includes("shampoo hidratante spume")) return curlySpume;
   if (n.includes("high condition")) return curlyHighCondition;
-  if (n.includes("no spume") || n.includes("no-spume")) return curlyNoSpume;
   if (n.includes("ativador") && n.includes("curly care")) return curlyAtivador;
+  if (n.includes("mister jelly")) return curlyFixU;
   if (n.includes("geleia")) return arvensisGeleia;
   if (n.includes("ativador") && n.includes("arvensis")) return arvensisAtivador;
   if (n.includes("co-wash") || n.includes("cowash") || n.includes("higienizador"))
@@ -74,7 +75,6 @@ export function getImagemProduto(nome: string): string {
   if (n.includes("máscara") && n.includes("arvensis")) return arvensisAtivador;
   if (n.includes("gentleman")) return curlySpume;
   if (n.includes("keep me softly")) return curlyNoSpume;
-  if (n.includes("mister jelly")) return curlyFixU;
   if (n.includes("super light")) return curlyBeFree;
   if (n.includes("touca")) return acidC;
 

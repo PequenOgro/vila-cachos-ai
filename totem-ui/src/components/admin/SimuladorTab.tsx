@@ -229,6 +229,8 @@ export function SimuladorTab() {
                         <img
                           src={getImagemProduto(p.nome)}
                           alt={p.nome}
+                          width={64}
+                          height={64}
                           className="max-h-full max-w-full object-contain"
                           loading="lazy"
                           decoding="async"

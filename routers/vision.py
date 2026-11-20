@@ -1,11 +1,15 @@
+import gc
 import os
 import re
+from typing import Optional
 from fastapi import APIRouter, Request, UploadFile, File, HTTPException, status
+from fastapi.concurrency import run_in_threadpool
 from dependencies import limiter
 from schemas.vision import VisionDiagnosisResponse
 from vision_engine import classifier_instance
 
 router = APIRouter(tags=["Visão Computacional (YOLO)"])
+MAX_UPLOAD_BYTES = 10 * 1024 * 1024
 
 
 def verificar_magic_bytes_imagem(conteudo: bytes) -> bool:
@@ -32,38 +36,55 @@ async def diagnosticar_imagem_capilar(request: Request, file: UploadFile = File(
     do modelo YOLO com análise morfológica e infere a curvatura, nível de frizz e
     sugestão de pré-preenchimento das 8 variáveis capilares.
     """
-    # 1. Validação de formato MIME declarado
-    formatos_permitidos = ["image/jpeg", "image/png", "image/webp", "image/jpg"]
-    if file.content_type not in formatos_permitidos:
-        raise HTTPException(
-            status_code=status.HTTP_415_UNSUPPORTED_MEDIA_TYPE,
-            detail=f"Formato '{file.content_type}' não suportado. Envie uma imagem JPEG, PNG ou WebP."
-        )
-
-    # 2. Leitura com controle de tamanho máximo (10MB)
-    conteudo = await file.read()
-    if len(conteudo) > 10 * 1024 * 1024:
-        raise HTTPException(
-            status_code=status.HTTP_413_REQUEST_ENTITY_TOO_LARGE,
-            detail="A imagem enviada excede o limite máximo permitido de 10MB."
-        )
-
-    # 3. Validação de Magic Bytes (impede arquivos maliciosos com MIME spoofado)
-    if not verificar_magic_bytes_imagem(conteudo):
-        raise HTTPException(
-            status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
-            detail="Conteúdo binário não corresponde a uma imagem válida (JPEG, PNG ou WebP)."
-        )
-
-    # 4. Sanitização contra Path Traversal no nome do arquivo
-    nome_base = os.path.basename(file.filename or "amostra.jpg")
-    nome_seguro = re.sub(r"[^a-zA-Z0-9_.-]", "_", nome_base)[:100] or "amostra.jpg"
-
+    conteudo: Optional[bytes] = None
+    file_closed = False
     try:
-        resultado = classifier_instance.predict_image_bytes(conteudo, filename=nome_seguro)
-        return resultado
-    except ValueError as ve:
-        raise HTTPException(
-            status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
-            detail=f"Falha ao processar arquivo de imagem: {str(ve)}"
-        )
+        # 1. Validação de formato MIME declarado
+        formatos_permitidos = ["image/jpeg", "image/png", "image/webp", "image/jpg"]
+        if file.content_type not in formatos_permitidos:
+            raise HTTPException(
+                status_code=status.HTTP_415_UNSUPPORTED_MEDIA_TYPE,
+                detail=f"Formato '{file.content_type}' não suportado. Envie uma imagem JPEG, PNG ou WebP."
+            )
+
+        # 2. Leitura com controle estrito de tamanho máximo (10MB)
+        conteudo = await file.read(MAX_UPLOAD_BYTES + 1)
+        if len(conteudo) > MAX_UPLOAD_BYTES:
+            raise HTTPException(
+                status_code=status.HTTP_413_REQUEST_ENTITY_TOO_LARGE,
+                detail="A imagem enviada excede o limite máximo permitido de 10MB."
+            )
+
+        # 3. Validação de Magic Bytes (impede arquivos maliciosos com MIME spoofado)
+        if not verificar_magic_bytes_imagem(conteudo):
+            raise HTTPException(
+                status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+                detail="Conteúdo binário não corresponde a uma imagem válida (JPEG, PNG ou WebP)."
+            )
+
+        # 4. Sanitização contra Path Traversal no nome do arquivo
+        nome_base = os.path.basename(file.filename or "amostra.jpg")
+        nome_seguro = re.sub(r"[^a-zA-Z0-9_.-]", "_", nome_base)[:100] or "amostra.jpg"
+
+        await file.close()
+        file_closed = True
+
+        try:
+            resultado = await run_in_threadpool(
+                classifier_instance.predict_image_bytes,
+                conteudo,
+                filename=nome_seguro,
+            )
+            return resultado
+        except ValueError as ve:
+            raise HTTPException(
+                status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+                detail=f"Falha ao processar arquivo de imagem: {str(ve)}"
+            )
+    finally:
+        had_bytes = conteudo is not None
+        conteudo = None
+        if not file_closed:
+            await file.close()
+        if had_bytes:
+            gc.collect()

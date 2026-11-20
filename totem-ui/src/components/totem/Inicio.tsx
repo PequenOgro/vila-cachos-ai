@@ -1,5 +1,5 @@
 import React from "react";
-import hero from "@/assets/hero.jpg";
+import hero from "@/assets/hero.webp";
 import { Logo } from "./Logo";
 
 interface InicioProps {
@@ -27,8 +27,10 @@ export function Inicio({ onStart }: InicioProps) {
       <img
         src={hero}
         alt="Mulher com cabelos cacheados volumosos e saudáveis"
-        width={1280}
-        height={1600}
+        width={960}
+        height={1200}
+        fetchPriority="high"
+        decoding="async"
         className="absolute inset-0 h-full w-full object-cover"
       />
       {/* Camada de Contraste e Véu Fotográfico */}

@@ -65,6 +65,7 @@ export function ProdutoCard({ p, img, perfil, delay }: ProdutoCardProps) {
           width={400}
           height={400}
           loading="lazy"
+          decoding="async"
           className="h-full max-h-56 w-auto object-contain drop-shadow-md transition-transform duration-300 hover:scale-105"
         />
 

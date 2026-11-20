@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from "react";
+import React, { Suspense, lazy, useState, useMemo } from "react";
 import {
   Search,
   SlidersHorizontal,
@@ -10,7 +10,10 @@ import {
 } from "lucide-react";
 import { type ItemCatalogo } from "@/lib/api";
 import { getImagemProduto } from "@/components/totem/product-images";
-import { ProductDetailModal } from "./ProductDetailModal";
+
+const ProductDetailModal = lazy(() =>
+  import("./ProductDetailModal").then((m) => ({ default: m.ProductDetailModal })),
+);
 
 interface CatalogoTabProps {
   catalogo: ItemCatalogo[];
@@ -54,10 +57,14 @@ export function CatalogoTab({ catalogo }: CatalogoTabProps) {
   return (
     <section className="space-y-6">
       {/* Modal de Detalhes */}
-      <ProductDetailModal
-        produto={produtoSelecionado}
-        onClose={() => setProdutoSelecionado(null)}
-      />
+      {produtoSelecionado && (
+        <Suspense fallback={<div className="fixed inset-0 z-50 bg-black/75 backdrop-blur-sm" />}>
+          <ProductDetailModal
+            produto={produtoSelecionado}
+            onClose={() => setProdutoSelecionado(null)}
+          />
+        </Suspense>
+      )}
 
       {/* Cabeçalho da Seção */}
       <div className="flex flex-col justify-between gap-3 sm:flex-row sm:items-center">
@@ -240,6 +247,8 @@ export function CatalogoTab({ catalogo }: CatalogoTabProps) {
                     <img
                       src={getImagemProduto(prod.nome)}
                       alt={prod.nome}
+                      width={80}
+                      height={80}
                       className="max-h-full max-w-full object-contain"
                       loading="lazy"
                       decoding="async"
@@ -383,6 +392,8 @@ export function CatalogoTab({ catalogo }: CatalogoTabProps) {
                         <img
                           src={getImagemProduto(prod.nome)}
                           alt={prod.nome}
+                          width={32}
+                          height={32}
                           className="h-8 w-8 object-contain rounded bg-[#0d1411] p-0.5 border border-stone-800"
                           loading="lazy"
                           decoding="async"

@@ -520,8 +520,8 @@ def build_document(page_map=None):
     if p_sum_title:
         p_sum_title.text = ""
         p_sum_title.alignment = WD_ALIGN_PARAGRAPH.CENTER
-        p_sum_title.paragraph_format.space_before = Pt(12)
-        p_sum_title.paragraph_format.space_after = Pt(20)
+        p_sum_title.paragraph_format.space_before = Pt(6)
+        p_sum_title.paragraph_format.space_after = Pt(12)
         p_sum_title.paragraph_format.first_line_indent = Pt(0)
         r_title = p_sum_title.add_run("SUMÁRIO")
         set_run_font(r_title, "Times New Roman", 12, bold=True)
@@ -569,9 +569,9 @@ def build_document(page_map=None):
             p_item.text = ""
             p_item.alignment = WD_ALIGN_PARAGRAPH.LEFT
             p_item.paragraph_format.tab_stops.add_tab_stop(Cm(16.0), alignment=WD_TAB_ALIGNMENT.RIGHT, leader=WD_TAB_LEADER.DOTS)
-            p_item.paragraph_format.line_spacing = 1.3
-            p_item.paragraph_format.space_before = Pt(1.5)
-            p_item.paragraph_format.space_after = Pt(1.5)
+            p_item.paragraph_format.line_spacing = 1.15
+            p_item.paragraph_format.space_before = Pt(0.5)
+            p_item.paragraph_format.space_after = Pt(0.5)
             p_item.paragraph_format.first_line_indent = Pt(0)
 
             is_prim = (level == "primary")
@@ -597,6 +597,16 @@ def build_document(page_map=None):
         # Quebra de página antes da Introdução
         p_intro = doc.paragraphs[end_idx]
         p_intro.paragraph_format.page_break_before = True
+
+    # Garantir que REFERÊNCIAS e ANEXO 1 comecem em páginas exclusivas (quebra de página formal)
+    for i, p in enumerate(doc.paragraphs):
+        if end_idx and i <= end_idx:
+            continue
+        t_clean = p.text.strip()
+        if t_clean == "REFERÊNCIAS":
+            p.paragraph_format.page_break_before = True
+        elif t_clean.startswith("ANEXO 1") and "\t" not in t_clean:
+            p.paragraph_format.page_break_before = True
 
     doc.save(TARGET_DOCX)
     print(f"Documento de Seminário 2 salvo em: {TARGET_DOCX}")
